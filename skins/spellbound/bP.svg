@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="50" cy="79.8" rx="12" ry="2.2" fill="#85e0f4" opacity="0.85"/>
+<path d="M38,47 C38,37.5 43,32.5 50,32.5 C57,32.5 62,37.5 62,47 Z" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/>
+<circle cx="44.8" cy="40.5" r="2.6" fill="#ece3f7"/><circle cx="55.2" cy="40.5" r="2.6" fill="#ece3f7"/>
+<rect x="35.5" y="68" width="29" height="9" rx="2" fill="#fffdf5" stroke="#ece3f7" stroke-width="4"/>
+<path d="M38,72.5 L62,72.5" fill="none" stroke="#ece3f7" stroke-width="2" stroke-opacity="0.45"/>
+<rect x="33.5" y="45" width="33" height="27" rx="3" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/>
+<rect x="38.5" y="50" width="23" height="17" rx="1.5" fill="none" stroke="#e2ae4a" stroke-width="2.5"/>
+<path d="M50,53.5 Q51.4,57.1 55,58.5 Q51.4,59.9 50,63.5 Q48.6,59.9 45,58.5 Q48.6,57.1 50,53.5 Z" fill="#85e0f4" stroke="#ece3f7" stroke-width="2.5"/>
+<path d="M27.5,39.4 Q28.228,41.272 30.1,42 Q28.228,42.728 27.5,44.6 Q26.772,42.728 24.9,42 Q26.772,41.272 27.5,39.4 Z" fill="#85e0f4" stroke="#ece3f7" stroke-width="2"/>
+<path d="M72.5,53.4 Q73.228,55.272 75.1,56 Q73.228,56.728 72.5,58.6 Q71.772,56.728 69.9,56 Q71.772,55.272 72.5,53.4 Z" fill="#85e0f4" stroke="#ece3f7" stroke-width="2"/>
+<rect x="30" y="81.5" width="40" height="11" rx="5.5" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/></g></svg>

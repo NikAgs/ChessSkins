@@ -1,0 +1,9 @@
+{
+  "id": "glacier",
+  "name": "Glacier",
+  "tagline": "Cold squares, colder endgames.",
+  "colors": {
+    "light": "#d8e7f1",
+    "dark": "#7e9db4"
+  }
+}

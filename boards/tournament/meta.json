@@ -1,0 +1,9 @@
+{
+  "id": "tournament",
+  "name": "Tournament Green",
+  "tagline": "Roll it out, shake hands, play.",
+  "colors": {
+    "light": "#e9dcb7",
+    "dark": "#497853"
+  }
+}

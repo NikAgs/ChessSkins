@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="sk-dark" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect x="100" y="0" width="100" height="100" fill="#c98d95"/>
+      <rect x="0" y="100" width="100" height="100" fill="#c98d95"/>
+    </pattern>
+    <radialGradient id="sk-vig" cx="0.5" cy="0.44" r="0.78">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.09"/>
+      <stop offset="0.75" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#7a4a52" stop-opacity="0.07"/>
+    </radialGradient>
+    <pattern id="sk-vigp" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#sk-vig)"/>
+    </pattern>
+    <g id="sk-blossom">
+      <ellipse cx="0" cy="-7.4" rx="3.6" ry="5.8" fill="#efd0d6" stroke="#c98d95" stroke-width="0.9"/>
+      <ellipse cx="0" cy="-7.4" rx="3.6" ry="5.8" fill="#efd0d6" stroke="#c98d95" stroke-width="0.9" transform="rotate(72)"/>
+      <ellipse cx="0" cy="-7.4" rx="3.6" ry="5.8" fill="#efd0d6" stroke="#c98d95" stroke-width="0.9" transform="rotate(144)"/>
+      <ellipse cx="0" cy="-7.4" rx="3.6" ry="5.8" fill="#efd0d6" stroke="#c98d95" stroke-width="0.9" transform="rotate(216)"/>
+      <ellipse cx="0" cy="-7.4" rx="3.6" ry="5.8" fill="#efd0d6" stroke="#c98d95" stroke-width="0.9" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="2" fill="#b0737d"/>
+    </g>
+  </defs>
+  <rect width="800" height="800" fill="#f6e2da"/>
+  <rect width="800" height="800" fill="url(#sk-dark)"/>
+  <rect width="800" height="800" fill="url(#sk-vigp)"/>
+  <use href="#sk-blossom" transform="translate(380,80) rotate(12)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(680,180) rotate(-25)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(180,280) rotate(40)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(580,480) rotate(-8)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(280,580) rotate(65)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(766,680) rotate(20)" opacity="0.55"/>
+  <use href="#sk-blossom" transform="translate(480,766) rotate(-40)" opacity="0.55"/>
+</svg>

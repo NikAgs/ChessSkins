@@ -27,12 +27,30 @@
   }
  },
  {
+  "id": "dunes",
+  "name": "Dunes",
+  "tagline": "Fifty shades of beige, one oasis of tactics.",
+  "colors": {
+   "light": "#e8d3a6",
+   "dark": "#ba6a44"
+  }
+ },
+ {
   "id": "glass",
   "name": "Frosted Glass",
   "tagline": "Cool, clean, click-clack.",
   "colors": {
    "light": "#dcebf5",
    "dark": "#7c9ab2"
+  }
+ },
+ {
+  "id": "glacier",
+  "name": "Glacier",
+  "tagline": "Cold squares, colder endgames.",
+  "colors": {
+   "light": "#d8e7f1",
+   "dark": "#7e9db4"
   }
  },
  {
@@ -63,6 +81,24 @@
   }
  },
  {
+  "id": "moss",
+  "name": "Moss Garden",
+  "tagline": "Soft ground, sharp tactics.",
+  "colors": {
+   "light": "#e6e2c6",
+   "dark": "#5f7345"
+  }
+ },
+ {
+  "id": "nebula",
+  "name": "Nebula",
+  "tagline": "Castling at lightspeed.",
+  "colors": {
+   "light": "#807698",
+   "dark": "#41336a"
+  }
+ },
+ {
   "id": "neon-grid",
   "name": "Neon Grid",
   "tagline": "The board Tron plays on.",
@@ -81,11 +117,29 @@
   }
  },
  {
+  "id": "obsidian",
+  "name": "Obsidian",
+  "tagline": "Forged in the mantle, cooled for blitz.",
+  "colors": {
+   "light": "#635e59",
+   "dark": "#262322"
+  }
+ },
+ {
+  "id": "sakura",
+  "name": "Sakura",
+  "tagline": "Petals fall, pawns advance.",
+  "colors": {
+   "light": "#f6e2da",
+   "dark": "#c98d95"
+  }
+ },
+ {
   "id": "tidepool",
   "name": "Tidepool",
   "tagline": "Something moved under e5\u2026",
   "colors": {
-   "light": "#d9edE2",
+   "light": "#d9ede2",
    "dark": "#4f9f9c"
   }
  },

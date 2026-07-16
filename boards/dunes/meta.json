@@ -1,0 +1,9 @@
+{
+  "id": "dunes",
+  "name": "Dunes",
+  "tagline": "Fifty shades of beige, one oasis of tactics.",
+  "colors": {
+    "light": "#e8d3a6",
+    "dark": "#ba6a44"
+  }
+}

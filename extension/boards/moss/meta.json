@@ -1,0 +1,9 @@
+{
+  "id": "moss",
+  "name": "Moss Garden",
+  "tagline": "Soft ground, sharp tactics.",
+  "colors": {
+    "light": "#e6e2c6",
+    "dark": "#5f7345"
+  }
+}

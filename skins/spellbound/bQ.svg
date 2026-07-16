@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+<path d="M39,48 C35,59 32,70 31,81.5 L69,81.5 C68,70 65,59 61,48 Z" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/>
+<path d="M34.5,75.5 Q50,79.5 65.5,75.5" fill="none" stroke="#e2ae4a" stroke-width="3"/>
+<path d="M50,17.5 C37.5,17.5 30.5,26 31.5,39 C32,49 28.5,59 33.5,65.5 C37,69.5 42,66 41.5,57.5 C41,49 40.5,42 41.5,35.5 L58.5,35.5 C59.5,42 59,49 58.5,57.5 C58,66 63,69.5 66.5,65.5 C71.5,59 68,49 68.5,39 C69.5,26 62.5,17.5 50,17.5 Z" fill="#a493c9" stroke="#ece3f7" stroke-width="5"/>
+<circle cx="50" cy="32.5" r="10" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/>
+<path d="M41.5,28.5 Q50,24.5 58.5,28.5" fill="none" stroke="#e2ae4a" stroke-width="3.5"/>
+<path d="M50,25 L50,16" fill="none" stroke="#e2ae4a" stroke-width="3.5"/>
+<path d="M40.5,13 A9.5,9.5 0 0 0 59.5,13 A22,22 0 0 1 40.5,13 Z" fill="#e2ae4a" stroke="#ece3f7" stroke-width="3.5"/>
+<path d="M50,3.8 Q50.896,6.104 53.2,7 Q50.896,7.896 50,10.2 Q49.104,7.896 46.8,7 Q49.104,6.104 50,3.8 Z" fill="#85e0f4" stroke="#ece3f7" stroke-width="2"/>
+<circle cx="45.3" cy="32.5" r="2.2" fill="#ece3f7"/><circle cx="54.7" cy="32.5" r="2.2" fill="#ece3f7"/>
+<rect x="27" y="81.5" width="46" height="11" rx="5.5" fill="#3d2a5e" stroke="#ece3f7" stroke-width="5"/></g></svg>
