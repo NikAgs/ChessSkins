@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+  <path d="M38,50 C31.5,44 28.5,31 29.5,18 C35,26 40,34 45,41 Z"
+        fill="#362749" stroke="#ece4f2" stroke-width="5"/>
+  <path d="M62,50 C68.5,44 71.5,31 70.5,18 C65,26 60,34 55,41 Z"
+        fill="#362749" stroke="#ece4f2" stroke-width="5"/>
+  <path d="M36,50 C31,62 29,72 28,82 L72,82 C71,72 69,62 64,50 Q50,55 36,50 Z"
+        fill="#362749" stroke="#ece4f2" stroke-width="5"/>
+  <circle cx="50" cy="31" r="11" fill="#362749" stroke="#ece4f2" stroke-width="5"/>
+  <path d="M41,25 C42.5,20.5 46,18.5 50,18.5 C54,18.5 57.5,20.5 59,25 C56.5,23 54,22.5 52.3,23.8 L50,27.5 L47.7,23.8 C46,22.5 43.5,23 41,25 Z"
+        fill="#ece4f2" stroke="none"/>
+  <path d="M40,16.5 L40,5.5 L45,11.5 L50,4.5 L55,11.5 L60,5.5 L60,16.5 Q50,19.5 40,16.5 Z"
+        fill="#f79426" stroke="#ece4f2" stroke-width="3.5"/>
+  <circle cx="45.5" cy="32" r="2.4" fill="#ece4f2" stroke="none"/>
+  <circle cx="54.5" cy="32" r="2.4" fill="#ece4f2" stroke="none"/>
+  <path d="M45,38.5 Q50,41.5 55,38.5" fill="none" stroke="#ece4f2" stroke-width="2.5"/>
+  <path d="M46.3,39.4 L47.6,43.3 L48.9,39.9 Z" fill="#ffffff" stroke="none"/>
+  <path d="M51.1,39.9 L52.4,43.3 L53.7,39.4 Z" fill="#ffffff" stroke="none"/>
+  <circle cx="50" cy="59" r="3.2" fill="#f79426" stroke="#ece4f2" stroke-width="2.8"/>
+  <rect x="26" y="81.5" width="48" height="10.5" rx="5" fill="#362749" stroke="#ece4f2" stroke-width="5"/>
+</g></svg>

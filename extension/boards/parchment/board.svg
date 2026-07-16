@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <radialGradient id="pm-vl" cx="0.5" cy="0.5" r="0.72">
+      <stop offset="0.60" stop-color="#5a3f22" stop-opacity="0"/>
+      <stop offset="0.86" stop-color="#5a3f22" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#5a3f22" stop-opacity="0.14"/>
+    </radialGradient>
+    <radialGradient id="pm-vd" cx="0.5" cy="0.5" r="0.72">
+      <stop offset="0.60" stop-color="#3d2a12" stop-opacity="0"/>
+      <stop offset="0.86" stop-color="#3d2a12" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#3d2a12" stop-opacity="0.18"/>
+    </radialGradient>
+    <radialGradient id="pm-bl" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a6633" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#8a6633" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pm-hl" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff7dc" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#fff7dc" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pm-bd" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#5c3d1a" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#5c3d1a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pm-hd" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f6e6bd" stop-opacity="0.11"/>
+      <stop offset="1" stop-color="#f6e6bd" stop-opacity="0"/>
+    </radialGradient>
+    <g id="pm-tl">
+      <rect width="100" height="100" fill="#eee0bd"/>
+      <ellipse cx="30" cy="28" rx="34" ry="24" fill="url(#pm-bl)"/>
+      <ellipse cx="74" cy="66" rx="38" ry="28" fill="url(#pm-bl)"/>
+      <ellipse cx="50" cy="80" rx="30" ry="18" fill="url(#pm-hl)"/>
+      <rect width="100" height="100" fill="url(#pm-vl)"/>
+      <path d="M0 0 H17 Q9 3 5 8 Q1 13 0 19 Z" fill="#5f421f" opacity="0.15"/>
+      <path d="M100 0 V15 Q95 8 89 5 Q84 2 78 0 Z" fill="#5f421f" opacity="0.13"/>
+      <path d="M100 100 H82 Q90 96 94 91 Q98 86 100 81 Z" fill="#5f421f" opacity="0.16"/>
+      <path d="M0 100 V83 Q4 91 10 95 Q14 98 20 100 Z" fill="#5f421f" opacity="0.13"/>
+      <rect x="1" y="1" width="98" height="98" fill="none" stroke="#5f421f" stroke-opacity="0.14" stroke-width="1.5"/>
+    </g>
+    <g id="pm-td">
+      <rect width="100" height="100" fill="#b78e60"/>
+      <ellipse cx="68" cy="30" rx="36" ry="25" fill="url(#pm-bd)"/>
+      <ellipse cx="28" cy="72" rx="34" ry="26" fill="url(#pm-bd)"/>
+      <ellipse cx="52" cy="50" rx="30" ry="20" fill="url(#pm-hd)"/>
+      <rect width="100" height="100" fill="url(#pm-vd)"/>
+      <path d="M0 0 H17 Q9 3 5 8 Q1 13 0 19 Z" fill="#3d2a12" opacity="0.18"/>
+      <path d="M100 0 V15 Q95 8 89 5 Q84 2 78 0 Z" fill="#3d2a12" opacity="0.15"/>
+      <path d="M100 100 H82 Q90 96 94 91 Q98 86 100 81 Z" fill="#3d2a12" opacity="0.18"/>
+      <path d="M0 100 V83 Q4 91 10 95 Q14 98 20 100 Z" fill="#3d2a12" opacity="0.15"/>
+      <rect x="1" y="1" width="98" height="98" fill="none" stroke="#2f2010" stroke-opacity="0.16" stroke-width="1.5"/>
+    </g>
+    <pattern id="pm-board" patternUnits="userSpaceOnUse" width="200" height="200">
+      <use href="#pm-tl" x="0" y="0"/>
+      <use href="#pm-td" x="100" y="0"/>
+      <use href="#pm-td" x="0" y="100"/>
+      <use href="#pm-tl" x="100" y="100"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="800" height="800" fill="url(#pm-board)"/>
+  <g transform="translate(750,750)" opacity="0.18">
+    <circle r="41" fill="none" stroke="#4a3315" stroke-width="1.8"/>
+    <circle r="31" fill="none" stroke="#4a3315" stroke-width="1"/>
+    <g fill="#4a3315">
+      <path d="M0 -44 L6 -8 L0 -2 L-6 -8 Z"/>
+      <path d="M0 44 L6 8 L0 2 L-6 8 Z"/>
+      <path d="M-44 0 L-8 -6 L-2 0 L-8 6 Z"/>
+      <path d="M44 0 L8 -6 L2 0 L8 6 Z"/>
+      <g transform="rotate(45)">
+        <path d="M0 -28 L4 -7 L0 -3 L-4 -7 Z"/>
+        <path d="M0 28 L4 7 L0 3 L-4 7 Z"/>
+        <path d="M-28 0 L-7 -4 L-3 0 L-7 4 Z"/>
+        <path d="M28 0 L7 -4 L3 0 L7 4 Z"/>
+      </g>
+    </g>
+    <circle r="3.5" fill="none" stroke="#4a3315" stroke-width="1.2"/>
+  </g>
+</svg>

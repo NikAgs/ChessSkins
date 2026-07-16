@@ -1,0 +1,9 @@
+{
+  "id": "tatami",
+  "name": "Tatami",
+  "tagline": "Bow before the board.",
+  "colors": {
+    "light": "#e9dcaa",
+    "dark": "#7d8c53"
+  }
+}

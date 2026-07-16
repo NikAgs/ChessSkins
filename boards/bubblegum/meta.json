@@ -1,0 +1,9 @@
+{
+  "id": "bubblegum",
+  "name": "Bubblegum",
+  "tagline": "Sweetest place to get crushed.",
+  "colors": {
+    "light": "#f9cfdc",
+    "dark": "#9cd6ab"
+  }
+}

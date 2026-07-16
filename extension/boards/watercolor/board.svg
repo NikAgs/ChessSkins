@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs>
+<clipPath id="sq"><rect width="100" height="100"/></clipPath>
+<radialGradient id="dw" cx="0.42" cy="0.40" r="0.92">
+<stop offset="0" stop-color="#babcd8"/>
+<stop offset="0.5" stop-color="#a6a8ca"/>
+<stop offset="0.82" stop-color="#989abf"/>
+<stop offset="1" stop-color="#8286ad"/>
+</radialGradient>
+<radialGradient id="lw" cx="0.5" cy="0.46" r="0.95">
+<stop offset="0" stop-color="#f8f2e2"/>
+<stop offset="0.6" stop-color="#f3ebd5"/>
+<stop offset="1" stop-color="#e7dbbc"/>
+</radialGradient>
+<g id="L" clip-path="url(#sq)">
+<rect width="100" height="100" fill="url(#lw)"/>
+<ellipse cx="63" cy="38" rx="42" ry="34" fill="#e5d7b2" opacity="0.34"/>
+<ellipse cx="67" cy="34" rx="30" ry="24" fill="#e2d3ab" opacity="0.22"/>
+<ellipse cx="34" cy="66" rx="38" ry="31" fill="#ece0c0" opacity="0.36"/>
+<ellipse cx="30" cy="26" rx="30" ry="24" fill="#cfcadf" opacity="0.12"/>
+<ellipse cx="74" cy="76" rx="26" ry="20" fill="#ddcea4" opacity="0.24"/>
+<ellipse cx="50" cy="50" rx="46" ry="42" fill="#f7f0de" opacity="0.32"/>
+<ellipse cx="16" cy="88" rx="18" ry="12" fill="#dccfa8" opacity="0.16"/>
+<rect x="1.5" y="1.5" width="97" height="97" fill="none" stroke="#cfbf94" stroke-width="3" opacity="0.28"/>
+<rect x="0.5" y="0.5" width="99" height="99" fill="none" stroke="#d8c9a2" stroke-width="1" opacity="0.30"/>
+</g>
+<g id="D" clip-path="url(#sq)">
+<rect width="100" height="100" fill="url(#dw)"/>
+<ellipse cx="30" cy="68" rx="48" ry="40" fill="#767aa9" opacity="0.14"/>
+<ellipse cx="26" cy="72" rx="38" ry="30" fill="#7175a5" opacity="0.15"/>
+<ellipse cx="34" cy="64" rx="28" ry="22" fill="#6d72a3" opacity="0.14"/>
+<ellipse cx="72" cy="28" rx="45" ry="37" fill="#ab9ccd" opacity="0.17"/>
+<ellipse cx="76" cy="24" rx="34" ry="27" fill="#b1a1d3" opacity="0.17"/>
+<ellipse cx="68" cy="33" rx="24" ry="19" fill="#9f90c5" opacity="0.15"/>
+<ellipse cx="52" cy="50" rx="57" ry="49" fill="#a0a4cb" opacity="0.15"/>
+<ellipse cx="87" cy="82" rx="22" ry="16" fill="#7c80ae" opacity="0.16"/>
+<ellipse cx="13" cy="16" rx="20" ry="15" fill="#9b9cc6" opacity="0.15"/>
+<ellipse cx="48" cy="90" rx="30" ry="13" fill="#8185b2" opacity="0.12"/>
+<ellipse cx="92" cy="46" rx="14" ry="26" fill="#8b8eba" opacity="0.13"/>
+<rect x="2.5" y="2.5" width="95" height="95" fill="none" stroke="#666b99" stroke-width="5" opacity="0.16"/>
+<rect x="0.75" y="0.75" width="98.5" height="98.5" fill="none" stroke="#70749f" stroke-width="1.5" opacity="0.28"/>
+<ellipse cx="50" cy="3" rx="42" ry="6" fill="#6e72a0" opacity="0.12"/>
+<ellipse cx="4" cy="52" rx="6" ry="40" fill="#6e72a0" opacity="0.10"/>
+</g>
+</defs><use href="#L" x="0" y="0"/><use href="#D" transform="translate(100 0) rotate(90 50 50)"/><use href="#L" transform="translate(200 0) rotate(180 50 50)"/><use href="#D" transform="translate(300 0) rotate(270 50 50)"/><use href="#L" x="400" y="0"/><use href="#D" transform="translate(500 0) rotate(90 50 50)"/><use href="#L" transform="translate(600 0) rotate(180 50 50)"/><use href="#D" transform="translate(700 0) rotate(270 50 50)"/><use href="#D" transform="translate(0 100) rotate(270 50 50)"/><use href="#L" transform="translate(100 100) rotate(90 50 50)"/><use href="#D" transform="translate(200 100) rotate(270 50 50)"/><use href="#L" transform="translate(300 100) rotate(180 50 50)"/><use href="#D" x="400" y="100"/><use href="#L" transform="translate(500 100) rotate(180 50 50)"/><use href="#D" transform="translate(600 100) rotate(90 50 50)"/><use href="#L" transform="translate(700 100) rotate(270 50 50)"/><use href="#L" transform="translate(0 200) rotate(180 50 50)"/><use href="#D" transform="translate(100 200) rotate(90 50 50)"/><use href="#L" transform="translate(200 200) rotate(90 50 50)"/><use href="#D" transform="translate(300 200) rotate(90 50 50)"/><use href="#L" x="400" y="200"/><use href="#D" x="500" y="200"/><use href="#L" x="600" y="200"/><use href="#D" transform="translate(700 200) rotate(270 50 50)"/><use href="#D" transform="translate(0 300) rotate(90 50 50)"/><use href="#L" transform="translate(100 300) rotate(180 50 50)"/><use href="#D" transform="translate(200 300) rotate(270 50 50)"/><use href="#L" x="300" y="300"/><use href="#D" transform="translate(400 300) rotate(90 50 50)"/><use href="#L" transform="translate(500 300) rotate(180 50 50)"/><use href="#D" transform="translate(600 300) rotate(270 50 50)"/><use href="#L" x="700" y="300"/><use href="#L" x="0" y="400"/><use href="#D" transform="translate(100 400) rotate(180 50 50)"/><use href="#L" x="200" y="400"/><use href="#D" transform="translate(300 400) rotate(270 50 50)"/><use href="#L" transform="translate(400 400) rotate(90 50 50)"/><use href="#D" transform="translate(500 400) rotate(270 50 50)"/><use href="#L" transform="translate(600 400) rotate(180 50 50)"/><use href="#D" x="700" y="400"/><use href="#D" transform="translate(0 500) rotate(270 50 50)"/><use href="#L" transform="translate(100 500) rotate(180 50 50)"/><use href="#D" transform="translate(200 500) rotate(180 50 50)"/><use href="#L" transform="translate(300 500) rotate(180 50 50)"/><use href="#D" transform="translate(400 500) rotate(90 50 50)"/><use href="#L" transform="translate(500 500) rotate(90 50 50)"/><use href="#D" transform="translate(600 500) rotate(90 50 50)"/><use href="#L" x="700" y="500"/><use href="#L" transform="translate(0 600) rotate(180 50 50)"/><use href="#D" transform="translate(100 600) rotate(270 50 50)"/><use href="#L" x="200" y="600"/><use href="#D" transform="translate(300 600) rotate(90 50 50)"/><use href="#L" transform="translate(400 600) rotate(180 50 50)"/><use href="#D" transform="translate(500 600) rotate(270 50 50)"/><use href="#L" x="600" y="600"/><use href="#D" transform="translate(700 600) rotate(90 50 50)"/><use href="#D" transform="translate(0 700) rotate(90 50 50)"/><use href="#L" transform="translate(100 700) rotate(270 50 50)"/><use href="#D" transform="translate(200 700) rotate(90 50 50)"/><use href="#L" x="300" y="700"/><use href="#D" transform="translate(400 700) rotate(180 50 50)"/><use href="#L" x="500" y="700"/><use href="#D" transform="translate(600 700) rotate(270 50 50)"/><use href="#L" transform="translate(700 700) rotate(90 50 50)"/></svg>

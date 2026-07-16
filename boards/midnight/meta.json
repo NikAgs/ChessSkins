@@ -1,0 +1,9 @@
+{
+  "id": "midnight",
+  "name": "Midnight",
+  "tagline": "For the 2am blitz sessions.",
+  "colors": {
+    "light": "#a4afc2",
+    "dark": "#364157"
+  }
+}

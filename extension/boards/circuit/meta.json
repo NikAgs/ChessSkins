@@ -1,0 +1,9 @@
+{
+  "id": "circuit",
+  "name": "Circuit Board",
+  "tagline": "All openings computed.",
+  "colors": {
+    "light": "#c3ddc9",
+    "dark": "#2e7a53"
+  }
+}

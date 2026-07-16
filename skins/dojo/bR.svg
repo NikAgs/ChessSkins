@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+<path d="M31,61 L69,61 L70.5,81.5 L29.5,81.5 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<rect x="44" y="68.5" width="12" height="13" rx="2.5" fill="#c93a26" stroke="#ede0c6" stroke-width="3"/>
+<path d="M35,45 L65,45 L67,58 L33,58 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<path d="M19,68 C24,58.5 36,56 50,56 C64,56 76,58.5 81,68 C73,64 62,62.5 50,62.5 C38,62.5 27,64 19,68 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<path d="M39,33.5 L61,33.5 L62.5,42 L37.5,42 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<path d="M24,52 C28,43.5 38,41 50,41 C62,41 72,43.5 76,52 C69,48.5 60,47 50,47 C40,47 31,48.5 24,52 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<path d="M50,26 L50,18 M45.5,22.5 L54.5,22.5" fill="none" stroke="#ede0c6" stroke-width="3.4"/>
+<circle cx="50" cy="15.5" r="3.2" fill="#c93a26" stroke="#ede0c6" stroke-width="3"/>
+<path d="M29,36 C33,28 41,25.5 50,25.5 C59,25.5 67,28 71,36 C64.5,32.5 57,31.5 50,31.5 C43,31.5 35.5,32.5 29,36 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<rect x="25" y="81.5" width="50" height="11" rx="5.5" fill="#292019" stroke="#ede0c6" stroke-width="5"/><rect x="31.5" y="85.4" width="37" height="3.4" rx="1.7" fill="#c93a26" stroke="none"/></g></svg>

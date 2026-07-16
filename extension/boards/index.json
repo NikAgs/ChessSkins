@@ -18,6 +18,15 @@
   }
  },
  {
+  "id": "bubblegum",
+  "name": "Bubblegum",
+  "tagline": "Sweetest place to get crushed.",
+  "colors": {
+   "light": "#f9cfdc",
+   "dark": "#9cd6ab"
+  }
+ },
+ {
   "id": "chalkboard",
   "name": "Chalkboard",
   "tagline": "Today's lesson: the Fried Liver.",
@@ -27,12 +36,30 @@
   }
  },
  {
+  "id": "circuit",
+  "name": "Circuit Board",
+  "tagline": "All openings computed.",
+  "colors": {
+   "light": "#c3ddc9",
+   "dark": "#2e7a53"
+  }
+ },
+ {
   "id": "dunes",
   "name": "Dunes",
   "tagline": "Fifty shades of beige, one oasis of tactics.",
   "colors": {
    "light": "#e8d3a6",
    "dark": "#ba6a44"
+  }
+ },
+ {
+  "id": "espresso",
+  "name": "Espresso",
+  "tagline": "Double shot, double pawns.",
+  "colors": {
+   "light": "#e9d6b4",
+   "dark": "#654024"
   }
  },
  {
@@ -81,6 +108,15 @@
   }
  },
  {
+  "id": "midnight",
+  "name": "Midnight",
+  "tagline": "For the 2am blitz sessions.",
+  "colors": {
+   "light": "#a4afc2",
+   "dark": "#364157"
+  }
+ },
+ {
   "id": "moss",
   "name": "Moss Garden",
   "tagline": "Soft ground, sharp tactics.",
@@ -126,12 +162,39 @@
   }
  },
  {
+  "id": "parchment",
+  "name": "Parchment Map",
+  "tagline": "X marks the checkmate.",
+  "colors": {
+   "light": "#eee0bd",
+   "dark": "#bb9264"
+  }
+ },
+ {
+  "id": "pixel-park",
+  "name": "Pixel Park",
+  "tagline": "Overworld theme intensifies.",
+  "colors": {
+   "light": "#abd573",
+   "dark": "#61923f"
+  }
+ },
+ {
   "id": "sakura",
   "name": "Sakura",
   "tagline": "Petals fall, pawns advance.",
   "colors": {
    "light": "#f6e2da",
    "dark": "#c98d95"
+  }
+ },
+ {
+  "id": "tatami",
+  "name": "Tatami",
+  "tagline": "Bow before the board.",
+  "colors": {
+   "light": "#e9dcaa",
+   "dark": "#7d8c53"
   }
  },
  {
@@ -144,12 +207,30 @@
   }
  },
  {
+  "id": "tournament",
+  "name": "Tournament Green",
+  "tagline": "Roll it out, shake hands, play.",
+  "colors": {
+   "light": "#e9dcb7",
+   "dark": "#497853"
+  }
+ },
+ {
   "id": "walnut",
   "name": "Walnut",
   "tagline": "The club board your grandfather taught you on.",
   "colors": {
    "light": "#e2b87e",
    "dark": "#8d5a35"
+  }
+ },
+ {
+  "id": "watercolor",
+  "name": "Watercolor",
+  "tagline": "Paint your masterpiece game.",
+  "colors": {
+   "light": "#f2ead6",
+   "dark": "#9da0c4"
   }
  }
 ]

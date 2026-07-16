@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <rect id="d" x="-7" y="-2.25" width="14" height="4.5" rx="2.25"/>
+    <pattern id="bg" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#9cd6ab"/>
+      <rect width="100" height="100" fill="#f9cfdc"/>
+      <rect x="100" y="100" width="100" height="100" fill="#f9cfdc"/>
+    </pattern>
+    <g id="sA" opacity="0.85">
+      <use href="#d" fill="#6fbf8d" transform="rotate(25)"/>
+      <use href="#d" fill="#b9a0e6" transform="translate(18 12) rotate(-40)"/>
+      <use href="#d" fill="#f2b84b" transform="translate(2 24) rotate(78)"/>
+    </g>
+    <g id="sB" opacity="0.85">
+      <use href="#d" fill="#f78fb8" transform="rotate(-22)"/>
+      <use href="#d" fill="#fff6d8" transform="translate(16 13) rotate(52)"/>
+      <use href="#d" fill="#b9a0e6" transform="translate(-1 23) rotate(96)"/>
+    </g>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <use href="#sA" transform="translate(238 36) rotate(10)"/>
+  <use href="#sA" transform="translate(560 158) rotate(-15)"/>
+  <use href="#sA" transform="translate(36 462) rotate(30)"/>
+  <use href="#sA" transform="translate(458 434) rotate(-8)"/>
+  <use href="#sA" transform="translate(738 556) rotate(14)"/>
+  <use href="#sA" transform="translate(256 660) rotate(-30)"/>
+  <use href="#sA" transform="translate(536 736) rotate(5)"/>
+  <use href="#sB" transform="translate(158 56) rotate(-12)"/>
+  <use href="#sB" transform="translate(736 238) rotate(20)"/>
+  <use href="#sB" transform="translate(260 336) rotate(-25)"/>
+  <use href="#sB" transform="translate(534 458) rotate(8)"/>
+  <use href="#sB" transform="translate(58 538) rotate(-18)"/>
+  <use href="#sB" transform="translate(336 658) rotate(28)"/>
+  <use href="#sB" transform="translate(462 736) rotate(-6)"/>
+</svg>
