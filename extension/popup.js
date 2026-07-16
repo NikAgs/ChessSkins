@@ -1,53 +1,114 @@
-const DEFAULTS = { liskinsEnabled: true, liskinsSkin: "goofball" };
+const DEFAULTS = { csEnabled: true, csSkin: "goofball" };
+const CUSTOM_ID = "__custom__";
+const STRIP = ["wK", "wQ", "wR", "wB", "wN", "wP"];
+
 const grid = document.getElementById("grid");
+const chipsEl = document.getElementById("chips");
 const master = document.getElementById("master");
 
 let state = { ...DEFAULTS };
+let activeCat = "All";
+let skins = [];
+let customSkin = null;
 
 function renderSelection() {
-  document.body.classList.toggle("off", !state.liskinsEnabled);
+  document.body.classList.toggle("off", !state.csEnabled);
   for (const card of grid.children) {
-    card.classList.toggle("selected", card.dataset.id === state.liskinsSkin);
+    card.classList.toggle("selected", card.dataset.id === state.csSkin);
+  }
+}
+
+function select(id) {
+  state.csSkin = id;
+  chrome.storage.sync.set({ csSkin: id });
+  renderSelection();
+}
+
+function makeCard({ id, name, tagline, imgFor, badge }) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.id = id;
+  card.title = tagline;
+  const duo = `
+    <div class="duo">
+      <div class="sq"><img src="${imgFor("wN")}" alt=""></div>
+      <div class="sq"><img src="${imgFor("bQ")}" alt=""></div>
+    </div>
+    <div class="strip">${STRIP.map((c) => `<div class="sq"><img src="${imgFor(c)}" alt=""></div>`).join("")}</div>`;
+  card.innerHTML = `${duo}<div class="name"></div><div class="tag"></div>`;
+  card.querySelector(".name").innerHTML = badge ? `${name} <span class="badge">${badge}</span>` : "";
+  if (!badge) card.querySelector(".name").textContent = name;
+  card.querySelector(".tag").textContent = tagline;
+  card.addEventListener("click", () => select(id));
+  return card;
+}
+
+function renderGrid() {
+  grid.innerHTML = "";
+  if (customSkin && (activeCat === "All" || activeCat === "Yours")) {
+    grid.appendChild(
+      makeCard({
+        id: CUSTOM_ID,
+        name: customSkin.name || "My Custom Skin",
+        tagline: customSkin.tagline || "Made by you, with a little AI help.",
+        badge: "YOURS",
+        imgFor: (c) => "data:image/svg+xml," + encodeURIComponent(customSkin.pieces[c]),
+      })
+    );
+  }
+  for (const s of skins) {
+    if (activeCat !== "All" && activeCat !== "Yours" && s.category !== activeCat) continue;
+    if (activeCat === "Yours") continue;
+    grid.appendChild(
+      makeCard({ ...s, imgFor: (c) => `skins/${s.id}/${c}.svg` })
+    );
+  }
+  renderSelection();
+}
+
+function renderChips() {
+  const cats = ["All", ...new Set(skins.map((s) => s.category))];
+  if (customSkin) cats.splice(1, 0, "Yours");
+  chipsEl.innerHTML = "";
+  for (const c of cats) {
+    const b = document.createElement("button");
+    b.className = "chip" + (c === activeCat ? " active" : "");
+    b.textContent = c;
+    b.addEventListener("click", () => {
+      activeCat = c;
+      renderChips();
+      renderGrid();
+    });
+    chipsEl.appendChild(b);
   }
 }
 
 async function init() {
-  const [skins, stored] = await Promise.all([
+  const [idx, stored, local] = await Promise.all([
     fetch(chrome.runtime.getURL("skins/index.json")).then((r) => r.json()),
     chrome.storage.sync.get(DEFAULTS),
+    chrome.storage.local.get("csCustomSkin"),
   ]);
+  skins = idx;
   state = stored;
+  customSkin = local.csCustomSkin || null;
 
-  for (const s of skins) {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.dataset.id = s.id;
-    card.title = s.tagline;
-    card.innerHTML = `
-      <div class="duo">
-        <div class="sq"><img src="skins/${s.id}/wN.svg" alt=""></div>
-        <div class="sq"><img src="skins/${s.id}/bQ.svg" alt=""></div>
-      </div>
-      <div class="name"></div>
-      <div class="tag"></div>`;
-    card.querySelector(".name").textContent = s.name;
-    card.querySelector(".tag").textContent = s.tagline;
-    card.addEventListener("click", () => {
-      state.liskinsSkin = s.id;
-      chrome.storage.sync.set({ liskinsSkin: s.id });
-      renderSelection();
-    });
-    grid.appendChild(card);
-  }
-
-  master.checked = state.liskinsEnabled;
+  master.checked = state.csEnabled;
   master.addEventListener("change", () => {
-    state.liskinsEnabled = master.checked;
-    chrome.storage.sync.set({ liskinsEnabled: master.checked });
+    state.csEnabled = master.checked;
+    chrome.storage.sync.set({ csEnabled: master.checked });
     renderSelection();
   });
 
-  renderSelection();
+  document.getElementById("openGallery").addEventListener("click", () =>
+    chrome.tabs.create({ url: chrome.runtime.getURL("gallery.html") })
+  );
+  document.getElementById("openCreate").addEventListener("click", () =>
+    chrome.tabs.create({ url: chrome.runtime.getURL("gallery.html#create") })
+  );
+
+  renderChips();
+  renderGrid();
 }
 
 init();

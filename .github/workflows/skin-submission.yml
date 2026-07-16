@@ -1,0 +1,69 @@
+name: Skin submission → PR
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  submit:
+    if: contains(github.event.issue.labels.*.name, 'skin-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract skin JSON from issue body
+        id: extract
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          printf '%s' "$ISSUE_BODY" > /tmp/issue-body.txt
+          python3 tools/validate_submission.py /tmp/issue-body.txt --write | tee /tmp/validate.log
+          SKIN_ID=$(grep -oP '(?<=^OK: )[a-z0-9-]+' /tmp/validate.log)
+          echo "skin_id=$SKIN_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on failure and stop
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let log = '';
+            try { log = fs.readFileSync('/tmp/validate.log', 'utf8'); } catch {}
+            await github.rest.issues.createComment({
+              ...context.repo, issue_number: context.issue.number,
+              body: [
+                "Thanks for the submission! It didn't validate yet:",
+                "```", log.trim() || "could not parse the JSON block", "```",
+                "Tip: paste the errors back to Claude/ChatGPT and ask it to fix them,",
+                "then **edit this issue** with the corrected JSON — I'll re-check automatically."
+              ].join('\n')
+            });
+
+      - name: Open pull request
+        id: pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: skin/${{ steps.extract.outputs.skin_id }}
+          title: "Add skin: ${{ steps.extract.outputs.skin_id }}"
+          commit-message: "Add community skin: ${{ steps.extract.outputs.skin_id }} (closes #${{ github.event.issue.number }})"
+          body: |
+            Community skin submission from #${{ github.event.issue.number }} (@${{ github.event.issue.user.login }}).
+
+            Closes #${{ github.event.issue.number }}
+
+            Reviewers: run `python3 tools/make_preview.py ${{ steps.extract.outputs.skin_id }}`
+            for a contact sheet, and check the readability rules in SKIN_SPEC.md.
+          add-paths: skins/**
+
+      - name: Comment with PR link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              ...context.repo, issue_number: context.issue.number,
+              body: `Validated! I opened ${{ steps.pr.outputs.pull-request-url }} — a maintainer will review it. Thanks for contributing a skin! 🎨`
+            });

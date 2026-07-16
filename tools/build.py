@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build the LiSkins extension from the skins/ art directory.
+"""Build the ChessSkins extension from the skins/ art directory.
 
 - validates every skin (12 SVGs + meta.json)
 - copies SVGs + meta into extension/skins/<id>/
-- generates skins/<id>/skin.css (12 !important rules with data-URI SVGs)
-- generates extension/skins/index.json (catalog, Goofball pinned first)
-- zips the extension into dist/liskins.zip
+- generates skins/<id>/skin.css — rules for BOTH lichess and chess.com
+- generates extension/skins/index.json (catalog with categories, Goofball first)
+- zips the extension into dist/chessskins.zip
 
 Usage: python3 tools/build.py [--no-zip]
 """
@@ -19,6 +19,24 @@ DIST = os.path.join(ROOT, "dist")
 CODES = ["wK", "wQ", "wR", "wB", "wN", "wP", "bK", "bQ", "bR", "bB", "bN", "bP"]
 NAMES = {"K": "king", "Q": "queen", "R": "rook", "B": "bishop", "N": "knight", "P": "pawn"}
 COLORS = {"w": "white", "b": "black"}
+
+CATEGORIES = {
+    "Cute": ["goofball", "kittens", "puppies", "woodland", "polar", "critter-royale",
+             "duckies", "garden-bugs", "deep-sea", "dinos", "monster-mash"],
+    "Food": ["snack-attack", "sweet-tooth"],
+    "Retro & Sci-Fi": ["pixel", "invaders", "robots", "cosmos", "neon-grid"],
+    "Adventure": ["high-seas", "valhalla", "dojo", "wild-west", "spellbound", "spooky"],
+    "Style": ["thin-line", "midnight-gothic", "doodle"],
+}
+CATEGORY_OF = {sid: cat for cat, ids in CATEGORIES.items() for sid in ids}
+
+
+def selectors(code):
+    """CSS selectors covering lichess (<piece class='white pawn'>) and
+    chess.com (<div class='piece wp'> + promotion windows)."""
+    lichess = f"piece.{COLORS[code[0]]}.{NAMES[code[1]]}"
+    cc = code.lower()
+    return f"{lichess}, .piece.{cc}, .promotion-piece.{cc}"
 
 
 def build_skin(skin_id):
@@ -42,9 +60,7 @@ def build_skin(skin_id):
         svg = open(os.path.join(src, f"{code}.svg")).read()
         shutil.copyfile(os.path.join(src, f"{code}.svg"), os.path.join(dst, f"{code}.svg"))
         uri = "data:image/svg+xml," + urllib.parse.quote(svg, safe="~()*!.'")
-        rules.append(
-            f'piece.{COLORS[code[0]]}.{NAMES[code[1]]}{{background-image:url("{uri}") !important;}}'
-        )
+        rules.append(f'{selectors(code)}{{background-image:url("{uri}") !important;}}')
     with open(os.path.join(dst, "skin.css"), "w") as f:
         f.write("\n".join(rules))
     shutil.copyfile(meta_path, os.path.join(dst, "meta.json"))
@@ -56,13 +72,16 @@ def main():
     ext_skins = os.path.join(EXT, "skins")
     if os.path.isdir(ext_skins):
         shutil.rmtree(ext_skins)
+    os.makedirs(ext_skins, exist_ok=True)
 
     catalog, all_errors = [], []
     for skin_id in ids:
         meta, errors = build_skin(skin_id)
         all_errors += errors
         if meta:
-            catalog.append({k: meta.get(k, "") for k in ("id", "name", "tagline", "style")})
+            entry = {k: meta.get(k, "") for k in ("id", "name", "tagline", "style")}
+            entry["category"] = CATEGORY_OF.get(skin_id, "More")
+            catalog.append(entry)
 
     # Goofball (the original) first, everything else alphabetical by name
     catalog.sort(key=lambda m: (m["id"] != "goofball", m["name"].lower()))
@@ -76,7 +95,7 @@ def main():
 
     if "--no-zip" not in sys.argv:
         os.makedirs(DIST, exist_ok=True)
-        zpath = os.path.join(DIST, "liskins.zip")
+        zpath = os.path.join(DIST, "chessskins.zip")
         with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
             for base, _, files in os.walk(EXT):
                 for fn in files:

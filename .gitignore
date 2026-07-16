@@ -19,3 +19,5 @@ skins/*/_preview.html
 __pycache__/
 node_modules/
 .DS_Store
+extension/_test_gallery.html
+test_gallery.png

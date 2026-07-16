@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "LiSkins — Piece Skins for Lichess",
+  "name": "ChessSkins — Skins for Lichess & Chess.com",
   "version": "2.0.0",
-  "description": "A catalog of playful chess piece skins for lichess — cats, robots, pirates, pixels and more. Pick one; it applies instantly.",
+  "description": "A visual catalog of playful chess piece skins for lichess and chess.com — kittens, robots, pirates, 8-bit and more. Applies instantly.",
   "permissions": ["storage"],
   "icons": {
     "16": "icons/icon16.png",
@@ -12,15 +12,18 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png" },
-    "default_title": "LiSkins — choose a piece skin"
+    "default_title": "ChessSkins — choose a piece skin"
   },
+  "options_page": "gallery.html",
   "content_scripts": [
     {
       "matches": [
         "*://lichess.org/*",
         "*://*.lichess.org/*",
         "*://lichess.com/*",
-        "*://*.lichess.com/*"
+        "*://*.lichess.com/*",
+        "*://www.chess.com/*",
+        "*://chess.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_start"
@@ -33,7 +36,9 @@
         "*://lichess.org/*",
         "*://*.lichess.org/*",
         "*://lichess.com/*",
-        "*://*.lichess.com/*"
+        "*://*.lichess.com/*",
+        "*://www.chess.com/*",
+        "*://chess.com/*"
       ]
     }
   ]

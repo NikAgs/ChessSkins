@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ChessSkins — Gallery</title>
+<style>
+  :root {
+    --bg: #f6efe3; --ink: #3d3833; --muted: #8a7f6d;
+    --card: #fffaf1; --edge: #e3d8c4; --sel: #629924; --sel-soft: #e8f1dc;
+    --sq-l: #f0d9b5; --sq-d: #b58863;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.45 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 26px; margin: 0; }
+  h1 small { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 10px; }
+  .toolbar { display: flex; align-items: center; gap: 10px; margin: 16px 0 22px; flex-wrap: wrap; }
+  .chip { border: 1px solid var(--edge); background: var(--card); color: var(--muted);
+          border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer; }
+  .chip.active { background: var(--sel); border-color: var(--sel); color: #fff; }
+  #search { margin-left: auto; border: 1px solid var(--edge); border-radius: 9px; padding: 7px 12px;
+            font: 14px system-ui; background: var(--card); color: var(--ink); width: 200px; }
+
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(264px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 2px solid var(--edge); border-radius: 14px; padding: 12px;
+          cursor: pointer; transition: border-color .1s, transform .1s; }
+  .card:hover { border-color: #c9bda9; transform: translateY(-2px); }
+  .card.selected { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel-soft); }
+  .board { display: grid; grid-template-columns: repeat(8, 1fr); border-radius: 8px; overflow: hidden;
+           aspect-ratio: 8 / 4; }
+  .board .sq { position: relative; aspect-ratio: 1; }
+  .board .sq.l { background: var(--sq-l); } .board .sq.d { background: var(--sq-d); }
+  .board img { position: absolute; inset: 4%; width: 92%; height: 92%; }
+  .meta { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
+  .meta .name { font-weight: 700; font-size: 15px; }
+  .meta .cat { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .5px; }
+  .tag { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .applied { display: none; color: var(--sel); font-weight: 700; font-size: 12px; margin-top: 6px; }
+  .card.selected .applied { display: block; }
+
+  /* ---- creator ---- */
+  #create { margin-top: 44px; background: var(--card); border: 2px solid var(--edge);
+            border-radius: 16px; padding: 22px; }
+  #create h2 { margin: 0 0 4px; font-size: 21px; }
+  #create .sub { color: var(--muted); margin-bottom: 16px; }
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .step h3 { font-size: 14px; margin: 0 0 8px; }
+  .step h3 .n { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: var(--sel);
+                color: #fff; align-items: center; justify-content: center; font-size: 12px; margin-right: 6px; }
+  textarea, input[type=text] { width: 100%; border: 1px solid var(--edge); border-radius: 9px;
+            padding: 9px 11px; font: 13px/1.4 ui-monospace, monospace; background: #fff; color: var(--ink); }
+  #themeDesc { font-family: system-ui; }
+  #pasteBox { height: 130px; resize: vertical; }
+  .btn { border: none; border-radius: 9px; padding: 9px 16px; font: 600 13.5px system-ui;
+         cursor: pointer; background: var(--sel); color: #fff; }
+  .btn.ghost { background: var(--card); border: 1px solid var(--edge); color: var(--ink); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  #copyStatus, #loadStatus { font-size: 12.5px; margin-top: 8px; }
+  .ok { color: var(--sel); } .err { color: #b3403a; white-space: pre-wrap; }
+  #previewWrap { display: none; margin-top: 18px; }
+  #previewWrap .board { max-width: 480px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ChessSkins Gallery <small>every skin, on a real board</small></h1>
+    <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">GitHub ↗</a>
+  </header>
+
+  <div class="toolbar">
+    <span id="chips"></span>
+    <input id="search" type="text" placeholder="Search skins…">
+  </div>
+  <div id="grid"></div>
+
+  <section id="create">
+    <h2>✨ Create your own skin</h2>
+    <div class="sub">Design a set with Claude or ChatGPT, try it on instantly, and submit it to the public catalog — no coding needed.</div>
+    <div class="steps">
+      <div class="step">
+        <h3><span class="n">1</span>Describe your theme &amp; copy the AI prompt</h3>
+        <input id="themeDesc" type="text" placeholder="e.g. sushi pieces — the knight is a shrimp nigiri">
+        <div class="row">
+          <button class="btn" id="copyPrompt">Copy prompt for Claude / ChatGPT</button>
+        </div>
+        <div id="copyStatus"></div>
+      </div>
+      <div class="step">
+        <h3><span class="n">2</span>Paste the AI's JSON answer here</h3>
+        <textarea id="pasteBox" placeholder='Paste the whole reply — I&#39;ll find the JSON block.'></textarea>
+        <div class="row">
+          <button class="btn" id="loadSkin">Load &amp; preview</button>
+        </div>
+        <div id="loadStatus"></div>
+      </div>
+    </div>
+    <div id="previewWrap">
+      <h3>Your skin, on the board:</h3>
+      <div class="board" id="previewBoard"></div>
+      <div class="row">
+        <button class="btn" id="applyCustom">Apply as my skin</button>
+        <button class="btn ghost" id="downloadCustom">Download skin.json</button>
+        <button class="btn ghost" id="submitCustom">Submit to the catalog →</button>
+      </div>
+      <div class="sub" style="margin-top:8px">Submitting opens a GitHub form — paste the same JSON there and a robot will validate it and open the pull request for you.</div>
+    </div>
+  </section>
+</div>
+<script src="gallery.js"></script>
+</body>
+</html>

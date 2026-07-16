@@ -1,4 +1,4 @@
-# Chrome Web Store listing — LiSkins
+# Chrome Web Store listing — ChessSkins
 
 Everything below is ready to paste into the Chrome Web Store Developer Dashboard.
 (The dashboard is where listing text/images live — they are not part of the extension
@@ -10,40 +10,51 @@ package itself. The manifest carries only name, version, description, and icons.
 
 **Product name** (≤45 chars)
 
-> LiSkins — Piece Skins for Lichess
+> ChessSkins — Skins for Lichess & Chess.com
 
 **Summary** (≤132 chars)
 
-> 26 playful piece skins for lichess — kittens, robots, pirates, 8-bit and more. Pick one in the catalog; it applies instantly.
+> 26 playful piece skins for lichess & chess.com — kittens, robots, pirates, 8-bit. Browse visually, apply instantly, or make your own.
 
 **Description**
 
-> Tired of the same six silhouettes? LiSkins gives your lichess games a wardrobe.
+> Tired of the same six silhouettes? ChessSkins gives your chess games a wardrobe —
+> on both lichess.org and chess.com.
 >
-> Open the catalog, pick a skin, and your pieces change instantly — no reload, no
-> settings digging, and your opponent sees nothing unusual. Your choice syncs across
-> your Chrome profiles and applies to games, puzzles, analysis, studies, and the board
-> editor.
+> Open the visual gallery, see every skin laid out on a real board, click one, and
+> your pieces change instantly — no reload, no settings digging, and your opponent
+> sees nothing unusual. Works in games, puzzles, analysis, studies and the board
+> editor. Your choice syncs across your Chrome profiles.
 >
 > THE CATALOG (26 skins at launch)
 >
 > ★ Cute & cuddly — Goofball (the original silly squad), Kittens, Puppies, Woodland,
->   Polar, Critter Royale, Rubber Duckies, Garden Bugs, Deep Sea, Dinos
+>   Polar, Critter Royale, Rubber Duckies, Garden Bugs, Deep Sea, Dinos, Monster Mash
 > ★ Delicious — Snack Attack (the knight is a dachshund in a bun), Sweet Tooth
 > ★ Retro & sci-fi — 8-Bit, Arcade Invaders, Robots, Cosmos, Neon Grid
-> ★ Adventure — High Seas, Valhalla, Dojo, Wild West, Spellbound, Spooky, Monster Mash
+> ★ Adventure — High Seas, Valhalla, Dojo, Wild West, Spellbound, Spooky
 > ★ For the aesthetes — Thin Line, Midnight Gothic, Doodle
 >
-> Every set is designed for real play: six unmistakable silhouettes, clear
+> MAKE YOUR OWN — NO CODING
+>
+> The built-in creator hands you a designer-grade prompt for Claude or ChatGPT. Paste
+> the AI's answer back and your custom set appears on a preview board, ready to apply.
+> Love it? One click submits it to the public catalog, where a bot opens the pull
+> request for you.
+>
+> DESIGNED FOR REAL PLAY
+>
+> Every set follows strict readability rules: six unmistakable silhouettes, clear
 > white-vs-black armies, and legibility tested down to bullet-speed board sizes.
 >
 > PRIVACY
 >
-> LiSkins collects nothing. No analytics, no accounts, no network requests. The only
-> thing it stores is which skin you picked. The code is open source:
-> https://github.com/NikAgs/LiSkins
+> ChessSkins collects nothing. No analytics, no accounts, no network requests. The
+> only thing it stores is which skin you picked. The code is open source:
+> https://github.com/NikAgs/ChessSkins
 >
-> LiSkins is a fan project and is not affiliated with or endorsed by lichess.org.
+> ChessSkins is a fan project, not affiliated with or endorsed by lichess.org or
+> chess.com.
 
 **Category**: Fun
 **Language**: English
@@ -61,19 +72,21 @@ package itself. The manifest carries only name, version, description, and icons.
 
 **Single purpose description**
 
-> LiSkins replaces the chess piece artwork on lichess.org with a user-selected themed
-> set. It has no other function.
+> ChessSkins replaces the chess piece artwork on lichess.org and chess.com with a
+> user-selected themed set. It has no other function.
 
 **Permission justifications**
 
-- `storage` — saves the user's selected skin and on/off preference (chrome.storage.sync)
-  so it persists and syncs across their browsers. No other data is stored.
-- Content script on `lichess.org` / `lichess.com` — injects a stylesheet that swaps the
-  piece images on lichess pages. It reads nothing from the page and runs nowhere else.
-- Web-accessible resources (`skins/*/skin.css`) — lets the injected stylesheet load the
-  bundled artwork on lichess pages only.
+- `storage` — saves the user's selected skin and on/off preference
+  (chrome.storage.sync) and their self-made custom skin (chrome.storage.local).
+  No other data is stored.
+- Content script on `lichess.org` / `lichess.com` / `chess.com` — injects a stylesheet
+  that swaps the piece images on those sites. It reads nothing from the page and runs
+  nowhere else.
+- Web-accessible resources (`skins/*/skin.css`) — lets the injected stylesheet load
+  the bundled artwork on those sites only.
 
-**Data usage disclosures** — check "This item does not collect user data." LiSkins
+**Data usage disclosures** — check "This item does not collect user data." ChessSkins
 collects, transmits, and sells nothing; there are no remote servers and no analytics.
 
 **Remote code** — none. All code and artwork ship inside the package.
@@ -85,7 +98,7 @@ collects, transmits, and sells nothing; there are no remote servers and no analy
 
 ## Publishing checklist
 
-1. `python3 tools/build.py` → upload `dist/liskins.zip` on the Package tab.
+1. `python3 tools/build.py` → upload `dist/chessskins.zip` on the Package tab.
 2. Paste the listing text above; upload the graphic assets from `store/assets/`.
 3. Fill the Privacy tab from the sections above.
 4. Submit for review (typically 1–3 days for a new extension).

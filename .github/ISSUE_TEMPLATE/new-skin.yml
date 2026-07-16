@@ -1,0 +1,27 @@
+name: "🎨 Submit a skin to the catalog"
+description: Made a skin with the ChessSkins creator? Paste it here and a robot will open the PR for you.
+title: "[skin] "
+labels: ["skin-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for making a skin! Paste the **JSON** from the ChessSkins creator
+        (Gallery → Create your own → *Download skin.json* or copy the block the AI gave you)
+        into the field below. A bot will validate it, render a preview, and open a pull
+        request automatically. A human reviews and merges — then everyone gets your skin.
+  - type: textarea
+    id: skin-json
+    attributes:
+      label: Skin JSON
+      description: The complete JSON object (id, name, tagline, style, pieces).
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: original
+    attributes:
+      label: Originality
+      options:
+        - label: This artwork is original (AI-generated is fine) and contains no copyrighted characters or logos.
+          required: true
