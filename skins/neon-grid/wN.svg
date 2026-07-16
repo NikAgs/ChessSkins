@@ -3,11 +3,11 @@
   <path d="M37,82 L38,62 L34,52 L18,46.5 L15.5,38.5 L26.5,33.5 L30.5,25 L38.5,19.5 L41.5,8.5 L46.5,16 L52,9.5 L57.5,17.5 L63.5,29 L67.5,44 L69,62 L68.5,82 Z M27,92 L31,82.5 L69,82.5 L73,92 Z" stroke="#00d5ff" stroke-width="6.5" opacity="0.3"/>
   <path d="M37,82 L38,62 L34,52 L18,46.5 L15.5,38.5 L26.5,33.5 L30.5,25 L38.5,19.5 L41.5,8.5 L46.5,16 L52,9.5 L57.5,17.5 L63.5,29 L67.5,44 L69,62 L68.5,82 Z M27,92 L31,82.5 L69,82.5 L73,92 Z" fill="#c9d3dd" stroke="#0d1620" stroke-width="3.4"/>
   <path d="M37,82 L38,62 L34,52 L18,46.5 L15.5,38.5 L26.5,33.5 L30.5,25 L38.5,19.5 L41.5,8.5 L46.5,16 L52,9.5 L57.5,17.5 L63.5,29 L67.5,44 L69,62 L68.5,82 Z M27,92 L31,82.5 L69,82.5 L73,92 Z" stroke="#59ecff" stroke-width="1.5"/>
-  <path d="M58.5,28 L52.5,37" stroke="#33bfe0" stroke-width="1.4" opacity="0.55"/>
-  <path d="M62.5,42 L56,51" stroke="#33bfe0" stroke-width="1.4" opacity="0.55"/>
-  <path d="M64.5,58 L58.5,66" stroke="#33bfe0" stroke-width="1.4" opacity="0.55"/>
+  <path d="M57.5,27 L51.5,36 L56.5,45" stroke="#33bfe0" stroke-width="1.4" opacity="0.55"/>
+  <path d="M61.5,50 L56,60" stroke="#33bfe0" stroke-width="1.4" opacity="0.55"/>
   <path d="M26.5,32 L36,28.5" stroke="#00d5ff" stroke-width="4.6" opacity="0.45"/>
   <path d="M26.5,32 L36,28.5" stroke="#dcfcff" stroke-width="1.9"/>
   <circle cx="20.5" cy="42" r="3.0" fill="#00d5ff" opacity="0.4"/>
   <circle cx="20.5" cy="42" r="1.4" fill="#dcfcff"/>
+  <path d="M42.5,85 L42,90 M50,85 L50,90 M57.5,85 L58,90" stroke="#33bfe0" stroke-width="1.3" opacity="0.45"/>
 </g></svg>

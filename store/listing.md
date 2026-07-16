@@ -14,7 +14,7 @@ package itself. The manifest carries only name, version, description, and icons.
 
 **Summary** (≤132 chars)
 
-> 26 playful piece skins for lichess & chess.com — kittens, robots, pirates, 8-bit. Browse visually, apply instantly, or make your own.
+> 24 playful piece skins + 26 board themes for lichess & chess.com. Browse visually, apply instantly, or design your own with AI.
 
 **Description**
 
@@ -26,14 +26,19 @@ package itself. The manifest carries only name, version, description, and icons.
 > sees nothing unusual. Works in games, puzzles, analysis, studies and the board
 > editor. Your choice syncs across your Chrome profiles.
 >
-> THE CATALOG (26 skins at launch)
+> THE CATALOG (24 skins + 26 board themes at launch)
 >
-> ★ Cute & cuddly — Goofball (the original silly squad), Kittens, Puppies, Woodland,
->   Polar, Critter Royale, Rubber Duckies, Garden Bugs, Deep Sea, Dinos, Monster Mash
+> ★ Cute & cuddly — Goofball (the original silly squad), Woodland, Polar,
+>   Rubber Duckies, Garden Bugs, Deep Sea, Dinos, Monster Mash
 > ★ Delicious — Snack Attack (the knight is a dachshund in a bun), Sweet Tooth
 > ★ Retro & sci-fi — 8-Bit, Arcade Invaders, Robots, Cosmos, Neon Grid
 > ★ Adventure — High Seas, Valhalla, Dojo, Wild West, Spellbound, Spooky
 > ★ For the aesthetes — Thin Line, Midnight Gothic, Doodle
+>
+> BOARD THEMES
+>
+> 26 matching grounds to fight on — walnut, marble, neon grid, sakura, tournament
+> green, midnight and more.
 >
 > MAKE YOUR OWN — NO CODING
 >

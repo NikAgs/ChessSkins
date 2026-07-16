@@ -2,7 +2,7 @@
 
 **A visual catalog of playful chess piece skins for [lichess](https://lichess.org) and [chess.com](https://chess.com), delivered as a Chrome extension.**
 
-Tired of the same six silhouettes? ChessSkins swaps your pieces for any of **26 themed sets** — kittens, robots, pirates, 8-bit, rubber duckies, gothic cathedrals and more. Browse the gallery (every skin shown on a real board), click one, and it applies instantly: no page reload, works in games, puzzles, analysis and the board editor, and only you see it. You can even design your own set with Claude or ChatGPT and submit it to the catalog without writing a line of code.
+Tired of the same six silhouettes? ChessSkins swaps your pieces for any of **24 themed sets** (plus 26 board themes) — dinos, robots, pirates, 8-bit, rubber duckies, gothic cathedrals and more. Browse the gallery (every skin shown on a real board), click one, and it applies instantly: no page reload, works in games, puzzles, analysis and the board editor, and only you see it. You can even design your own set with Claude or ChatGPT and submit it to the catalog without writing a line of code.
 
 ![The ChessSkins catalog](docs/catalog.png)
 
