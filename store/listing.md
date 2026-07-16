@@ -91,6 +91,17 @@ package itself. The manifest carries only name, version, description, and icons.
 - Web-accessible resources (`skins/*/skin.css`) — lets the injected stylesheet load
   the bundled artwork on those sites only.
 
+**Host permission justification** (the dashboard asks for this separately; the
+"in-depth review" warning it shows is normal for content-script extensions)
+
+> ChessSkins' single purpose is to re-theme the chess pieces and board on lichess.org
+> and chess.com. The content script must run on those specific sites to inject a
+> stylesheet that swaps the piece and board artwork for the user's selected theme —
+> theming cannot work without running on the page being themed. Host access is limited
+> to exactly three chess sites (lichess.org, lichess.com, chess.com); the extension
+> reads nothing from the page, collects no data, makes no network requests, and
+> executes no remote code. All artwork ships inside the package.
+
 **Data usage disclosures** — check "This item does not collect user data." ChessSkins
 collects, transmits, and sells nothing; there are no remote servers and no analytics.
 
