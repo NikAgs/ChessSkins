@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 tools/fetch_popularity.py || true
       - name: Build extension (Chrome + Firefox zips)
-        run: python3 tools/build.py
+        run: python3 tools/build.py --lenient
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:

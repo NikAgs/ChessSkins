@@ -7,7 +7,11 @@
 - generates extension/skins/index.json (catalog with categories, Goofball first)
 - zips the extension into dist/chessskins.zip
 
-Usage: python3 tools/build.py [--no-zip]
+Usage: python3 tools/build.py [--no-zip] [--lenient]
+
+--lenient: skip invalid/incomplete skins and boards but exit 0 (for release
+builds while community/fleet work is in flight). Default is strict (exit 1),
+which is what PR validation wants.
 """
 import os, sys, json, shutil, urllib.parse, zipfile
 
@@ -175,6 +179,9 @@ def main():
         make_zip(os.path.join(DIST, "chessskins-firefox.zip"),
                  json.dumps(ff_manifest, indent=2))
 
+    if all_errors and "--lenient" in sys.argv:
+        print(f"(lenient mode: {len(all_errors)} problem(s) skipped, build succeeded)")
+        return 0
     return 1 if all_errors else 0
 
 
