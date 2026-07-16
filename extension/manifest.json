@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "LiSkins — Piece Skins for Lichess",
+  "version": "2.0.0",
+  "description": "A catalog of playful chess piece skins for lichess — cats, robots, pirates, pixels and more. Pick one; it applies instantly.",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png" },
+    "default_title": "LiSkins — choose a piece skin"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://lichess.org/*",
+        "*://*.lichess.org/*",
+        "*://lichess.com/*",
+        "*://*.lichess.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["skins/*/skin.css"],
+      "matches": [
+        "*://lichess.org/*",
+        "*://*.lichess.org/*",
+        "*://lichess.com/*",
+        "*://*.lichess.com/*"
+      ]
+    }
+  ]
+}

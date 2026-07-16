@@ -1,0 +1,21 @@
+# build outputs
+dist/
+extension/skins/
+
+# scratch / superseded working files
+pieces/
+preview.html
+preview.png
+icon.html
+test_board.html
+test_board.png
+test_css.css
+test_popup.png
+build_extension.py
+liskins-goofball.zip
+skins/*/_preview.html
+
+# misc
+__pycache__/
+node_modules/
+.DS_Store
