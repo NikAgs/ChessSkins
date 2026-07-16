@@ -157,16 +157,31 @@ def main():
     if "--no-zip" not in sys.argv:
         os.makedirs(DIST, exist_ok=True)
 
+        def zip_ok(rel):
+            # Chrome reserves "_"-prefixed names (except _locales); also skip
+            # hidden files and any stray test/scratch artifacts.
+            parts = rel.split(os.sep)
+            for part in parts:
+                if part.startswith(".") or (part.startswith("_") and part != "_locales"):
+                    return False
+            return True
+
         def make_zip(zpath, manifest_override=None):
+            skipped = []
             with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
                 for base, _, files in os.walk(EXT):
                     for fn in files:
                         p = os.path.join(base, fn)
                         rel = os.path.relpath(p, EXT)
+                        if not zip_ok(rel):
+                            skipped.append(rel)
+                            continue
                         if rel == "manifest.json" and manifest_override is not None:
                             z.writestr(rel, manifest_override)
                         else:
                             z.write(p, rel)
+            for rel in skipped:
+                print("  excluded from zip:", rel)
             print("zipped ->", zpath, f"({os.path.getsize(zpath)//1024} KB)")
 
         make_zip(os.path.join(DIST, "chessskins.zip"))
