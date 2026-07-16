@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <path d="M50,31 L58.5,36 L58.5,46 L52.5,50.5 L58.5,55.5 L54.5,60 L57,71 L61,78.5 L64.5,82 L35.5,82 L39,78.5 L43,71 L45.5,60 L41.5,55.5 L47.5,50.5 L41.5,46 L41.5,36 Z M31,92 L35,82.5 L65,82.5 L69,92 Z" stroke="#ff1fd0" stroke-width="11" opacity="0.15"/>
+  <path d="M50,31 L58.5,36 L58.5,46 L52.5,50.5 L58.5,55.5 L54.5,60 L57,71 L61,78.5 L64.5,82 L35.5,82 L39,78.5 L43,71 L45.5,60 L41.5,55.5 L47.5,50.5 L41.5,46 L41.5,36 Z M31,92 L35,82.5 L65,82.5 L69,92 Z" stroke="#ff1fd0" stroke-width="6.5" opacity="0.3"/>
+  <path d="M50,31 L58.5,36 L58.5,46 L52.5,50.5 L58.5,55.5 L54.5,60 L57,71 L61,78.5 L64.5,82 L35.5,82 L39,78.5 L43,71 L45.5,60 L41.5,55.5 L47.5,50.5 L41.5,46 L41.5,36 Z M31,92 L35,82.5 L65,82.5 L69,92 Z" fill="#16131f" stroke="#f52fd2" stroke-width="3.4"/>
+  <path d="M50,31 L58.5,36 L58.5,46 L52.5,50.5 L58.5,55.5 L54.5,60 L57,71 L61,78.5 L64.5,82 L35.5,82 L39,78.5 L43,71 L45.5,60 L41.5,55.5 L47.5,50.5 L41.5,46 L41.5,36 Z M31,92 L35,82.5 L65,82.5 L69,92 Z" stroke="#ff9bec" stroke-width="1.5"/>
+  <path d="M45,69 L50,66 L55,69" stroke="#ff6ce0" stroke-width="1.4" opacity="0.55"/>
+  <path d="M44.5,41 L55.5,41" stroke="#ff1fd0" stroke-width="4.6" opacity="0.45"/>
+  <path d="M44.5,41 L55.5,41" stroke="#ffe0f8" stroke-width="1.9"/>
+</g></svg>

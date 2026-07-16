@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
-<path d="M38,42 Q50,40 62,42 L61,52 Q50,55 39,52 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
-<circle cx="44.5" cy="47" r="2.2" fill="#ede0c6" stroke="none"/>
-<circle cx="55.5" cy="47" r="2.2" fill="#ede0c6" stroke="none"/>
+<path d="M38,41 Q50,39 62,41 L61,53 Q50,56 39,53 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<circle cx="44.5" cy="47.5" r="2.2" fill="#ede0c6" stroke="none"/>
+<circle cx="55.5" cy="47.5" r="2.2" fill="#ede0c6" stroke="none"/>
 <path d="M26,45 C25,31 35,24.5 50,24.5 C65,24.5 75,31 74,45 C67,41.5 58.5,40 50,40 C41.5,40 33,41.5 26,45 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
-<path d="M45,26 C38,22 33.5,14 36.5,6.5 C41,11 45,19 47.5,26 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
-<path d="M55,26 C62,22 66.5,14 63.5,6.5 C59,11 55,19 52.5,26 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
-<circle cx="50" cy="14.5" r="6" fill="#c93a26" stroke="#ede0c6" stroke-width="4"/>
-<path d="M33,55 L67,55 L71.5,81.5 L28.5,81.5 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
-<path d="M34,55 L23,56 Q21,64 24,69 L33,66 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
-<path d="M66,55 L77,56 Q79,64 76,69 L67,66 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
-<path d="M33.8,56.5 L66.2,56.5 L67,61.5 L33,61.5 Z" fill="#c93a26" stroke="none"/>
-<path d="M31.5,65.5 L68.5,65.5 M30.5,73 L69.5,73" fill="none" stroke="#ede0c6" stroke-width="3"/>
+<path d="M44.5,27 C37,24 32.5,16.5 34.5,8 C40,12.5 44.5,19.5 47,27 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
+<path d="M55.5,27 C63,24 67.5,16.5 65.5,8 C60,12.5 55.5,19.5 53,27 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
+<circle cx="50" cy="13.5" r="6.2" fill="#c93a26" stroke="#ede0c6" stroke-width="4"/>
+<path d="M33,53 L67,53 L71.5,81.5 L28.5,81.5 Z" fill="#292019" stroke="#ede0c6" stroke-width="5"/>
+<path d="M34,53 L23,54 Q21,62 24,67.5 L33,64.5 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
+<path d="M66,53 L77,54 Q79,62 76,67.5 L67,64.5 Z" fill="#292019" stroke="#ede0c6" stroke-width="4"/>
+<path d="M33.8,54.5 L66.2,54.5 L67,60 L33,60 Z" fill="#c93a26" stroke="none"/>
+<path d="M31.5,64.5 L68.5,64.5 M30.5,72.5 L69.5,72.5" fill="none" stroke="#ede0c6" stroke-width="3"/>
 <rect x="24" y="81.5" width="52" height="11" rx="5.5" fill="#292019" stroke="#ede0c6" stroke-width="5"/><rect x="30.5" y="85.4" width="39" height="3.4" rx="1.7" fill="#c93a26" stroke="none"/></g></svg>
