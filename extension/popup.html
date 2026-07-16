@@ -71,7 +71,7 @@
 <body>
   <header>
     <div class="headrow">
-      <div><b>ChessSkins</b><div class="sub">Piece skins for lichess &amp; chess.com</div></div>
+      <div><b>ChessSkins</b><div class="sub" data-i18n="popupSub">Piece skins for lichess &amp; chess.com</div></div>
       <label class="switch"><input type="checkbox" id="master"><span class="slider"></span></label>
     </div>
     <div class="sites" id="sites">
@@ -80,12 +80,13 @@
     </div>
     <div id="chips"></div>
   </header>
-  <div class="disabled-note">Skins are off — sites show their own pieces. Flip the switch to bring the fun back.</div>
+  <div class="disabled-note" data-i18n="popupOff">Skins are off — sites show their own pieces. Flip the switch to bring the fun back.</div>
   <div id="grid"></div>
   <footer>
-    <button id="openGallery">🖼️ Full gallery</button>
-    <button id="openCreate">✨ Create your own</button>
+    <button id="openGallery" data-i18n="btnGallery">🖼️ Full gallery</button>
+    <button id="openCreate" data-i18n="btnCreate">✨ Create your own</button>
   </footer>
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -83,62 +83,63 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>ChessSkins Gallery <small>every skin, on a real board</small></h1>
+    <h1>ChessSkins Gallery <small data-i18n="gallerySub">every skin, on a real board</small></h1>
     <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">GitHub ↗</a>
   </header>
 
   <div class="toolbar">
     <span id="chips"></span>
     <select id="sort" style="border:1px solid var(--edge);border-radius:9px;padding:6px 8px;background:var(--card);color:var(--ink);font:13px system-ui">
-      <option value="curated">Curated</option>
-      <option value="name">Name</option>
-      <option value="likes">Most 👍</option>
+      <option value="curated" data-i18n="sortCurated">Curated</option>
+      <option value="name" data-i18n="sortName">Name</option>
+      <option value="likes" data-i18n="sortLikes">Most 👍</option>
     </select>
-    <input id="search" type="text" placeholder="Search skins…">
+    <input id="search" type="text" data-i18n-placeholder="searchPh" placeholder="Search skins…">
   </div>
   <div id="grid"></div>
 
   <section id="boards">
-    <h2 style="font-size:21px;margin:40px 0 4px">🟫 Board themes</h2>
-    <div class="sub" style="color:var(--muted);margin-bottom:14px">Pick the ground your armies fight on — works with every skin.</div>
+    <h2 style="font-size:21px;margin:40px 0 4px" data-i18n="boardsTitle">🟫 Board themes</h2>
+    <div class="sub" style="color:var(--muted);margin-bottom:14px" data-i18n="boardsSub">Pick the ground your armies fight on — works with every skin.</div>
     <div id="boardGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
   </section>
 
   <section id="create">
-    <h2>✨ Create your own skin</h2>
-    <div class="sub">Design a set with Claude or ChatGPT, try it on instantly, and submit it to the public catalog — no coding needed.</div>
+    <h2 data-i18n="createTitle">✨ Create your own skin</h2>
+    <div class="sub" data-i18n="createSub">Design a set with Claude or ChatGPT, try it on instantly, and submit it to the public catalog — no coding needed.</div>
     <div class="steps">
       <div class="step">
-        <h3><span class="n">1</span>Describe your theme &amp; copy the AI prompt</h3>
-        <input id="themeDesc" type="text" placeholder="e.g. sushi pieces — the knight is a shrimp nigiri">
+        <h3><span class="n">1</span><span data-i18n="step1">Describe your theme &amp; copy the AI prompt</span></h3>
+        <input id="themeDesc" type="text" data-i18n-placeholder="themePh" placeholder="e.g. sushi pieces — the knight is a shrimp nigiri">
         <div class="row">
-          <button class="btn" id="copyPrompt">Copy prompt for Claude / ChatGPT</button>
+          <button class="btn" id="copyPrompt" data-i18n="btnCopyPrompt">Copy prompt for Claude / ChatGPT</button>
         </div>
         <div id="copyStatus"></div>
       </div>
       <div class="step">
-        <h3><span class="n">2</span>Paste the AI's JSON answer here</h3>
-        <textarea id="pasteBox" placeholder='Paste the whole reply — I&#39;ll find the JSON block.'></textarea>
+        <h3><span class="n">2</span><span data-i18n="step2">Paste the AI's JSON answer here</span></h3>
+        <textarea id="pasteBox" data-i18n-placeholder="pastePh" placeholder='Paste the whole reply — I&#39;ll find the JSON block.'></textarea>
         <div class="row">
-          <button class="btn" id="loadSkin">Load &amp; preview</button>
-          <button class="btn ghost" id="importFile">Import .skin.json…</button>
+          <button class="btn" id="loadSkin" data-i18n="btnLoad">Load &amp; preview</button>
+          <button class="btn ghost" id="importFile" data-i18n="btnImport">Import .skin.json…</button>
           <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
         </div>
         <div id="loadStatus"></div>
       </div>
     </div>
     <div id="previewWrap">
-      <h3>Your skin, on the board:</h3>
+      <h3 data-i18n="previewTitle">Your skin, on the board:</h3>
       <div class="board" id="previewBoard"></div>
       <div class="row">
-        <button class="btn" id="applyCustom">Apply as my skin</button>
-        <button class="btn ghost" id="downloadCustom">Download skin.json</button>
-        <button class="btn ghost" id="submitCustom">Submit to the catalog →</button>
+        <button class="btn" id="applyCustom" data-i18n="btnApply">Apply as my skin</button>
+        <button class="btn ghost" id="downloadCustom" data-i18n="btnDownload">Download skin.json</button>
+        <button class="btn ghost" id="submitCustom" data-i18n="btnSubmit">Submit to the catalog →</button>
       </div>
-      <div class="sub" style="margin-top:8px">Submitting opens a GitHub form — paste the same JSON there and a robot will validate it and open the pull request for you.</div>
+      <div class="sub" style="margin-top:8px" data-i18n="submitNote">Submitting opens a GitHub form — paste the same JSON there and a robot will validate it and open the pull request for you.</div>
     </div>
   </section>
 </div>
+<script src="i18n.js"></script>
 <script src="gallery.js"></script>
 </body>
 </html>

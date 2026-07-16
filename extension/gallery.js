@@ -10,11 +10,14 @@ const grid = document.getElementById("grid");
 const chipsEl = document.getElementById("chips");
 const search = document.getElementById("search");
 
-let skins = [], state = { ...DEFAULTS }, activeCat = "All";
-let favorites = [], recents = [];
+// Chip labels double as filter values; translated once at startup, never
+// persisted (storage only holds skin ids), so comparisons stay consistent.
+const ALL_CAT = t("catAll", "All");
+const FAV_CAT = t("catFav", "★ Favorites");
+const RECENT_CAT = t("catRecent", "Recent");
 
-const FAV_CAT = "★ Favorites";
-const RECENT_CAT = "Recent";
+let skins = [], state = { ...DEFAULTS }, activeCat = ALL_CAT;
+let favorites = [], recents = [];
 
 function trackRecent(id) {
   recents = [id, ...recents.filter((r) => r !== id)].slice(0, 6);
@@ -54,7 +57,7 @@ function renderGrid() {
   if (activeCat === FAV_CAT) list = skins.filter((s) => favorites.includes(s.id));
   else if (activeCat === RECENT_CAT)
     list = recents.map((id) => skins.find((s) => s.id === id)).filter(Boolean);
-  else if (activeCat !== "All") list = skins.filter((s) => s.category === activeCat);
+  else if (activeCat !== ALL_CAT) list = skins.filter((s) => s.category === activeCat);
 
   const sortBy = document.getElementById("sort").value;
   if (sortBy === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
@@ -67,16 +70,18 @@ function renderGrid() {
     card.className = "card";
     card.dataset.id = s.id;
     card.innerHTML = `
-      <span class="star" title="Favorite">★</span>
+      <span class="star">★</span>
       <div class="board">${boardHTML((c) => `skins/${s.id}/${c}.svg`)}</div>
       <div class="meta"><span class="name"></span><span class="cat"></span></div>
       <div class="tag"></div>
-      <div class="applied">✓ Applied — go play!</div>`;
+      <div class="applied"></div>`;
+    card.querySelector(".applied").textContent = t("appliedCard", "✓ Applied — go play!");
     card.querySelector(".name").textContent = s.name;
     card.querySelector(".cat").textContent =
       (s.likes ? `👍 ${s.likes} · ` : "") + s.category;
     card.querySelector(".tag").textContent = s.tagline;
     const star = card.querySelector(".star");
+    star.title = t("starTitle", "Favorite");
     star.classList.toggle("faved", favorites.includes(s.id));
     star.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -101,7 +106,7 @@ function renderGrid() {
 }
 
 function renderChips() {
-  const cats = ["All", ...new Set(skins.map((s) => s.category))];
+  const cats = [ALL_CAT, ...new Set(skins.map((s) => s.category))];
   if (recents.length) cats.splice(1, 0, RECENT_CAT);
   if (favorites.length) cats.splice(1, 0, FAV_CAT);
   chipsEl.innerHTML = "";
@@ -128,7 +133,7 @@ function renderBoardSelection() {
 function renderBoards() {
   boardGrid.innerHTML = "";
   const entries = [
-    { id: "default", name: "Site Default", tagline: "Whatever the site says.", _none: true },
+    { id: "default", name: t("boardDefaultName", "Site Default"), tagline: t("boardDefaultTag", "Whatever the site says."), _none: true },
     ...boards,
   ];
   for (const b of entries) {
@@ -234,7 +239,7 @@ function initCreator() {
     const theme = document.getElementById("themeDesc").value.trim();
     await navigator.clipboard.writeText(AI_PROMPT(theme));
     copyStatus.className = "ok";
-    copyStatus.textContent = "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns.";
+    copyStatus.textContent = t("copiedMsg", "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns.");
   });
 
   function loadFromText(text) {
@@ -246,12 +251,13 @@ function initCreator() {
     const errs = validateSkin(obj);
     if (errs.length) {
       loadStatus.className = "err";
-      loadStatus.textContent = "Almost! Fix these (you can ask the AI to correct them):\n• " + errs.join("\n• ");
+      loadStatus.textContent =
+        t("errIntro", "Almost! Fix these (you can ask the AI to correct them):") + "\n• " + errs.join("\n• ");
       return;
     }
     loadedSkin = obj;
     loadStatus.className = "ok";
-    loadStatus.textContent = `"${obj.name}" loaded — looking good!`;
+    loadStatus.textContent = `"${obj.name}" ` + t("loadedMsg", "loaded — looking good!");
     document.getElementById("previewBoard").innerHTML =
       boardHTML((c) => "data:image/svg+xml," + encodeURIComponent(obj.pieces[c]));
     document.getElementById("previewWrap").style.display = "block";
@@ -274,8 +280,8 @@ function initCreator() {
     await chrome.storage.sync.set({ csSkin: CUSTOM_ID, csEnabled: true });
     state.csSkin = CUSTOM_ID;
     renderSelection();
-    document.getElementById("applyCustom").textContent = "✓ Applied — go play!";
-    setTimeout(() => (document.getElementById("applyCustom").textContent = "Apply as my skin"), 2500);
+    document.getElementById("applyCustom").textContent = t("appliedBtn", "✓ Applied — go play!");
+    setTimeout(() => (document.getElementById("applyCustom").textContent = t("btnApply", "Apply as my skin")), 2500);
   });
 
   document.getElementById("downloadCustom").addEventListener("click", () => {

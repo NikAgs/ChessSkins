@@ -7,12 +7,16 @@ const DEFAULTS = {
 const CUSTOM_ID = "__custom__";
 const STRIP = ["wK", "wQ", "wR", "wB", "wN", "wP"];
 
+// chip labels double as filter values; translated once here, never persisted
+// (storage only holds skin ids), so comparisons stay consistent.
+const ALL_CAT = t("catAll", "All");
+
 const grid = document.getElementById("grid");
 const chipsEl = document.getElementById("chips");
 const master = document.getElementById("master");
 
 let state = { ...DEFAULTS };
-let activeCat = "All";
+let activeCat = ALL_CAT;
 let skins = [];
 let customSkin = null;
 
@@ -56,19 +60,19 @@ function makeCard({ id, name, tagline, imgFor, badge }) {
 
 function renderGrid() {
   grid.innerHTML = "";
-  if (customSkin && (activeCat === "All" || activeCat === "Yours")) {
+  if (customSkin && (activeCat === ALL_CAT || activeCat === "Yours")) {
     grid.appendChild(
       makeCard({
         id: CUSTOM_ID,
-        name: customSkin.name || "My Custom Skin",
-        tagline: customSkin.tagline || "Made by you, with a little AI help.",
-        badge: "YOURS",
+        name: customSkin.name || t("customName", "My Custom Skin"),
+        tagline: customSkin.tagline || t("customTag", "Made by you, with a little AI help."),
+        badge: t("badgeYours", "YOURS"),
         imgFor: (c) => "data:image/svg+xml," + encodeURIComponent(customSkin.pieces[c]),
       })
     );
   }
   for (const s of skins) {
-    if (activeCat !== "All" && activeCat !== "Yours" && s.category !== activeCat) continue;
+    if (activeCat !== ALL_CAT && activeCat !== "Yours" && s.category !== activeCat) continue;
     if (activeCat === "Yours") continue;
     grid.appendChild(
       makeCard({ ...s, imgFor: (c) => `skins/${s.id}/${c}.svg` })
@@ -78,7 +82,7 @@ function renderGrid() {
 }
 
 function renderChips() {
-  const cats = ["All", ...new Set(skins.map((s) => s.category))];
+  const cats = [ALL_CAT, ...new Set(skins.map((s) => s.category))];
   if (customSkin) cats.splice(1, 0, "Yours");
   chipsEl.innerHTML = "";
   for (const c of cats) {
