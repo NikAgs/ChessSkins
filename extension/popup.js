@@ -51,8 +51,14 @@ function makeCard({ id, name, tagline, imgFor, badge }) {
     </div>
     <div class="strip">${STRIP.map((c) => `<div class="sq"><img src="${imgFor(c)}" alt=""></div>`).join("")}</div>`;
   card.innerHTML = `${duo}<div class="name"></div><div class="tag"></div>`;
-  card.querySelector(".name").innerHTML = badge ? `${name} <span class="badge">${badge}</span>` : "";
-  if (!badge) card.querySelector(".name").textContent = name;
+  const nameEl = card.querySelector(".name");
+  nameEl.textContent = name; // textContent only — name can be user-supplied JSON
+  if (badge) {
+    const b = document.createElement("span");
+    b.className = "badge";
+    b.textContent = badge;
+    nameEl.append(" ", b);
+  }
   card.querySelector(".tag").textContent = tagline;
   card.addEventListener("click", () => select(id));
   return card;
