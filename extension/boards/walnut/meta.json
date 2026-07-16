@@ -1,0 +1,9 @@
+{
+  "id": "walnut",
+  "name": "Walnut",
+  "tagline": "The club board your grandfather taught you on.",
+  "colors": {
+    "light": "#e0b67d",
+    "dark": "#8a5733"
+  }
+}

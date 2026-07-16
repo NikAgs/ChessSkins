@@ -67,12 +67,46 @@ def build_skin(skin_id):
     return meta, []
 
 
+BOARDS = os.path.join(ROOT, "boards")
+
+
+def build_board(board_id):
+    src = os.path.join(BOARDS, board_id)
+    meta_path = os.path.join(src, "meta.json")
+    svg_path = os.path.join(src, "board.svg")
+    if not os.path.isfile(meta_path) or not os.path.isfile(svg_path):
+        return None, [f"board {board_id}: missing board.svg or meta.json"]
+    try:
+        meta = json.load(open(meta_path))
+    except json.JSONDecodeError as e:
+        return None, [f"board {board_id}: meta.json invalid ({e})"]
+
+    dst = os.path.join(EXT, "boards", board_id)
+    os.makedirs(dst, exist_ok=True)
+    svg = open(svg_path).read()
+    shutil.copyfile(svg_path, os.path.join(dst, "board.svg"))
+    shutil.copyfile(meta_path, os.path.join(dst, "meta.json"))
+    uri = "data:image/svg+xml," + urllib.parse.quote(svg, safe="~()*!.'")
+    css = (
+        f'cg-board{{background-image:url("{uri}") !important;background-size:cover !important;}}\n'
+        f'wc-chess-board,chess-board{{background-image:url("{uri}") !important;'
+        f'background-size:100% 100% !important;}}'
+    )
+    with open(os.path.join(dst, "board.css"), "w") as f:
+        f.write(css)
+    return meta, []
+
+
 def main():
     ids = sorted(d for d in os.listdir(SKINS) if os.path.isdir(os.path.join(SKINS, d)))
     ext_skins = os.path.join(EXT, "skins")
     if os.path.isdir(ext_skins):
         shutil.rmtree(ext_skins)
     os.makedirs(ext_skins, exist_ok=True)
+    ext_boards = os.path.join(EXT, "boards")
+    if os.path.isdir(ext_boards):
+        shutil.rmtree(ext_boards)
+    os.makedirs(ext_boards, exist_ok=True)
 
     catalog, all_errors = [], []
     for skin_id in ids:
@@ -87,6 +121,20 @@ def main():
     catalog.sort(key=lambda m: (m["id"] != "goofball", m["name"].lower()))
     with open(os.path.join(ext_skins, "index.json"), "w") as f:
         json.dump(catalog, f, indent=1)
+
+    board_ids = sorted(d for d in os.listdir(BOARDS)
+                       if os.path.isdir(os.path.join(BOARDS, d)) and not d.startswith("_")) \
+        if os.path.isdir(BOARDS) else []
+    board_catalog = []
+    for board_id in board_ids:
+        meta, errors = build_board(board_id)
+        all_errors += errors
+        if meta:
+            board_catalog.append({k: meta.get(k, "") for k in ("id", "name", "tagline", "colors")})
+    board_catalog.sort(key=lambda m: (m["id"] != "classic", m["name"].lower()))
+    with open(os.path.join(ext_boards, "index.json"), "w") as f:
+        json.dump(board_catalog, f, indent=1)
+    print(f"built {len(board_catalog)} board themes into extension/boards/")
 
     if all_errors:
         print("SKIPPED / ERRORS:")

@@ -62,6 +62,16 @@
   .ok { color: var(--sel); } .err { color: #b3403a; white-space: pre-wrap; }
   #previewWrap { display: none; margin-top: 18px; }
   #previewWrap .board { max-width: 480px; }
+
+  .bcard { background: var(--card); border: 2px solid var(--edge); border-radius: 14px; padding: 10px;
+           cursor: pointer; transition: border-color .1s, transform .1s; text-align: center; }
+  .bcard:hover { border-color: #c9bda9; transform: translateY(-2px); }
+  .bcard.selected { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel-soft); }
+  .bcard .bpreview { aspect-ratio: 2 / 1; border-radius: 8px; background-size: 200%;
+                     background-position: top left; position: relative; overflow: hidden; }
+  .bcard .bpreview img { position: absolute; width: 12.5%; height: 25%; }
+  .bcard .name { font-weight: 700; font-size: 14px; margin-top: 8px; }
+  .bcard .tag { color: var(--muted); font-size: 12px; margin-top: 1px; }
   @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -77,6 +87,12 @@
     <input id="search" type="text" placeholder="Search skins…">
   </div>
   <div id="grid"></div>
+
+  <section id="boards">
+    <h2 style="font-size:21px;margin:40px 0 4px">🟫 Board themes</h2>
+    <div class="sub" style="color:var(--muted);margin-bottom:14px">Pick the ground your armies fight on — works with every skin.</div>
+    <div id="boardGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
+  </section>
 
   <section id="create">
     <h2>✨ Create your own skin</h2>

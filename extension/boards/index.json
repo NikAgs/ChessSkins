@@ -1,0 +1,29 @@
+[
+ {
+  "id": "classic",
+  "name": "Classic Brown",
+  "tagline": "The lichess standard.",
+  "colors": {
+   "light": "#f0d9b5",
+   "dark": "#b58863"
+  }
+ },
+ {
+  "id": "maple",
+  "name": "Maple",
+  "tagline": "Pale, calm, Scandinavian.",
+  "colors": {
+   "light": "#f3e6c9",
+   "dark": "#d6a570"
+  }
+ },
+ {
+  "id": "walnut",
+  "name": "Walnut",
+  "tagline": "The club board your grandfather taught you on.",
+  "colors": {
+   "light": "#e0b67d",
+   "dark": "#8a5733"
+  }
+ }
+]

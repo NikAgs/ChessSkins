@@ -77,6 +77,49 @@ function renderChips() {
   }
 }
 
+/* ---------------- board themes ---------------- */
+
+const boardGrid = document.getElementById("boardGrid");
+let boards = [];
+
+function renderBoardSelection() {
+  for (const card of boardGrid.children) {
+    card.classList.toggle("selected", card.dataset.id === (state.csBoard || "default"));
+  }
+}
+
+function renderBoards() {
+  boardGrid.innerHTML = "";
+  const entries = [
+    { id: "default", name: "Site Default", tagline: "Whatever the site says.", _none: true },
+    ...boards,
+  ];
+  for (const b of entries) {
+    const card = document.createElement("div");
+    card.className = "bcard";
+    card.dataset.id = b.id;
+    // top-left 4x2 corner of the board, with a few goofball pieces on it
+    const bg = b._none
+      ? "background:repeating-conic-gradient(var(--sq-l) 0% 25%, var(--sq-d) 0% 50%) 0 0 / 25% 50%"
+      : `background-image:url('boards/${b.id}/board.svg')`;
+    const pieces = ["bR", "bN", "bB", "bQ"]
+      .map((c, i) => `<img src="skins/goofball/${c}.svg" style="left:${i * 12.5}%;top:0">`)
+      .join("");
+    card.innerHTML = `
+      <div class="bpreview" style="${bg}">${pieces}</div>
+      <div class="name"></div><div class="tag"></div>`;
+    card.querySelector(".name").textContent = b.name;
+    card.querySelector(".tag").textContent = b.tagline;
+    card.addEventListener("click", () => {
+      state.csBoard = b.id;
+      chrome.storage.sync.set({ csBoard: b.id, csEnabled: true });
+      renderBoardSelection();
+    });
+    boardGrid.appendChild(card);
+  }
+  renderBoardSelection();
+}
+
 /* ---------------- creator ---------------- */
 
 const AI_PROMPT = (theme) => `You are a professional icon designer creating a complete chess piece skin for the open-source ChessSkins browser extension (${REPO}).
@@ -208,18 +251,23 @@ function initCreator() {
 /* ---------------- init ---------------- */
 
 async function init() {
-  const [idx, stored] = await Promise.all([
+  const [idx, bidx, stored] = await Promise.all([
     fetch(chrome.runtime.getURL("skins/index.json")).then((r) => r.json()),
-    chrome.storage.sync.get(DEFAULTS),
+    fetch(chrome.runtime.getURL("boards/index.json")).then((r) => r.json()).catch(() => []),
+    chrome.storage.sync.get({ ...DEFAULTS, csBoard: "default" }),
   ]);
   skins = idx;
+  boards = bidx;
   state = stored;
   search.addEventListener("input", renderGrid);
   renderChips();
   renderGrid();
+  renderBoards();
   initCreator();
   chrome.storage.onChanged.addListener((ch, area) => {
-    if (area === "sync" && ch.csSkin) { state.csSkin = ch.csSkin.newValue; renderSelection(); }
+    if (area !== "sync") return;
+    if (ch.csSkin) { state.csSkin = ch.csSkin.newValue; renderSelection(); }
+    if (ch.csBoard) { state.csBoard = ch.csBoard.newValue; renderBoardSelection(); }
   });
 }
 

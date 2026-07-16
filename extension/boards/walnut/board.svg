@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <linearGradient id="wlg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8c58e"/>
+      <stop offset="0.55" stop-color="#dcb075"/>
+      <stop offset="1" stop-color="#e2ba81"/>
+    </linearGradient>
+    <linearGradient id="wdg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#98653e"/>
+      <stop offset="0.55" stop-color="#7f4e2b"/>
+      <stop offset="1" stop-color="#8d5934"/>
+    </linearGradient>
+    <g id="L">
+      <rect width="100" height="100" fill="url(#wlg)"/>
+      <path d="M0 15 Q22 12 44 15 T100 13" fill="none" stroke="#b8894a" stroke-width="1.6" opacity="0.22"/>
+      <path d="M0 32 Q30 36 55 32 T100 34" fill="none" stroke="#c2955a" stroke-width="1.2" opacity="0.18"/>
+      <path d="M0 51 Q24 48 50 52 T100 50" fill="none" stroke="#b8894a" stroke-width="1.8" opacity="0.20"/>
+      <path d="M0 69 Q28 72 52 68 T100 70" fill="none" stroke="#f6e0ae" stroke-width="1.4" opacity="0.32"/>
+      <path d="M0 86 Q24 83 48 87 T100 85" fill="none" stroke="#b98d4c" stroke-width="1.4" opacity="0.20"/>
+    </g>
+    <g id="D">
+      <rect width="100" height="100" fill="url(#wdg)"/>
+      <path d="M0 14 Q24 11 46 14 T100 12" fill="none" stroke="#5c3819" stroke-width="1.6" opacity="0.28"/>
+      <path d="M0 31 Q30 35 56 31 T100 33" fill="none" stroke="#663f1e" stroke-width="1.2" opacity="0.24"/>
+      <path d="M0 50 Q22 47 50 51 T100 49" fill="none" stroke="#5c3819" stroke-width="1.8" opacity="0.26"/>
+      <path d="M0 68 Q28 71 52 67 T100 69" fill="none" stroke="#b57e4c" stroke-width="1.4" opacity="0.30"/>
+      <path d="M0 87 Q26 84 50 88 T100 86" fill="none" stroke="#603c1c" stroke-width="1.4" opacity="0.24"/>
+    </g>
+  </defs>
+  <use href="#L" transform="translate(0,0)"/>
+  <use href="#D" transform="translate(200,0) scale(-1,1)"/>
+  <use href="#L" transform="translate(200,100) scale(1,-1)"/>
+  <use href="#D" transform="translate(400,100) scale(-1,-1)"/>
+  <use href="#L" transform="translate(400,0)"/>
+  <use href="#D" transform="translate(600,0) scale(-1,1)"/>
+  <use href="#L" transform="translate(600,100) scale(1,-1)"/>
+  <use href="#D" transform="translate(800,100) scale(-1,-1)"/>
+  <use href="#D" transform="translate(100,200) scale(-1,-1)"/>
+  <use href="#L" transform="translate(200,100) scale(-1,1)"/>
+  <use href="#D" transform="translate(300,200) scale(-1,-1)"/>
+  <use href="#L" transform="translate(400,100) scale(-1,1)"/>
+  <use href="#D" transform="translate(500,200) scale(-1,-1)"/>
+  <use href="#L" transform="translate(500,100)"/>
+  <use href="#D" transform="translate(600,200) scale(1,-1)"/>
+  <use href="#L" transform="translate(700,100)"/>
+  <use href="#L" transform="translate(0,300) scale(1,-1)"/>
+  <use href="#D" transform="translate(200,200) scale(-1,1)"/>
+  <use href="#L" transform="translate(200,200)"/>
+  <use href="#D" transform="translate(300,300) scale(1,-1)"/>
+  <use href="#L" transform="translate(500,200) scale(-1,1)"/>
+  <use href="#D" transform="translate(600,300) scale(-1,-1)"/>
+  <use href="#L" transform="translate(600,300) scale(1,-1)"/>
+  <use href="#D" transform="translate(800,200) scale(-1,1)"/>
+  <use href="#D" transform="translate(100,300) scale(-1,1)"/>
+  <use href="#L" transform="translate(200,300) scale(-1,1)"/>
+  <use href="#D" transform="translate(200,300)"/>
+  <use href="#L" transform="translate(300,300)"/>
+  <use href="#D" transform="translate(500,400) scale(-1,-1)"/>
+  <use href="#L" transform="translate(500,400) scale(1,-1)"/>
+  <use href="#D" transform="translate(600,400) scale(1,-1)"/>
+  <use href="#L" transform="translate(800,300) scale(-1,1)"/>
+  <use href="#L" transform="translate(0,400)"/>
+  <use href="#D" transform="translate(200,400) scale(-1,1)"/>
+  <use href="#L" transform="translate(300,400) scale(-1,1)"/>
+  <use href="#D" transform="translate(400,400) scale(-1,1)"/>
+  <use href="#L" transform="translate(500,400) scale(-1,1)"/>
+  <use href="#D" transform="translate(600,400) scale(-1,1)"/>
+  <use href="#L" transform="translate(600,500) scale(1,-1)"/>
+  <use href="#D" transform="translate(700,500) scale(1,-1)"/>
+  <use href="#D" transform="translate(100,600) scale(-1,-1)"/>
+  <use href="#L" transform="translate(100,500)"/>
+  <use href="#D" transform="translate(300,500) scale(-1,1)"/>
+  <use href="#L" transform="translate(300,600) scale(1,-1)"/>
+  <use href="#D" transform="translate(500,600) scale(-1,-1)"/>
+  <use href="#L" transform="translate(500,500)"/>
+  <use href="#D" transform="translate(700,500) scale(-1,1)"/>
+  <use href="#L" transform="translate(700,600) scale(1,-1)"/>
+  <use href="#L" transform="translate(0,700) scale(1,-1)"/>
+  <use href="#D" transform="translate(100,600)"/>
+  <use href="#L" transform="translate(200,700) scale(1,-1)"/>
+  <use href="#D" transform="translate(300,600)"/>
+  <use href="#L" transform="translate(400,700) scale(1,-1)"/>
+  <use href="#D" transform="translate(600,700) scale(-1,-1)"/>
+  <use href="#L" transform="translate(700,600) scale(-1,1)"/>
+  <use href="#D" transform="translate(800,700) scale(-1,-1)"/>
+  <use href="#D" transform="translate(100,700) scale(-1,1)"/>
+  <use href="#L" transform="translate(100,700)"/>
+  <use href="#D" transform="translate(300,800) scale(-1,-1)"/>
+  <use href="#L" transform="translate(400,700) scale(-1,1)"/>
+  <use href="#D" transform="translate(400,700)"/>
+  <use href="#L" transform="translate(500,800) scale(1,-1)"/>
+  <use href="#D" transform="translate(700,700) scale(-1,1)"/>
+  <use href="#L" transform="translate(700,700)"/>
+</svg>

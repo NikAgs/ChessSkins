@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+  <path d="M45,37 Q41,30 36,28 M55,37 Q59,30 64,28" fill="none" stroke="#ecf2df" stroke-width="2.8"/>
+  <circle cx="36" cy="28" r="1.6" fill="#ecf2df" stroke="none"/>
+  <circle cx="64" cy="28" r="1.6" fill="#ecf2df" stroke="none"/>
+  <path d="M37,62 L29,58 M37,72 L28,74 M63,62 L71,58 M63,72 L72,74" fill="none" stroke="#ecf2df" stroke-width="3.5"/>
+  <ellipse cx="50" cy="67" rx="14" ry="15" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+  <path d="M38.5,62 Q50,66 61.5,62 M37,71 Q50,75 63,71" fill="none" stroke="#ecf2df" stroke-width="2.5"/>
+  <circle cx="50" cy="44" r="10" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+  <circle cx="46" cy="43" r="2.2" fill="#ecf2df" stroke="none"/>
+  <circle cx="54" cy="43" r="2.2" fill="#ecf2df" stroke="none"/>
+  <path d="M46.5,47.5 Q50,50.5 53.5,47.5" fill="none" stroke="#ecf2df" stroke-width="2.5"/>
+  <rect x="31" y="82" width="38" height="10" rx="5" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+</g></svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round">
+  <path d="M35,13 Q44,4 56,4 M30,12 Q34,2 46,2" fill="none" stroke="#ecf2df" stroke-width="3"/>
+  <circle cx="56" cy="4" r="1.6" fill="#ecf2df" stroke="none"/>
+  <circle cx="46" cy="2" r="1.6" fill="#ecf2df" stroke="none"/>
+  <path d="M39,26 C52,20 64,26 68,40 C71,52 66,64 56,72 C50,76 43,77 39,74 C31,68 29,34 39,26 Z" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+  <path d="M43,32 Q57,31 62,42" fill="none" stroke="#ecf2df" stroke-width="2.5"/>
+  <path d="M50,68 C48,52 55,34 68,32 C77,31 80,39 74,48 C68,58 58,66 50,68 Z" fill="#62486b" stroke="#ecf2df" stroke-width="4.5"/>
+  <path d="M73,46 C75,56 71,68 67,80" fill="none" stroke="#ecf2df" stroke-width="4.5"/>
+  <path d="M67,80 L77,81" fill="none" stroke="#ecf2df" stroke-width="4"/>
+  <ellipse cx="32" cy="22" rx="9" ry="10" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+  <circle cx="29" cy="19" r="2.6" fill="#ecf2df" stroke="none"/>
+  <path d="M25,26 Q28,28.5 32,27.5" fill="none" stroke="#ecf2df" stroke-width="2.5"/>
+  <path d="M40,75 L36,81 M47,76 L44,81" fill="none" stroke="#ecf2df" stroke-width="3.5"/>
+  <rect x="24" y="82" width="52" height="10" rx="5" fill="#4a3452" stroke="#ecf2df" stroke-width="4.5"/>
+</g></svg>

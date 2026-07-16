@@ -3,8 +3,9 @@
 // data-URI SVG images); a user-made custom skin lives in chrome.storage.local.
 
 const STYLE_ID = "chessskins-style";
+const BOARD_STYLE_ID = "chessskins-board-style";
 const CUSTOM_ID = "__custom__";
-const DEFAULTS = { csEnabled: true, csSkin: "goofball" };
+const DEFAULTS = { csEnabled: true, csSkin: "goofball", csBoard: "default" };
 
 // piece-code -> selectors for both sites (lichess uses <piece class="white pawn">,
 // chess.com uses <div class="piece wp"> and promotion windows use the same codes)
@@ -16,6 +17,7 @@ const SITE_SELECTORS = (code) => {
 };
 
 let currentKey = null;
+let currentBoardKey = null;
 
 function cssFromPieces(pieces) {
   return Object.entries(pieces)
@@ -26,18 +28,33 @@ function cssFromPieces(pieces) {
     .join("\n");
 }
 
-function setStyle(css) {
-  let el = document.getElementById(STYLE_ID);
+function setStyle(css, id = STYLE_ID) {
+  let el = document.getElementById(id);
   if (css == null) {
     if (el) el.remove();
     return;
   }
   if (!el) {
     el = document.createElement("style");
-    el.id = STYLE_ID;
+    el.id = id;
     (document.head || document.documentElement).appendChild(el);
   }
   el.textContent = css;
+}
+
+async function applyBoard(enabled, board) {
+  const key = `${enabled}:${board}`;
+  if (key === currentBoardKey) return;
+  currentBoardKey = key;
+  if (!enabled || !board || board === "default") return setStyle(null, BOARD_STYLE_ID);
+  try {
+    const url = chrome.runtime.getURL(`boards/${board}/board.css`);
+    const css = await (await fetch(url)).text();
+    if (currentBoardKey !== key) return;
+    setStyle(css, BOARD_STYLE_ID);
+  } catch (e) {
+    setStyle(null, BOARD_STYLE_ID); // unknown board id — fall back to site default
+  }
 }
 
 async function apply(enabled, skin) {
@@ -68,12 +85,15 @@ async function apply(enabled, skin) {
 }
 
 function sync() {
-  chrome.storage.sync.get(DEFAULTS, (v) => apply(v.csEnabled, v.csSkin));
+  chrome.storage.sync.get(DEFAULTS, (v) => {
+    apply(v.csEnabled, v.csSkin);
+    applyBoard(v.csEnabled, v.csBoard);
+  });
 }
 
 sync(); // document_start — skin lands before the board first paints
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "sync" && (changes.csEnabled || changes.csSkin)) sync();
+  if (area === "sync" && (changes.csEnabled || changes.csSkin || changes.csBoard)) sync();
   if (area === "local" && changes.csCustomSkin) {
     currentKey = null; // force re-render of the custom skin
     sync();
