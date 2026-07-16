@@ -1,0 +1,9 @@
+{
+  "id": "neon-grid",
+  "name": "Neon Grid",
+  "tagline": "The board Tron plays on.",
+  "colors": {
+    "light": "#413764",
+    "dark": "#221e33"
+  }
+}

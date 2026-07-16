@@ -1,0 +1,9 @@
+{
+  "id": "tidepool",
+  "name": "Tidepool",
+  "tagline": "Something moved under e5…",
+  "colors": {
+    "light": "#d9edE2",
+    "dark": "#4f9f9c"
+  }
+}

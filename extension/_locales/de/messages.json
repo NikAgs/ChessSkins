@@ -1,0 +1,128 @@
+{
+ "appName": {
+  "message": "ChessSkins — Skins für Lichess & Chess.com"
+ },
+ "appDesc": {
+  "message": "Ein visueller Katalog verspielter Schachfiguren-Skins für lichess und chess.com — Kätzchen, Roboter, Piraten, 8-Bit und mehr. Sofort angewendet."
+ },
+ "appAction": {
+  "message": "ChessSkins — Figuren-Skin wählen"
+ },
+ "popupSub": {
+  "message": "Figuren-Skins für lichess & chess.com"
+ },
+ "popupOff": {
+  "message": "Skins sind aus — die Seiten zeigen ihre eigenen Figuren. Schalter umlegen und der Spaß ist zurück."
+ },
+ "btnGallery": {
+  "message": "🖼️ Ganze Galerie"
+ },
+ "btnCreate": {
+  "message": "✨ Selbst gestalten"
+ },
+ "customName": {
+  "message": "Mein eigener Skin"
+ },
+ "customTag": {
+  "message": "Von dir gemacht, mit etwas KI-Hilfe."
+ },
+ "badgeYours": {
+  "message": "DEINS"
+ },
+ "gallerySub": {
+  "message": "jeder Skin, auf einem echten Brett"
+ },
+ "sortCurated": {
+  "message": "Kuratiert"
+ },
+ "sortName": {
+  "message": "Name"
+ },
+ "sortLikes": {
+  "message": "Meiste 👍"
+ },
+ "searchPh": {
+  "message": "Skins durchsuchen…"
+ },
+ "boardsTitle": {
+  "message": "🟫 Brett-Themen"
+ },
+ "boardsSub": {
+  "message": "Wähle den Boden, auf dem deine Armeen kämpfen — passt zu jedem Skin."
+ },
+ "boardDefaultName": {
+  "message": "Seiten-Standard"
+ },
+ "boardDefaultTag": {
+  "message": "Was die Seite eben sagt."
+ },
+ "createTitle": {
+  "message": "✨ Eigenen Skin erstellen"
+ },
+ "createSub": {
+  "message": "Gestalte ein Set mit Claude oder ChatGPT, probiere es sofort an und reiche es beim öffentlichen Katalog ein — ganz ohne Code."
+ },
+ "step1": {
+  "message": "Thema beschreiben & KI-Prompt kopieren"
+ },
+ "themePh": {
+  "message": "z. B. Sushi-Figuren — der Springer ist ein Garnelen-Nigiri"
+ },
+ "btnCopyPrompt": {
+  "message": "Prompt für Claude / ChatGPT kopieren"
+ },
+ "copiedMsg": {
+  "message": "Kopiert! In Claude oder ChatGPT einfügen und mit dem JSON zurückkommen."
+ },
+ "step2": {
+  "message": "JSON-Antwort der KI hier einfügen"
+ },
+ "pastePh": {
+  "message": "Einfach die ganze Antwort einfügen — ich finde den JSON-Block."
+ },
+ "btnLoad": {
+  "message": "Laden & Vorschau"
+ },
+ "btnImport": {
+  "message": ".skin.json importieren…"
+ },
+ "loadedMsg": {
+  "message": "geladen — sieht gut aus!"
+ },
+ "errIntro": {
+  "message": "Fast! Behebe diese Punkte (du kannst die KI darum bitten):"
+ },
+ "previewTitle": {
+  "message": "Dein Skin, auf dem Brett:"
+ },
+ "btnApply": {
+  "message": "Als meinen Skin anwenden"
+ },
+ "appliedBtn": {
+  "message": "✓ Angewendet — viel Spaß!"
+ },
+ "btnDownload": {
+  "message": "skin.json herunterladen"
+ },
+ "btnSubmit": {
+  "message": "Beim Katalog einreichen →"
+ },
+ "submitNote": {
+  "message": "Beim Einreichen öffnet sich ein GitHub-Formular: füge dort dasselbe JSON ein, ein Bot prüft es und öffnet den Pull Request für dich."
+ },
+ "appliedCard": {
+  "message": "✓ Angewendet — viel Spaß!"
+ },
+ "catAll": {
+  "message": "Alle"
+ },
+ "catFav": {
+  "message": "★ Favoriten"
+ },
+ "catRecent": {
+  "message": "Zuletzt"
+ },
+ "starTitle": {
+  "message": "Favorit"
+ }
+}

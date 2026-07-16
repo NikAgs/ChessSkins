@@ -11,6 +11,15 @@ const chipsEl = document.getElementById("chips");
 const search = document.getElementById("search");
 
 let skins = [], state = { ...DEFAULTS }, activeCat = "All";
+let favorites = [], recents = [];
+
+const FAV_CAT = "★ Favorites";
+const RECENT_CAT = "Recent";
+
+function trackRecent(id) {
+  recents = [id, ...recents.filter((r) => r !== id)].slice(0, 6);
+  chrome.storage.sync.set({ csRecents: recents });
+}
 
 /* ---------------- catalog ---------------- */
 
@@ -41,24 +50,50 @@ function renderSelection() {
 function renderGrid() {
   const q = search.value.trim().toLowerCase();
   grid.innerHTML = "";
-  for (const s of skins) {
-    if (activeCat !== "All" && s.category !== activeCat) continue;
+  let list = skins;
+  if (activeCat === FAV_CAT) list = skins.filter((s) => favorites.includes(s.id));
+  else if (activeCat === RECENT_CAT)
+    list = recents.map((id) => skins.find((s) => s.id === id)).filter(Boolean);
+  else if (activeCat !== "All") list = skins.filter((s) => s.category === activeCat);
+
+  const sortBy = document.getElementById("sort").value;
+  if (sortBy === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+  else if (sortBy === "likes")
+    list = [...list].sort((a, b) => (b.likes || 0) - (a.likes || 0));
+
+  for (const s of list) {
     if (q && !(s.name + s.tagline + s.category).toLowerCase().includes(q)) continue;
     const card = document.createElement("div");
     card.className = "card";
     card.dataset.id = s.id;
     card.innerHTML = `
+      <span class="star" title="Favorite">★</span>
       <div class="board">${boardHTML((c) => `skins/${s.id}/${c}.svg`)}</div>
       <div class="meta"><span class="name"></span><span class="cat"></span></div>
       <div class="tag"></div>
       <div class="applied">✓ Applied — go play!</div>`;
     card.querySelector(".name").textContent = s.name;
-    card.querySelector(".cat").textContent = s.category;
+    card.querySelector(".cat").textContent =
+      (s.likes ? `👍 ${s.likes} · ` : "") + s.category;
     card.querySelector(".tag").textContent = s.tagline;
+    const star = card.querySelector(".star");
+    star.classList.toggle("faved", favorites.includes(s.id));
+    star.addEventListener("click", (e) => {
+      e.stopPropagation();
+      favorites = favorites.includes(s.id)
+        ? favorites.filter((f) => f !== s.id)
+        : [...favorites, s.id];
+      chrome.storage.sync.set({ csFavorites: favorites });
+      star.classList.toggle("faved", favorites.includes(s.id));
+      renderChips();
+      if (activeCat === FAV_CAT) renderGrid();
+    });
     card.addEventListener("click", () => {
       state.csSkin = s.id;
       chrome.storage.sync.set({ csSkin: s.id, csEnabled: true });
+      trackRecent(s.id);
       renderSelection();
+      renderChips();
     });
     grid.appendChild(card);
   }
@@ -67,6 +102,8 @@ function renderGrid() {
 
 function renderChips() {
   const cats = ["All", ...new Set(skins.map((s) => s.category))];
+  if (recents.length) cats.splice(1, 0, RECENT_CAT);
+  if (favorites.length) cats.splice(1, 0, FAV_CAT);
   chipsEl.innerHTML = "";
   for (const c of cats) {
     const b = document.createElement("button");
@@ -200,11 +237,11 @@ function initCreator() {
     copyStatus.textContent = "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns.";
   });
 
-  document.getElementById("loadSkin").addEventListener("click", () => {
+  function loadFromText(text) {
     loadStatus.textContent = "";
     document.getElementById("previewWrap").style.display = "none";
     let obj;
-    try { obj = extractJSON(document.getElementById("pasteBox").value); }
+    try { obj = extractJSON(text); }
     catch (e) { loadStatus.className = "err"; loadStatus.textContent = e.message; return; }
     const errs = validateSkin(obj);
     if (errs.length) {
@@ -218,6 +255,18 @@ function initCreator() {
     document.getElementById("previewBoard").innerHTML =
       boardHTML((c) => "data:image/svg+xml," + encodeURIComponent(obj.pieces[c]));
     document.getElementById("previewWrap").style.display = "block";
+  }
+
+  document.getElementById("loadSkin").addEventListener("click", () =>
+    loadFromText(document.getElementById("pasteBox").value)
+  );
+  document.getElementById("importFile").addEventListener("click", () =>
+    document.getElementById("fileInput").click()
+  );
+  document.getElementById("fileInput").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (file) loadFromText(await file.text());
+    e.target.value = "";
   });
 
   document.getElementById("applyCustom").addEventListener("click", async () => {
@@ -254,12 +303,15 @@ async function init() {
   const [idx, bidx, stored] = await Promise.all([
     fetch(chrome.runtime.getURL("skins/index.json")).then((r) => r.json()),
     fetch(chrome.runtime.getURL("boards/index.json")).then((r) => r.json()).catch(() => []),
-    chrome.storage.sync.get({ ...DEFAULTS, csBoard: "default" }),
+    chrome.storage.sync.get({ ...DEFAULTS, csBoard: "default", csFavorites: [], csRecents: [] }),
   ]);
   skins = idx;
   boards = bidx;
   state = stored;
+  favorites = stored.csFavorites;
+  recents = stored.csRecents;
   search.addEventListener("input", renderGrid);
+  document.getElementById("sort").addEventListener("change", renderGrid);
   renderChips();
   renderGrid();
   renderBoards();

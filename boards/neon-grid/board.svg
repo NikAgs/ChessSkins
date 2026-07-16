@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="ng-chk" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#221e33"/>
+      <rect width="100" height="100" fill="#413764"/>
+      <rect x="100" y="100" width="100" height="100" fill="#413764"/>
+    </pattern>
+    <radialGradient id="ng-mag">
+      <stop offset="0" stop-color="#ff3df0" stop-opacity="0.38"/>
+      <stop offset="0.55" stop-color="#ff3df0" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ff3df0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="ng-glow" width="100" height="100" patternUnits="userSpaceOnUse">
+      <circle cx="0" cy="0" r="32" fill="url(#ng-mag)"/>
+      <circle cx="100" cy="0" r="32" fill="url(#ng-mag)"/>
+      <circle cx="0" cy="100" r="32" fill="url(#ng-mag)"/>
+      <circle cx="100" cy="100" r="32" fill="url(#ng-mag)"/>
+    </pattern>
+    <path id="ng-grid" d="M100 0V800M200 0V800M300 0V800M400 0V800M500 0V800M600 0V800M700 0V800M0 100H800M0 200H800M0 300H800M0 400H800M0 500H800M0 600H800M0 700H800M1 0V800M799 0V800M0 1H800M0 799H800"/>
+  </defs>
+  <rect width="800" height="800" fill="url(#ng-chk)"/>
+  <rect width="800" height="800" fill="url(#ng-glow)"/>
+  <use href="#ng-grid" fill="none" stroke="#00e5ff" stroke-opacity="0.20" stroke-width="9"/>
+  <use href="#ng-grid" fill="none" stroke="#5ff2ff" stroke-opacity="0.60" stroke-width="2.5"/>
+  <use href="#ng-grid" fill="none" stroke="#c9fbff" stroke-opacity="0.9" stroke-width="1"/>
+</svg>

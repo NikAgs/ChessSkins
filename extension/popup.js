@@ -1,4 +1,9 @@
-const DEFAULTS = { csEnabled: true, csSkin: "goofball" };
+const DEFAULTS = {
+  csEnabled: true,
+  csSkin: "goofball",
+  csSiteLichess: true,
+  csSiteChess: true,
+};
 const CUSTOM_ID = "__custom__";
 const STRIP = ["wK", "wQ", "wR", "wB", "wN", "wP"];
 
@@ -21,6 +26,12 @@ function renderSelection() {
 function select(id) {
   state.csSkin = id;
   chrome.storage.sync.set({ csSkin: id });
+  if (id !== CUSTOM_ID) {
+    // keep the gallery's "Recent" row in sync
+    chrome.storage.sync.get({ csRecents: [] }, ({ csRecents }) => {
+      chrome.storage.sync.set({ csRecents: [id, ...csRecents.filter((r) => r !== id)].slice(0, 6) });
+    });
+  }
   renderSelection();
 }
 
@@ -99,6 +110,15 @@ async function init() {
     chrome.storage.sync.set({ csEnabled: master.checked });
     renderSelection();
   });
+
+  for (const [id, key] of [["siteLichess", "csSiteLichess"], ["siteChess", "csSiteChess"]]) {
+    const box = document.getElementById(id);
+    box.checked = state[key];
+    box.addEventListener("change", () => {
+      state[key] = box.checked;
+      chrome.storage.sync.set({ [key]: box.checked });
+    });
+  }
 
   document.getElementById("openGallery").addEventListener("click", () =>
     chrome.tabs.create({ url: chrome.runtime.getURL("gallery.html") })

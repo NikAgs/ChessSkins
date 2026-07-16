@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="np-check" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#f5eeda"/>
+      <rect x="100" width="100" height="100" fill="#aea99d"/>
+      <rect y="100" width="100" height="100" fill="#aea99d"/>
+    </pattern>
+    <pattern id="np-dots" width="11" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+      <circle cx="3" cy="3" r="1.35" fill="#32302a" fill-opacity="0.13"/>
+    </pattern>
+    <pattern id="np-dots2" width="11" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+      <circle cx="8.5" cy="8.5" r="1.1" fill="#fffbef" fill-opacity="0.16"/>
+    </pattern>
+    <pattern id="np-grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="none" stroke="#45423a" stroke-opacity="0.12" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="url(#np-check)"/>
+  <rect width="800" height="800" fill="url(#np-dots)"/>
+  <rect width="800" height="800" fill="url(#np-dots2)"/>
+  <rect width="800" height="800" fill="url(#np-grid)"/>
+</svg>

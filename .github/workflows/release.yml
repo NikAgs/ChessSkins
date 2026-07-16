@@ -1,0 +1,31 @@
+name: Build & release
+on:
+  push:
+    branches: [main]
+    paths: ["skins/**", "boards/**", "extension/**", "tools/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Refresh popularity (best-effort)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/fetch_popularity.py || true
+      - name: Build extension (Chrome + Firefox zips)
+        run: python3 tools/build.py
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: ChessSkins build ${{ github.run_number }}
+          generate_release_notes: true
+          files: dist/*.zip

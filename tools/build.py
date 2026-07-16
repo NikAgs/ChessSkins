@@ -108,6 +108,14 @@ def main():
         shutil.rmtree(ext_boards)
     os.makedirs(ext_boards, exist_ok=True)
 
+    likes_path = os.path.join(ROOT, "data", "popularity.json")
+    likes = {}
+    if os.path.isfile(likes_path):
+        try:
+            likes = json.load(open(likes_path))
+        except json.JSONDecodeError:
+            pass
+
     catalog, all_errors = [], []
     for skin_id in ids:
         meta, errors = build_skin(skin_id)
@@ -115,6 +123,7 @@ def main():
         if meta:
             entry = {k: meta.get(k, "") for k in ("id", "name", "tagline", "style")}
             entry["category"] = CATEGORY_OF.get(skin_id, "More")
+            entry["likes"] = int(likes.get(skin_id, 0))
             catalog.append(entry)
 
     # Goofball (the original) first, everything else alphabetical by name
@@ -143,13 +152,28 @@ def main():
 
     if "--no-zip" not in sys.argv:
         os.makedirs(DIST, exist_ok=True)
-        zpath = os.path.join(DIST, "chessskins.zip")
-        with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-            for base, _, files in os.walk(EXT):
-                for fn in files:
-                    p = os.path.join(base, fn)
-                    z.write(p, os.path.relpath(p, EXT))
-        print("zipped ->", zpath, f"({os.path.getsize(zpath)//1024} KB)")
+
+        def make_zip(zpath, manifest_override=None):
+            with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+                for base, _, files in os.walk(EXT):
+                    for fn in files:
+                        p = os.path.join(base, fn)
+                        rel = os.path.relpath(p, EXT)
+                        if rel == "manifest.json" and manifest_override is not None:
+                            z.writestr(rel, manifest_override)
+                        else:
+                            z.write(p, rel)
+            print("zipped ->", zpath, f"({os.path.getsize(zpath)//1024} KB)")
+
+        make_zip(os.path.join(DIST, "chessskins.zip"))
+
+        # Firefox variant: same package + gecko app id (required for AMO signing)
+        ff_manifest = json.load(open(os.path.join(EXT, "manifest.json")))
+        ff_manifest["browser_specific_settings"] = {
+            "gecko": {"id": "chessskins@nikags.github.io", "strict_min_version": "115.0"}
+        }
+        make_zip(os.path.join(DIST, "chessskins-firefox.zip"),
+                 json.dumps(ff_manifest, indent=2))
 
     return 1 if all_errors else 0
 

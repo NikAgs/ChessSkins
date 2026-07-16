@@ -1,0 +1,128 @@
+{
+ "appName": {
+  "message": "ChessSkins — скины для Lichess и Chess.com"
+ },
+ "appDesc": {
+  "message": "Визуальный каталог весёлых скинов шахматных фигур для lichess и chess.com: котята, роботы, пираты, 8-бит и не только. Применяется мгновенно."
+ },
+ "appAction": {
+  "message": "ChessSkins — выберите скин фигур"
+ },
+ "popupSub": {
+  "message": "Скины фигур для lichess и chess.com"
+ },
+ "popupOff": {
+  "message": "Скины выключены — сайты показывают свои фигуры. Включите переключатель, чтобы вернуть веселье."
+ },
+ "btnGallery": {
+  "message": "🖼️ Вся галерея"
+ },
+ "btnCreate": {
+  "message": "✨ Создать свой"
+ },
+ "customName": {
+  "message": "Мой скин"
+ },
+ "customTag": {
+  "message": "Сделан вами — с небольшой помощью ИИ."
+ },
+ "badgeYours": {
+  "message": "ВАШ"
+ },
+ "gallerySub": {
+  "message": "каждый скин — на настоящей доске"
+ },
+ "sortCurated": {
+  "message": "Подборка"
+ },
+ "sortName": {
+  "message": "Название"
+ },
+ "sortLikes": {
+  "message": "Больше 👍"
+ },
+ "searchPh": {
+  "message": "Поиск скинов…"
+ },
+ "boardsTitle": {
+  "message": "🟫 Темы доски"
+ },
+ "boardsSub": {
+  "message": "Выберите поле битвы для своих армий — подходит к любому скину."
+ },
+ "boardDefaultName": {
+  "message": "Доска сайта"
+ },
+ "boardDefaultTag": {
+  "message": "Как решит сайт."
+ },
+ "createTitle": {
+  "message": "✨ Создайте свой скин"
+ },
+ "createSub": {
+  "message": "Придумайте набор с Claude или ChatGPT, примерьте его мгновенно и отправьте в общий каталог — без единой строчки кода."
+ },
+ "step1": {
+  "message": "Опишите тему и скопируйте промпт для ИИ"
+ },
+ "themePh": {
+  "message": "например, суши-фигуры: конь — нигири с креветкой"
+ },
+ "btnCopyPrompt": {
+  "message": "Скопировать промпт для Claude / ChatGPT"
+ },
+ "copiedMsg": {
+  "message": "Скопировано! Вставьте в Claude или ChatGPT и вернитесь с полученным JSON."
+ },
+ "step2": {
+  "message": "Вставьте сюда JSON-ответ ИИ"
+ },
+ "pastePh": {
+  "message": "Вставьте весь ответ — я найду блок JSON."
+ },
+ "btnLoad": {
+  "message": "Загрузить и посмотреть"
+ },
+ "btnImport": {
+  "message": "Импорт .skin.json…"
+ },
+ "loadedMsg": {
+  "message": "загружен — отлично выглядит!"
+ },
+ "errIntro": {
+  "message": "Почти! Исправьте это (можно попросить ИИ):"
+ },
+ "previewTitle": {
+  "message": "Ваш скин на доске:"
+ },
+ "btnApply": {
+  "message": "Применить как мой скин"
+ },
+ "appliedBtn": {
+  "message": "✓ Применено — за игру!"
+ },
+ "btnDownload": {
+  "message": "Скачать skin.json"
+ },
+ "btnSubmit": {
+  "message": "Отправить в каталог →"
+ },
+ "submitNote": {
+  "message": "Откроется форма GitHub: вставьте туда тот же JSON — робот проверит его и сам откроет pull request."
+ },
+ "appliedCard": {
+  "message": "✓ Применено — за игру!"
+ },
+ "catAll": {
+  "message": "Все"
+ },
+ "catFav": {
+  "message": "★ Избранное"
+ },
+ "catRecent": {
+  "message": "Недавние"
+ },
+ "starTitle": {
+  "message": "В избранное"
+ }
+}

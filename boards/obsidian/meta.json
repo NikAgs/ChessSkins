@@ -1,0 +1,9 @@
+{
+  "id": "obsidian",
+  "name": "Obsidian",
+  "tagline": "Forged in the mantle, cooled for blitz.",
+  "colors": {
+    "light": "#635e59",
+    "dark": "#262322"
+  }
+}

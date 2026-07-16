@@ -1,0 +1,9 @@
+{
+  "id": "blueprint",
+  "name": "Blueprint",
+  "tagline": "Every plan starts with e4.",
+  "colors": {
+    "light": "#4a7fb8",
+    "dark": "#1b3f6b"
+  }
+}

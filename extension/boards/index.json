@@ -9,12 +9,84 @@
   }
  },
  {
+  "id": "blueprint",
+  "name": "Blueprint",
+  "tagline": "Every plan starts with e4.",
+  "colors": {
+   "light": "#4a7fb8",
+   "dark": "#1b3f6b"
+  }
+ },
+ {
+  "id": "chalkboard",
+  "name": "Chalkboard",
+  "tagline": "Today's lesson: the Fried Liver.",
+  "colors": {
+   "light": "#82a18c",
+   "dark": "#2b4035"
+  }
+ },
+ {
+  "id": "glass",
+  "name": "Frosted Glass",
+  "tagline": "Cool, clean, click-clack.",
+  "colors": {
+   "light": "#dcebf5",
+   "dark": "#7c9ab2"
+  }
+ },
+ {
+  "id": "kraft",
+  "name": "Kraft Paper",
+  "tagline": "Ship your pawns with care.",
+  "colors": {
+   "light": "#d6b283",
+   "dark": "#93643c"
+  }
+ },
+ {
   "id": "maple",
   "name": "Maple",
   "tagline": "Pale, calm, Scandinavian.",
   "colors": {
-   "light": "#f3e6c9",
-   "dark": "#d6a570"
+   "light": "#f4e7cb",
+   "dark": "#d7a56d"
+  }
+ },
+ {
+  "id": "marble",
+  "name": "Marble",
+  "tagline": "Play like it's a museum lobby.",
+  "colors": {
+   "light": "#e8e6e1",
+   "dark": "#7a8290"
+  }
+ },
+ {
+  "id": "neon-grid",
+  "name": "Neon Grid",
+  "tagline": "The board Tron plays on.",
+  "colors": {
+   "light": "#413764",
+   "dark": "#221e33"
+  }
+ },
+ {
+  "id": "newsprint",
+  "name": "Newsprint",
+  "tagline": "All the moves fit to print.",
+  "colors": {
+   "light": "#f5eeda",
+   "dark": "#aea99d"
+  }
+ },
+ {
+  "id": "tidepool",
+  "name": "Tidepool",
+  "tagline": "Something moved under e5\u2026",
+  "colors": {
+   "light": "#d9edE2",
+   "dark": "#4f9f9c"
   }
  },
  {
@@ -22,8 +94,8 @@
   "name": "Walnut",
   "tagline": "The club board your grandfather taught you on.",
   "colors": {
-   "light": "#e0b67d",
-   "dark": "#8a5733"
+   "light": "#e2b87e",
+   "dark": "#8d5a35"
   }
  }
 ]

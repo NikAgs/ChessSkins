@@ -5,7 +5,16 @@
 const STYLE_ID = "chessskins-style";
 const BOARD_STYLE_ID = "chessskins-board-style";
 const CUSTOM_ID = "__custom__";
-const DEFAULTS = { csEnabled: true, csSkin: "goofball", csBoard: "default" };
+const DEFAULTS = {
+  csEnabled: true,
+  csSkin: "goofball",
+  csBoard: "default",
+  csSiteLichess: true,
+  csSiteChess: true,
+};
+
+// which site is this page? (content script only runs on these hosts)
+const SITE = /(^|\.)chess\.com$/.test(location.hostname) ? "chess" : "lichess";
 
 // piece-code -> selectors for both sites (lichess uses <piece class="white pawn">,
 // chess.com uses <div class="piece wp"> and promotion windows use the same codes)
@@ -86,14 +95,18 @@ async function apply(enabled, skin) {
 
 function sync() {
   chrome.storage.sync.get(DEFAULTS, (v) => {
-    apply(v.csEnabled, v.csSkin);
-    applyBoard(v.csEnabled, v.csBoard);
+    const siteOn = SITE === "chess" ? v.csSiteChess : v.csSiteLichess;
+    const on = v.csEnabled && siteOn;
+    apply(on, v.csSkin);
+    applyBoard(on, v.csBoard);
   });
 }
 
 sync(); // document_start — skin lands before the board first paints
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "sync" && (changes.csEnabled || changes.csSkin || changes.csBoard)) sync();
+  if (area === "sync" &&
+      (changes.csEnabled || changes.csSkin || changes.csBoard ||
+       changes.csSiteLichess || changes.csSiteChess)) sync();
   if (area === "local" && changes.csCustomSkin) {
     currentKey = null; // force re-render of the custom skin
     sync();

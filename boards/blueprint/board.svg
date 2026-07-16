@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <pattern id="bp-check" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#1b3f6b"/>
+      <rect x="0" y="0" width="100" height="100" fill="#4a7fb8"/>
+      <rect x="100" y="100" width="100" height="100" fill="#4a7fb8"/>
+    </pattern>
+    <pattern id="bp-fine" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M25 0H0V25" fill="none" stroke="#ffffff" stroke-opacity="0.09" stroke-width="1"/>
+    </pattern>
+    <pattern id="bp-major" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M100 0H0V100" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+      <path d="M0 0h9M91 0h9M0 0v9M0 91v9" fill="none" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1.8"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="800" height="800" fill="url(#bp-check)"/>
+  <rect x="0" y="0" width="800" height="800" fill="url(#bp-fine)"/>
+  <rect x="0" y="0" width="800" height="800" fill="url(#bp-major)"/>
+</svg>

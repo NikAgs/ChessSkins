@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <radialGradient id="obs-gl" cx="0.5" cy="0.42" r="0.78">
+      <stop offset="0" stop-color="#726c67"/>
+      <stop offset="1" stop-color="#5c5752"/>
+    </radialGradient>
+    <radialGradient id="obs-gd" cx="0.5" cy="0.42" r="0.82">
+      <stop offset="0" stop-color="#33302f"/>
+      <stop offset="1" stop-color="#211e1d"/>
+    </radialGradient>
+    <g id="obs-lt">
+      <rect width="100" height="100" fill="url(#obs-gl)"/>
+      <path d="M16,80 L33,66 M68,28 L83,15 M42,52 L50,46" fill="none" stroke="#454340" stroke-width="1" opacity="0.28"/>
+    </g>
+    <g id="obs-dk">
+      <rect width="100" height="100" fill="url(#obs-gd)"/>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <g stroke="#ff5a1f" stroke-width="3.6" opacity="0.13">
+          <path d="M14,6 L22,22 L16,38 L28,56 L23,74 L31,94"/>
+          <path d="M22,22 L33,29"/>
+          <path d="M60,4 L69,18 L63,33 L74,47"/>
+          <path d="M52,70 L66,78 L61,93"/>
+        </g>
+        <g stroke="#ff9147" stroke-width="1.2" opacity="0.46">
+          <path d="M14,6 L22,22 L16,38 L28,56 L23,74 L31,94"/>
+          <path d="M22,22 L33,29"/>
+          <path d="M60,4 L69,18 L63,33 L74,47"/>
+          <path d="M52,70 L66,78 L61,93"/>
+        </g>
+      </g>
+    </g>
+    <pattern id="obs-tile" width="200" height="200" patternUnits="userSpaceOnUse">
+      <use href="#obs-lt" x="0" y="0"/>
+      <use href="#obs-dk" x="100" y="0"/>
+      <use href="#obs-dk" x="0" y="100"/>
+      <use href="#obs-lt" x="100" y="100"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="800" height="800" fill="url(#obs-tile)"/>
+</svg>

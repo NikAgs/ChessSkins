@@ -1,0 +1,128 @@
+{
+ "appName": {
+  "message": "ChessSkins — Skins para Lichess y Chess.com"
+ },
+ "appDesc": {
+  "message": "Un catálogo visual de divertidos diseños de piezas para lichess y chess.com: gatitos, robots, piratas, 8-bit y más. Se aplica al instante."
+ },
+ "appAction": {
+  "message": "ChessSkins — elige un diseño de piezas"
+ },
+ "popupSub": {
+  "message": "Diseños de piezas para lichess y chess.com"
+ },
+ "popupOff": {
+  "message": "Los diseños están desactivados: los sitios muestran sus propias piezas. Activa el interruptor para recuperar la diversión."
+ },
+ "btnGallery": {
+  "message": "🖼️ Galería completa"
+ },
+ "btnCreate": {
+  "message": "✨ Crea el tuyo"
+ },
+ "customName": {
+  "message": "Mi diseño personalizado"
+ },
+ "customTag": {
+  "message": "Hecho por ti, con un poco de ayuda de la IA."
+ },
+ "badgeYours": {
+  "message": "TUYO"
+ },
+ "gallerySub": {
+  "message": "cada diseño, sobre un tablero real"
+ },
+ "sortCurated": {
+  "message": "Selección"
+ },
+ "sortName": {
+  "message": "Nombre"
+ },
+ "sortLikes": {
+  "message": "Más 👍"
+ },
+ "searchPh": {
+  "message": "Buscar diseños…"
+ },
+ "boardsTitle": {
+  "message": "🟫 Temas de tablero"
+ },
+ "boardsSub": {
+  "message": "Elige el terreno donde luchan tus ejércitos: funciona con cualquier diseño."
+ },
+ "boardDefaultName": {
+  "message": "Tablero del sitio"
+ },
+ "boardDefaultTag": {
+  "message": "Lo que diga el sitio."
+ },
+ "createTitle": {
+  "message": "✨ Crea tu propio diseño"
+ },
+ "createSub": {
+  "message": "Diseña un juego con Claude o ChatGPT, pruébalo al instante y envíalo al catálogo público, sin programar nada."
+ },
+ "step1": {
+  "message": "Describe tu tema y copia el prompt de IA"
+ },
+ "themePh": {
+  "message": "p. ej. piezas de sushi: el caballo es un nigiri de gamba"
+ },
+ "btnCopyPrompt": {
+  "message": "Copiar prompt para Claude / ChatGPT"
+ },
+ "copiedMsg": {
+  "message": "¡Copiado! Pégalo en Claude o ChatGPT y vuelve con el JSON que te devuelva."
+ },
+ "step2": {
+  "message": "Pega aquí la respuesta JSON de la IA"
+ },
+ "pastePh": {
+  "message": "Pega la respuesta completa: yo encontraré el bloque JSON."
+ },
+ "btnLoad": {
+  "message": "Cargar y previsualizar"
+ },
+ "btnImport": {
+  "message": "Importar .skin.json…"
+ },
+ "loadedMsg": {
+  "message": "cargado — ¡tiene buena pinta!"
+ },
+ "errIntro": {
+  "message": "¡Casi! Corrige esto (puedes pedirle a la IA que lo arregle):"
+ },
+ "previewTitle": {
+  "message": "Tu diseño, sobre el tablero:"
+ },
+ "btnApply": {
+  "message": "Aplicar como mi diseño"
+ },
+ "appliedBtn": {
+  "message": "✓ Aplicado — ¡a jugar!"
+ },
+ "btnDownload": {
+  "message": "Descargar skin.json"
+ },
+ "btnSubmit": {
+  "message": "Enviar al catálogo →"
+ },
+ "submitNote": {
+  "message": "Al enviar se abre un formulario de GitHub: pega allí el mismo JSON y un robot lo validará y abrirá el pull request por ti."
+ },
+ "appliedCard": {
+  "message": "✓ Aplicado — ¡a jugar!"
+ },
+ "catAll": {
+  "message": "Todos"
+ },
+ "catFav": {
+  "message": "★ Favoritos"
+ },
+ "catRecent": {
+  "message": "Recientes"
+ },
+ "starTitle": {
+  "message": "Favorito"
+ }
+}

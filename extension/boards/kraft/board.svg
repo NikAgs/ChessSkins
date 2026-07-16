@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<defs>
+<radialGradient id="kv" cx="0.5" cy="0.5" r="0.74">
+<stop offset="0" stop-color="#3d2712" stop-opacity="0"/>
+<stop offset="0.5" stop-color="#3d2712" stop-opacity="0"/>
+<stop offset="1" stop-color="#3d2712" stop-opacity="0.22"/>
+</radialGradient>
+<path id="kf1" fill="none" stroke-width="1.5" stroke-linecap="round" d="M12 18l7 -3M34 9l7 3M61 14l7 -3M83 22l5 6M8 44l5 6M27 38l8 -2M52 31l6 4M74 45l8 -2M16 66l6 -4M39 58l5 6M63 60l8 -2M86 66l5 -5M10 84l7 3M33 79l5 -6M57 86l8 -2M79 78l5 5M46 92l6 2"/>
+<path id="kf2" fill="none" stroke-width="1.3" stroke-linecap="round" d="M22 27l5 4M70 24l6 1M44 47l5 -4M14 55l5 2M81 58l4 4M25 90l6 -2M68 74l6 3M49 12l5 2"/>
+<g id="kL">
+<rect width="100" height="100" fill="#d6b283"/>
+<use href="#kf1" stroke="#f2e3c3" opacity="0.55"/>
+<use href="#kf2" stroke="#a9814f" opacity="0.22"/>
+<rect width="100" height="100" fill="url(#kv)"/>
+</g>
+<g id="kD">
+<rect width="100" height="100" fill="#93643c"/>
+<use href="#kf1" stroke="#d9b483" opacity="0.45"/>
+<use href="#kf2" stroke="#5f3d20" opacity="0.28"/>
+<rect width="100" height="100" fill="url(#kv)"/>
+</g>
+</defs>
+<use href="#kL" x="0" y="0"/><use href="#kD" x="100" y="0"/><use href="#kL" x="200" y="0"/><use href="#kD" x="300" y="0"/><use href="#kL" x="400" y="0"/><use href="#kD" x="500" y="0"/><use href="#kL" x="600" y="0"/><use href="#kD" x="700" y="0"/>
+<use href="#kD" x="0" y="100"/><use href="#kL" x="100" y="100"/><use href="#kD" x="200" y="100"/><use href="#kL" x="300" y="100"/><use href="#kD" x="400" y="100"/><use href="#kL" x="500" y="100"/><use href="#kD" x="600" y="100"/><use href="#kL" x="700" y="100"/>
+<use href="#kL" x="0" y="200"/><use href="#kD" x="100" y="200"/><use href="#kL" x="200" y="200"/><use href="#kD" x="300" y="200"/><use href="#kL" x="400" y="200"/><use href="#kD" x="500" y="200"/><use href="#kL" x="600" y="200"/><use href="#kD" x="700" y="200"/>
+<use href="#kD" x="0" y="300"/><use href="#kL" x="100" y="300"/><use href="#kD" x="200" y="300"/><use href="#kL" x="300" y="300"/><use href="#kD" x="400" y="300"/><use href="#kL" x="500" y="300"/><use href="#kD" x="600" y="300"/><use href="#kL" x="700" y="300"/>
+<use href="#kL" x="0" y="400"/><use href="#kD" x="100" y="400"/><use href="#kL" x="200" y="400"/><use href="#kD" x="300" y="400"/><use href="#kL" x="400" y="400"/><use href="#kD" x="500" y="400"/><use href="#kL" x="600" y="400"/><use href="#kD" x="700" y="400"/>
+<use href="#kD" x="0" y="500"/><use href="#kL" x="100" y="500"/><use href="#kD" x="200" y="500"/><use href="#kL" x="300" y="500"/><use href="#kD" x="400" y="500"/><use href="#kL" x="500" y="500"/><use href="#kD" x="600" y="500"/><use href="#kL" x="700" y="500"/>
+<use href="#kL" x="0" y="600"/><use href="#kD" x="100" y="600"/><use href="#kL" x="200" y="600"/><use href="#kD" x="300" y="600"/><use href="#kL" x="400" y="600"/><use href="#kD" x="500" y="600"/><use href="#kL" x="600" y="600"/><use href="#kD" x="700" y="600"/>
+<use href="#kD" x="0" y="700"/><use href="#kL" x="100" y="700"/><use href="#kD" x="200" y="700"/><use href="#kL" x="300" y="700"/><use href="#kD" x="400" y="700"/><use href="#kL" x="500" y="700"/><use href="#kD" x="600" y="700"/><use href="#kL" x="700" y="700"/>
+</svg>

@@ -1,0 +1,128 @@
+{
+ "appName": {
+  "message": "ChessSkins — Skins pour Lichess et Chess.com"
+ },
+ "appDesc": {
+  "message": "Un catalogue visuel de skins de pièces ludiques pour lichess et chess.com : chatons, robots, pirates, 8-bit et plus. Application instantanée."
+ },
+ "appAction": {
+  "message": "ChessSkins — choisissez un skin de pièces"
+ },
+ "popupSub": {
+  "message": "Skins de pièces pour lichess et chess.com"
+ },
+ "popupOff": {
+  "message": "Les skins sont désactivés — les sites affichent leurs propres pièces. Basculez l'interrupteur pour retrouver le fun."
+ },
+ "btnGallery": {
+  "message": "🖼️ Galerie complète"
+ },
+ "btnCreate": {
+  "message": "✨ Créez le vôtre"
+ },
+ "customName": {
+  "message": "Mon skin personnalisé"
+ },
+ "customTag": {
+  "message": "Fait par vous, avec un peu d'aide de l'IA."
+ },
+ "badgeYours": {
+  "message": "À VOUS"
+ },
+ "gallerySub": {
+  "message": "chaque skin, sur un vrai échiquier"
+ },
+ "sortCurated": {
+  "message": "Sélection"
+ },
+ "sortName": {
+  "message": "Nom"
+ },
+ "sortLikes": {
+  "message": "Plus de 👍"
+ },
+ "searchPh": {
+  "message": "Rechercher des skins…"
+ },
+ "boardsTitle": {
+  "message": "🟫 Thèmes d'échiquier"
+ },
+ "boardsSub": {
+  "message": "Choisissez le terrain de vos armées — compatible avec tous les skins."
+ },
+ "boardDefaultName": {
+  "message": "Échiquier du site"
+ },
+ "boardDefaultTag": {
+  "message": "Ce que le site décide."
+ },
+ "createTitle": {
+  "message": "✨ Créez votre propre skin"
+ },
+ "createSub": {
+  "message": "Concevez un jeu avec Claude ou ChatGPT, essayez-le instantanément et proposez-le au catalogue public — sans coder."
+ },
+ "step1": {
+  "message": "Décrivez votre thème et copiez le prompt IA"
+ },
+ "themePh": {
+  "message": "ex. pièces sushi — le cavalier est un nigiri à la crevette"
+ },
+ "btnCopyPrompt": {
+  "message": "Copier le prompt pour Claude / ChatGPT"
+ },
+ "copiedMsg": {
+  "message": "Copié ! Collez-le dans Claude ou ChatGPT, puis revenez avec le JSON obtenu."
+ },
+ "step2": {
+  "message": "Collez ici la réponse JSON de l'IA"
+ },
+ "pastePh": {
+  "message": "Collez la réponse entière — je trouverai le bloc JSON."
+ },
+ "btnLoad": {
+  "message": "Charger et prévisualiser"
+ },
+ "btnImport": {
+  "message": "Importer .skin.json…"
+ },
+ "loadedMsg": {
+  "message": "chargé — ça a de l'allure !"
+ },
+ "errIntro": {
+  "message": "Presque ! Corrigez ceci (vous pouvez demander à l'IA de le faire) :"
+ },
+ "previewTitle": {
+  "message": "Votre skin, sur l'échiquier :"
+ },
+ "btnApply": {
+  "message": "Appliquer comme mon skin"
+ },
+ "appliedBtn": {
+  "message": "✓ Appliqué — à vous de jouer !"
+ },
+ "btnDownload": {
+  "message": "Télécharger skin.json"
+ },
+ "btnSubmit": {
+  "message": "Proposer au catalogue →"
+ },
+ "submitNote": {
+  "message": "L'envoi ouvre un formulaire GitHub : collez-y le même JSON et un robot le validera puis ouvrira la pull request pour vous."
+ },
+ "appliedCard": {
+  "message": "✓ Appliqué — à vous de jouer !"
+ },
+ "catAll": {
+  "message": "Tous"
+ },
+ "catFav": {
+  "message": "★ Favoris"
+ },
+ "catRecent": {
+  "message": "Récents"
+ },
+ "starTitle": {
+  "message": "Favori"
+ }
+}

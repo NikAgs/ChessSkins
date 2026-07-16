@@ -25,6 +25,9 @@
   input:checked + .slider { background: var(--sel); }
   input:checked + .slider:before { transform: translateX(20px); }
 
+  .sites { display: flex; gap: 14px; padding-top: 7px; color: var(--muted); font-size: 12px; }
+  .sites label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+  .sites input { accent-color: var(--sel); margin: 0; }
   #chips { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 2px; scrollbar-width: none; }
   #chips::-webkit-scrollbar { display: none; }
   .chip { flex: none; border: 1px solid var(--edge); background: var(--card); color: var(--muted);
@@ -70,6 +73,10 @@
     <div class="headrow">
       <div><b>ChessSkins</b><div class="sub">Piece skins for lichess &amp; chess.com</div></div>
       <label class="switch"><input type="checkbox" id="master"><span class="slider"></span></label>
+    </div>
+    <div class="sites" id="sites">
+      <label><input type="checkbox" id="siteLichess"> lichess.org</label>
+      <label><input type="checkbox" id="siteChess"> chess.com</label>
     </div>
     <div id="chips"></div>
   </header>

@@ -14,7 +14,7 @@
     "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png" },
     "default_title": "ChessSkins — choose a piece skin"
   },
-  "options_page": "gallery.html",
+  "options_ui": { "page": "gallery.html", "open_in_tab": true },
   "content_scripts": [
     {
       "matches": [
