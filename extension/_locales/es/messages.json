@@ -30,7 +30,7 @@
   "message": "TUYO"
  },
  "gallerySub": {
-  "message": "cada diseño, sobre un tablero real"
+  "message": "El tablero de ajedrez no tiene por qué ser aburrido"
  },
  "sortCurated": {
   "message": "Selección"
@@ -60,16 +60,16 @@
   "message": "✨ Crea tu propio diseño"
  },
  "createSub": {
-  "message": "Diseña un juego con Claude o ChatGPT, pruébalo al instante y envíalo al catálogo público, sin programar nada."
+  "message": "Genera tu propio tema en menos de 10 minutos y úsalo al instante. Sin programar."
  },
  "step1": {
-  "message": "Describe tu tema y copia el prompt de IA"
+  "message": "Describe tu tema"
  },
  "themePh": {
-  "message": "p. ej. piezas de sushi: el caballo es un nigiri de gamba"
+  "message": "p. ej. piezas de sushi - el caballo es un nigiri de camarón"
  },
  "btnCopyPrompt": {
-  "message": "Copiar prompt para Claude / ChatGPT"
+  "message": "Copiar prompt"
  },
  "copiedMsg": {
   "message": "¡Copiado! Pégalo en Claude o ChatGPT y vuelve con el JSON que te devuelva."
@@ -78,7 +78,7 @@
   "message": "Pega aquí la respuesta JSON de la IA"
  },
  "pastePh": {
-  "message": "Pega la respuesta completa: yo encontraré el bloque JSON."
+  "message": "Pega la respuesta completa"
  },
  "btnLoad": {
   "message": "Cargar y previsualizar"
@@ -87,7 +87,7 @@
   "message": "Importar .skin.json…"
  },
  "loadedMsg": {
-  "message": "cargado — ¡tiene buena pinta!"
+  "message": "Éxito"
  },
  "errIntro": {
   "message": "¡Casi! Corrige esto (puedes pedirle a la IA que lo arregle):"
@@ -108,7 +108,7 @@
   "message": "Enviar al catálogo →"
  },
  "submitNote": {
-  "message": "Al enviar se abre un formulario de GitHub: pega allí el mismo JSON y un robot lo validará y abrirá el pull request por ti."
+  "message": "Enviar abre un formulario de GitHub"
  },
  "appliedCard": {
   "message": "✓ Aplicado — ¡a jugar!"
@@ -124,5 +124,38 @@
  },
  "starTitle": {
   "message": "Favorito"
+ },
+ "filterRecent": {
+  "message": "🕒 Recientes"
+ },
+ "filterTrending": {
+  "message": "🔥 Tendencias"
+ },
+ "filterPopular": {
+  "message": "⭐ Más populares"
+ },
+ "filterName": {
+  "message": "🔤 Nombre (A-Z)"
+ },
+ "popupBoards": {
+  "message": "Tablero"
+ },
+ "backToGallery": {
+  "message": "← Volver a la galería"
+ },
+ "themePhBoard": {
+  "message": "p. ej. madera de torneo desgastada - veta suave, tonos cálidos"
+ },
+ "btnOpenChatGPT": {
+  "message": "Abrir en ChatGPT"
+ },
+ "btnOpenClaude": {
+  "message": "Abrir en Claude"
+ },
+ "modePieces": {
+  "message": "Piezas"
+ },
+ "modeBoard": {
+  "message": "Tablero"
  }
 }

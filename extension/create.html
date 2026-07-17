@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ChessSkins — Create your own skin</title>
+<style>
+  :root {
+    --bg: #f6efe3; --ink: #3d3833; --muted: #8a7f6d;
+    --card: #fffaf1; --edge: #e3d8c4; --sel: #629924; --sel-soft: #e8f1dc;
+    --sq-l: #f0d9b5; --sq-d: #b58863;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.45 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 26px; margin: 0; }
+  .chip { border: 1px solid var(--edge); background: var(--card); color: var(--muted);
+          border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer;
+          text-decoration: none; font-family: inherit; }
+  .chip:hover { border-color: #c9bda9; }
+  .chip.active { background: var(--sel); border-color: var(--sel); color: #fff; }
+
+  #create { margin-top: 22px; background: var(--card); border: 2px solid var(--edge);
+            border-radius: 16px; padding: 22px; }
+  #create .sub { color: var(--muted); margin-bottom: 16px; }
+  .modes { display: flex; gap: 8px; margin-bottom: 18px; }
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .step h3 { font-size: 14px; margin: 0 0 8px; }
+  .step h3 .n { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: var(--sel);
+                color: #fff; align-items: center; justify-content: center; font-size: 12px; margin-right: 6px; }
+  textarea { width: 100%; border: 1px solid var(--edge); border-radius: 9px;
+            padding: 9px 11px; font: 13px/1.4 ui-monospace, monospace; background: #fff; color: var(--ink); }
+  #themeDesc { height: 130px; resize: vertical; font-family: system-ui; }
+  #pasteBox { height: 130px; resize: vertical; }
+  .btn { border: none; border-radius: 9px; padding: 9px 16px; font: 600 13.5px system-ui;
+         cursor: pointer; background: var(--sel); color: #fff; }
+  .btn.ghost { background: var(--card); border: 1px solid var(--edge); color: var(--ink); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: flex-start; }
+  #copyStatus, #loadStatus { font-size: 12.5px; margin-top: 8px; }
+  .ok { color: var(--sel); } .err { color: #b3403a; white-space: pre-wrap; }
+
+  #previewWrap { display: none; margin-top: 22px; }
+  #previewName { font-size: 19px; margin: 0 0 2px; }
+  #previewTag { color: var(--muted); margin-bottom: 12px; }
+  #previewWrap .board { max-width: 700px; width: 100%; }
+  .board { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); border-radius: 8px;
+           overflow: hidden; aspect-ratio: 1; }
+  .board .sq { position: relative; aspect-ratio: 1; }
+  .board .sq.l { background: var(--sq-l); } .board .sq.d { background: var(--sq-d); }
+  .board img { position: absolute; inset: 4%; width: 92%; height: 92%; }
+  #previewBoardImg { display: none; width: 100%; max-width: 700px; border-radius: 8px; }
+  .submit-col { display: flex; flex-direction: column; gap: 4px; }
+  .submit-col .note { color: var(--muted); font-size: 11.5px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 data-i18n="createTitle">✨ Create your own skin</h1>
+    <a class="chip" href="gallery.html" data-i18n="backToGallery">← Back to gallery</a>
+  </header>
+
+  <section id="create">
+    <div class="sub" data-i18n="createSub">Generate your own theme in less than 10 minutes and use it instantly. No coding needed.</div>
+    <div class="modes">
+      <button class="chip active" id="modePieces" data-i18n="modePieces">Pieces</button>
+      <button class="chip" id="modeBoard" data-i18n="modeBoard">Board</button>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3><span class="n">1</span><span data-i18n="step1">Describe your theme</span></h3>
+        <textarea id="themeDesc" data-i18n-placeholder="themePh" placeholder="e.g. sushi pieces - the knight is a shrimp nigiri"></textarea>
+        <div class="row">
+          <button class="btn" id="openChatGPT" data-i18n="btnOpenChatGPT">Open in ChatGPT</button>
+          <button class="btn" id="openClaude" data-i18n="btnOpenClaude">Open in Claude</button>
+          <button class="btn ghost" id="copyPrompt" data-i18n="btnCopyPrompt">Copy prompt</button>
+        </div>
+        <div id="copyStatus"></div>
+      </div>
+      <div class="step">
+        <h3><span class="n">2</span><span data-i18n="step2">Paste the AI's JSON answer here</span></h3>
+        <textarea id="pasteBox" data-i18n-placeholder="pastePh" placeholder="Paste the whole reply"></textarea>
+        <div class="row">
+          <button class="btn" id="loadSkin" data-i18n="btnLoad">Load &amp; preview</button>
+          <button class="btn ghost" id="importFile" data-i18n="btnImport">Import .skin.json…</button>
+          <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
+        </div>
+        <div id="loadStatus"></div>
+      </div>
+    </div>
+    <div id="previewWrap">
+      <h3 id="previewName"></h3>
+      <div id="previewTag"></div>
+      <div class="board" id="previewBoard"></div>
+      <img id="previewBoardImg" alt="">
+      <div class="row">
+        <button class="btn" id="applyCustom" data-i18n="btnApply">Apply as my skin</button>
+        <button class="btn ghost" id="downloadCustom" data-i18n="btnDownload">Download skin.json</button>
+        <div class="submit-col">
+          <button class="btn ghost" id="submitCustom" data-i18n="btnSubmit">Submit to the catalog →</button>
+          <div class="note" data-i18n="submitNote">Submitting opens a GitHub form</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="i18n.js"></script>
+<script src="create.js"></script>
+</body>
+</html>

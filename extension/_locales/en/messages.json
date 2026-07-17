@@ -30,7 +30,7 @@
   "message": "YOURS"
  },
  "gallerySub": {
-  "message": "every skin, on a real board"
+  "message": "The chess board doesn't have to be boring"
  },
  "sortCurated": {
   "message": "Curated"
@@ -60,16 +60,16 @@
   "message": "✨ Create your own skin"
  },
  "createSub": {
-  "message": "Design a set with Claude or ChatGPT, try it on instantly, and submit it to the public catalog — no coding needed."
+  "message": "Generate your own theme in less than 10 minutes and use it instantly. No coding needed."
  },
  "step1": {
-  "message": "Describe your theme & copy the AI prompt"
+  "message": "Describe your theme"
  },
  "themePh": {
-  "message": "e.g. sushi pieces — the knight is a shrimp nigiri"
+  "message": "e.g. sushi pieces - the knight is a shrimp nigiri"
  },
  "btnCopyPrompt": {
-  "message": "Copy prompt for Claude / ChatGPT"
+  "message": "Copy prompt"
  },
  "copiedMsg": {
   "message": "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns."
@@ -78,7 +78,7 @@
   "message": "Paste the AI's JSON answer here"
  },
  "pastePh": {
-  "message": "Paste the whole reply — I'll find the JSON block."
+  "message": "Paste the whole reply"
  },
  "btnLoad": {
   "message": "Load & preview"
@@ -87,7 +87,7 @@
   "message": "Import .skin.json…"
  },
  "loadedMsg": {
-  "message": "loaded — looking good!"
+  "message": "Success"
  },
  "errIntro": {
   "message": "Almost! Fix these (you can ask the AI to correct them):"
@@ -108,7 +108,7 @@
   "message": "Submit to the catalog →"
  },
  "submitNote": {
-  "message": "Submitting opens a GitHub form — paste the same JSON there and a robot will validate it and open the pull request for you."
+  "message": "Submitting opens a GitHub form"
  },
  "appliedCard": {
   "message": "✓ Applied — go play!"
@@ -124,5 +124,38 @@
  },
  "starTitle": {
   "message": "Favorite"
+ },
+ "filterRecent": {
+  "message": "🕒 Recent"
+ },
+ "filterTrending": {
+  "message": "🔥 Trending"
+ },
+ "filterPopular": {
+  "message": "⭐ Most popular"
+ },
+ "filterName": {
+  "message": "🔤 Name (A-Z)"
+ },
+ "popupBoards": {
+  "message": "Board"
+ },
+ "backToGallery": {
+  "message": "← Back to gallery"
+ },
+ "themePhBoard": {
+  "message": "e.g. worn tournament wood - soft grain, warm tones"
+ },
+ "btnOpenChatGPT": {
+  "message": "Open in ChatGPT"
+ },
+ "btnOpenClaude": {
+  "message": "Open in Claude"
+ },
+ "modePieces": {
+  "message": "Pieces"
+ },
+ "modeBoard": {
+  "message": "Board"
  }
 }

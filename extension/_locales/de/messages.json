@@ -30,7 +30,7 @@
   "message": "DEINS"
  },
  "gallerySub": {
-  "message": "jeder Skin, auf einem echten Brett"
+  "message": "Das Schachbrett muss nicht langweilig sein"
  },
  "sortCurated": {
   "message": "Kuratiert"
@@ -60,16 +60,16 @@
   "message": "✨ Eigenen Skin erstellen"
  },
  "createSub": {
-  "message": "Gestalte ein Set mit Claude oder ChatGPT, probiere es sofort an und reiche es beim öffentlichen Katalog ein — ganz ohne Code."
+  "message": "Erstelle dein eigenes Theme in unter 10 Minuten und nutze es sofort. Ganz ohne Programmieren."
  },
  "step1": {
-  "message": "Thema beschreiben & KI-Prompt kopieren"
+  "message": "Beschreibe dein Theme"
  },
  "themePh": {
-  "message": "z. B. Sushi-Figuren — der Springer ist ein Garnelen-Nigiri"
+  "message": "z. B. Sushi-Figuren - der Springer ist ein Garnelen-Nigiri"
  },
  "btnCopyPrompt": {
-  "message": "Prompt für Claude / ChatGPT kopieren"
+  "message": "Prompt kopieren"
  },
  "copiedMsg": {
   "message": "Kopiert! In Claude oder ChatGPT einfügen und mit dem JSON zurückkommen."
@@ -78,7 +78,7 @@
   "message": "JSON-Antwort der KI hier einfügen"
  },
  "pastePh": {
-  "message": "Einfach die ganze Antwort einfügen — ich finde den JSON-Block."
+  "message": "Füge die ganze Antwort ein"
  },
  "btnLoad": {
   "message": "Laden & Vorschau"
@@ -87,7 +87,7 @@
   "message": ".skin.json importieren…"
  },
  "loadedMsg": {
-  "message": "geladen — sieht gut aus!"
+  "message": "Erfolg"
  },
  "errIntro": {
   "message": "Fast! Behebe diese Punkte (du kannst die KI darum bitten):"
@@ -108,7 +108,7 @@
   "message": "Beim Katalog einreichen →"
  },
  "submitNote": {
-  "message": "Beim Einreichen öffnet sich ein GitHub-Formular: füge dort dasselbe JSON ein, ein Bot prüft es und öffnet den Pull Request für dich."
+  "message": "Beim Einreichen öffnet sich ein GitHub-Formular"
  },
  "appliedCard": {
   "message": "✓ Angewendet — viel Spaß!"
@@ -124,5 +124,38 @@
  },
  "starTitle": {
   "message": "Favorit"
+ },
+ "filterRecent": {
+  "message": "🕒 Neu"
+ },
+ "filterTrending": {
+  "message": "🔥 Im Trend"
+ },
+ "filterPopular": {
+  "message": "⭐ Am beliebtesten"
+ },
+ "filterName": {
+  "message": "🔤 Name (A–Z)"
+ },
+ "popupBoards": {
+  "message": "Brett"
+ },
+ "backToGallery": {
+  "message": "← Zurück zur Galerie"
+ },
+ "themePhBoard": {
+  "message": "z. B. abgenutztes Turnierholz - feine Maserung, warme Töne"
+ },
+ "btnOpenChatGPT": {
+  "message": "In ChatGPT öffnen"
+ },
+ "btnOpenClaude": {
+  "message": "In Claude öffnen"
+ },
+ "modePieces": {
+  "message": "Figuren"
+ },
+ "modeBoard": {
+  "message": "Brett"
  }
 }

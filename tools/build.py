@@ -13,7 +13,7 @@ Usage: python3 tools/build.py [--no-zip] [--lenient]
 builds while community/fleet work is in flight). Default is strict (exit 1),
 which is what PR validation wants.
 """
-import os, sys, json, shutil, urllib.parse, zipfile
+import os, sys, json, shutil, subprocess, urllib.parse, zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKINS = os.path.join(ROOT, "skins")
@@ -69,6 +69,23 @@ def build_skin(skin_id):
         f.write("\n".join(rules))
     shutil.copyfile(meta_path, os.path.join(dst, "meta.json"))
     return meta, []
+
+
+def added_date(skin_id):
+    """Date (YYYY-MM-DD) of the first commit that added skins/<id>/meta.json.
+    Empty string when git history is unavailable (e.g. tarball builds)."""
+    rel = f"skins/{skin_id}/meta.json"
+    try:
+        out = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--follow",
+             "--format=%ad", "--date=short", "--", rel],
+            cwd=ROOT, capture_output=True, text=True, timeout=60)
+        if out.returncode != 0:
+            return ""
+        lines = [l.strip() for l in out.stdout.splitlines() if l.strip()]
+        return lines[-1] if lines else ""
+    except (OSError, subprocess.SubprocessError):
+        return ""
 
 
 BOARDS = os.path.join(ROOT, "boards")
@@ -128,6 +145,7 @@ def main():
             entry = {k: meta.get(k, "") for k in ("id", "name", "tagline", "style")}
             entry["category"] = CATEGORY_OF.get(skin_id, "More")
             entry["likes"] = int(likes.get(skin_id, 0))
+            entry["added"] = added_date(skin_id)
             catalog.append(entry)
 
     # Goofball (the original) first, everything else alphabetical by name

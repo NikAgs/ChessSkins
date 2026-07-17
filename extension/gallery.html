@@ -17,13 +17,23 @@
   h1 { font-size: 26px; margin: 0; }
   h1 small { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 10px; }
   .toolbar { display: flex; align-items: center; gap: 10px; margin: 16px 0 22px; flex-wrap: wrap; }
+  #chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { border: 1px solid var(--edge); background: var(--card); color: var(--muted);
-          border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer; }
+          border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer;
+          text-decoration: none; font-family: inherit; }
   .chip.active { background: var(--sel); border-color: var(--sel); color: #fff; }
-  #search { margin-left: auto; border: 1px solid var(--edge); border-radius: 9px; padding: 7px 12px;
+  .btn-create { margin-left: auto; border: none; border-radius: 11px; padding: 10px 18px;
+                font: 700 15px system-ui; cursor: pointer; background: var(--sel); color: #fff;
+                text-decoration: none; box-shadow: 0 2px 6px rgba(98, 153, 36, .35);
+                transition: transform .1s, box-shadow .1s; }
+  .btn-create:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(98, 153, 36, .4); }
+  #search { border: 1px solid var(--edge); border-radius: 9px; padding: 7px 12px;
             font: 14px system-ui; background: var(--card); color: var(--ink); width: 200px; }
 
-  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(264px, 1fr)); gap: 18px; }
+  .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 28px; align-items: start; }
+  @media (max-width: 900px) { .columns { grid-template-columns: 1fr; } }
+
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
   .card { background: var(--card); border: 2px solid var(--edge); border-radius: 14px; padding: 12px;
           cursor: pointer; transition: border-color .1s, transform .1s; position: relative; }
   .star { position: absolute; top: 7px; right: 9px; z-index: 1; font-size: 17px; line-height: 1;
@@ -33,111 +43,59 @@
   .star.faved { color: #f2b01e; }
   .card:hover { border-color: #c9bda9; transform: translateY(-2px); }
   .card.selected { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel-soft); }
-  .board { display: grid; grid-template-columns: repeat(8, 1fr); border-radius: 8px; overflow: hidden;
-           aspect-ratio: 8 / 4; }
+  .board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-radius: 8px;
+           overflow: hidden; aspect-ratio: 5 / 2; }
   .board .sq { position: relative; aspect-ratio: 1; }
   .board .sq.l { background: var(--sq-l); } .board .sq.d { background: var(--sq-d); }
   .board img { position: absolute; inset: 4%; width: 92%; height: 92%; }
   .meta { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
   .meta .name { font-weight: 700; font-size: 15px; }
   .meta .cat { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .5px; }
+  .meta .cat.yours { color: var(--sel); font-weight: 700; }
   .tag { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
   .applied { display: none; color: var(--sel); font-weight: 700; font-size: 12px; margin-top: 6px; }
   .card.selected .applied { display: block; }
 
-  /* ---- creator ---- */
-  #create { margin-top: 44px; background: var(--card); border: 2px solid var(--edge);
-            border-radius: 16px; padding: 22px; }
-  #create h2 { margin: 0 0 4px; font-size: 21px; }
-  #create .sub { color: var(--muted); margin-bottom: 16px; }
-  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .step h3 { font-size: 14px; margin: 0 0 8px; }
-  .step h3 .n { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: var(--sel);
-                color: #fff; align-items: center; justify-content: center; font-size: 12px; margin-right: 6px; }
-  textarea, input[type=text] { width: 100%; border: 1px solid var(--edge); border-radius: 9px;
-            padding: 9px 11px; font: 13px/1.4 ui-monospace, monospace; background: #fff; color: var(--ink); }
-  #themeDesc { font-family: system-ui; }
-  #pasteBox { height: 130px; resize: vertical; }
-  .btn { border: none; border-radius: 9px; padding: 9px 16px; font: 600 13.5px system-ui;
-         cursor: pointer; background: var(--sel); color: #fff; }
-  .btn.ghost { background: var(--card); border: 1px solid var(--edge); color: var(--ink); }
-  .btn:disabled { opacity: .5; cursor: default; }
-  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  #copyStatus, #loadStatus { font-size: 12.5px; margin-top: 8px; }
-  .ok { color: var(--sel); } .err { color: #b3403a; white-space: pre-wrap; }
-  #previewWrap { display: none; margin-top: 18px; }
-  #previewWrap .board { max-width: 480px; }
-
-  .bcard { background: var(--card); border: 2px solid var(--edge); border-radius: 14px; padding: 10px;
+  #boards h2 { font-size: 21px; margin: 0 0 4px; }
+  #boards .sub { color: var(--muted); margin-bottom: 14px; }
+  #boardGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); gap: 12px; }
+  .bcard { background: var(--card); border: 2px solid var(--edge); border-radius: 14px; padding: 8px;
            cursor: pointer; transition: border-color .1s, transform .1s; text-align: center; }
   .bcard:hover { border-color: #c9bda9; transform: translateY(-2px); }
   .bcard.selected { border-color: var(--sel); box-shadow: 0 0 0 2px var(--sel-soft); }
   .bcard .bpreview { aspect-ratio: 2 / 1; border-radius: 8px; background-size: 200%;
-                     background-position: top left; position: relative; overflow: hidden; }
-  .bcard .bpreview img { position: absolute; width: 12.5%; height: 25%; }
-  .bcard .name { font-weight: 700; font-size: 14px; margin-top: 8px; }
-  .bcard .tag { color: var(--muted); font-size: 12px; margin-top: 1px; }
-  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+                     background-position: top left; overflow: hidden; }
+  .bcard .name { font-weight: 700; font-size: 13px; margin-top: 7px; }
+  .bcard .tag { color: var(--muted); font-size: 11.5px; margin-top: 1px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>ChessSkins Gallery <small data-i18n="gallerySub">every skin, on a real board</small></h1>
-    <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">GitHub ↗</a>
+    <h1>ChessSkins Gallery <small data-i18n="gallerySub">The chess board doesn't have to be boring</small></h1>
+    <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">🐙 GitHub ↗</a>
   </header>
 
   <div class="toolbar">
-    <span id="chips"></span>
-    <select id="sort" style="border:1px solid var(--edge);border-radius:9px;padding:6px 8px;background:var(--card);color:var(--ink);font:13px system-ui">
-      <option value="curated" data-i18n="sortCurated">Curated</option>
-      <option value="name" data-i18n="sortName">Name</option>
-      <option value="likes" data-i18n="sortLikes">Most 👍</option>
-    </select>
+    <span id="chips">
+      <button class="chip" data-filter="recent" data-i18n="filterRecent">🕒 Recent</button>
+      <button class="chip active" data-filter="trending" data-i18n="filterTrending">🔥 Trending</button>
+      <button class="chip" data-filter="popular" data-i18n="filterPopular">⭐ Most popular</button>
+      <button class="chip" data-filter="name" data-i18n="filterName">🔤 Name (A-Z)</button>
+    </span>
+    <a class="btn-create" href="create.html" data-i18n="createTitle">✨ Create your own skin</a>
     <input id="search" type="text" data-i18n-placeholder="searchPh" placeholder="Search skins…">
   </div>
-  <div id="grid"></div>
 
-  <section id="boards">
-    <h2 style="font-size:21px;margin:40px 0 4px" data-i18n="boardsTitle">🟫 Board themes</h2>
-    <div class="sub" style="color:var(--muted);margin-bottom:14px" data-i18n="boardsSub">Pick the ground your armies fight on — works with every skin.</div>
-    <div id="boardGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
-  </section>
+  <div class="columns">
+    <div id="grid"></div>
 
-  <section id="create">
-    <h2 data-i18n="createTitle">✨ Create your own skin</h2>
-    <div class="sub" data-i18n="createSub">Design a set with Claude or ChatGPT, try it on instantly, and submit it to the public catalog — no coding needed.</div>
-    <div class="steps">
-      <div class="step">
-        <h3><span class="n">1</span><span data-i18n="step1">Describe your theme &amp; copy the AI prompt</span></h3>
-        <input id="themeDesc" type="text" data-i18n-placeholder="themePh" placeholder="e.g. sushi pieces — the knight is a shrimp nigiri">
-        <div class="row">
-          <button class="btn" id="copyPrompt" data-i18n="btnCopyPrompt">Copy prompt for Claude / ChatGPT</button>
-        </div>
-        <div id="copyStatus"></div>
-      </div>
-      <div class="step">
-        <h3><span class="n">2</span><span data-i18n="step2">Paste the AI's JSON answer here</span></h3>
-        <textarea id="pasteBox" data-i18n-placeholder="pastePh" placeholder='Paste the whole reply — I&#39;ll find the JSON block.'></textarea>
-        <div class="row">
-          <button class="btn" id="loadSkin" data-i18n="btnLoad">Load &amp; preview</button>
-          <button class="btn ghost" id="importFile" data-i18n="btnImport">Import .skin.json…</button>
-          <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
-        </div>
-        <div id="loadStatus"></div>
-      </div>
-    </div>
-    <div id="previewWrap">
-      <h3 data-i18n="previewTitle">Your skin, on the board:</h3>
-      <div class="board" id="previewBoard"></div>
-      <div class="row">
-        <button class="btn" id="applyCustom" data-i18n="btnApply">Apply as my skin</button>
-        <button class="btn ghost" id="downloadCustom" data-i18n="btnDownload">Download skin.json</button>
-        <button class="btn ghost" id="submitCustom" data-i18n="btnSubmit">Submit to the catalog →</button>
-      </div>
-      <div class="sub" style="margin-top:8px" data-i18n="submitNote">Submitting opens a GitHub form — paste the same JSON there and a robot will validate it and open the pull request for you.</div>
-    </div>
-  </section>
+    <section id="boards">
+      <h2 data-i18n="boardsTitle">🟫 Board themes</h2>
+      <div class="sub" data-i18n="boardsSub">Pick the ground your armies fight on — works with every skin.</div>
+      <div id="boardGrid"></div>
+    </section>
+  </div>
 </div>
 <script src="i18n.js"></script>
 <script src="gallery.js"></script>

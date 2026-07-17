@@ -30,7 +30,7 @@
   "message": "ВАШ"
  },
  "gallerySub": {
-  "message": "каждый скин — на настоящей доске"
+  "message": "Шахматная доска не обязана быть скучной"
  },
  "sortCurated": {
   "message": "Подборка"
@@ -60,16 +60,16 @@
   "message": "✨ Создайте свой скин"
  },
  "createSub": {
-  "message": "Придумайте набор с Claude или ChatGPT, примерьте его мгновенно и отправьте в общий каталог — без единой строчки кода."
+  "message": "Создайте свою тему меньше чем за 10 минут и сразу используйте её. Без программирования."
  },
  "step1": {
-  "message": "Опишите тему и скопируйте промпт для ИИ"
+  "message": "Опишите свою тему"
  },
  "themePh": {
-  "message": "например, суши-фигуры: конь — нигири с креветкой"
+  "message": "например, шахматы-суши - конь это нигири с креветкой"
  },
  "btnCopyPrompt": {
-  "message": "Скопировать промпт для Claude / ChatGPT"
+  "message": "Скопировать промпт"
  },
  "copiedMsg": {
   "message": "Скопировано! Вставьте в Claude или ChatGPT и вернитесь с полученным JSON."
@@ -78,7 +78,7 @@
   "message": "Вставьте сюда JSON-ответ ИИ"
  },
  "pastePh": {
-  "message": "Вставьте весь ответ — я найду блок JSON."
+  "message": "Вставьте весь ответ"
  },
  "btnLoad": {
   "message": "Загрузить и посмотреть"
@@ -87,7 +87,7 @@
   "message": "Импорт .skin.json…"
  },
  "loadedMsg": {
-  "message": "загружен — отлично выглядит!"
+  "message": "Готово"
  },
  "errIntro": {
   "message": "Почти! Исправьте это (можно попросить ИИ):"
@@ -108,7 +108,7 @@
   "message": "Отправить в каталог →"
  },
  "submitNote": {
-  "message": "Откроется форма GitHub: вставьте туда тот же JSON — робот проверит его и сам откроет pull request."
+  "message": "Отправка откроет форму на GitHub"
  },
  "appliedCard": {
   "message": "✓ Применено — за игру!"
@@ -124,5 +124,38 @@
  },
  "starTitle": {
   "message": "В избранное"
+ },
+ "filterRecent": {
+  "message": "🕒 Новые"
+ },
+ "filterTrending": {
+  "message": "🔥 В тренде"
+ },
+ "filterPopular": {
+  "message": "⭐ Самые популярные"
+ },
+ "filterName": {
+  "message": "🔤 По алфавиту"
+ },
+ "popupBoards": {
+  "message": "Доска"
+ },
+ "backToGallery": {
+  "message": "← Назад в галерею"
+ },
+ "themePhBoard": {
+  "message": "например, турнирное дерево - мягкая текстура, тёплые тона"
+ },
+ "btnOpenChatGPT": {
+  "message": "Открыть в ChatGPT"
+ },
+ "btnOpenClaude": {
+  "message": "Открыть в Claude"
+ },
+ "modePieces": {
+  "message": "Фигуры"
+ },
+ "modeBoard": {
+  "message": "Доска"
  }
 }
