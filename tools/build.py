@@ -109,7 +109,8 @@ def build_board(board_id):
     shutil.copyfile(meta_path, os.path.join(dst, "meta.json"))
     uri = "data:image/svg+xml," + urllib.parse.quote(svg, safe="~()*!.'")
     css = (
-        f'cg-board{{background-image:url("{uri}") !important;background-size:cover !important;}}\n'
+        # lichess paints the theme texture on cg-board::before; cg-board kept for older markup
+        f'cg-board,cg-board::before{{background-image:url("{uri}") !important;background-size:cover !important;}}\n'
         f'wc-chess-board,chess-board{{background-image:url("{uri}") !important;'
         f'background-size:100% 100% !important;}}'
     )
