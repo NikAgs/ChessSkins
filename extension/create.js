@@ -16,16 +16,23 @@ const FULL_RANKS = [
   BACK.map((p) => "w" + p),
 ];
 
-function fullBoardHTML(imgFor) {
-  let html = "";
+function fullBoardSquares(imgFor) {
+  const squares = [];
   FULL_RANKS.forEach((rank, r) => {
     rank.forEach((code, c) => {
-      const sq = (r + c) % 2 === 0 ? "l" : "d";
-      const img = code ? `<img loading="lazy" src="${imgFor(code)}" alt="">` : "";
-      html += `<div class="sq ${sq}">${img}</div>`;
+      const sq = document.createElement("div");
+      sq.className = `sq ${(r + c) % 2 === 0 ? "l" : "d"}`;
+      if (code) {
+        const img = document.createElement("img");
+        img.loading = "lazy";
+        img.src = imgFor(code);
+        img.alt = "";
+        sq.appendChild(img);
+      }
+      squares.push(sq);
     });
   });
-  return html;
+  return squares;
 }
 
 /* ---- one-time migration: single csCustomSkin slot -> csCustomSkins map ---- */
@@ -267,8 +274,8 @@ function initCreator() {
     document.getElementById("previewName").textContent = obj.name;
     document.getElementById("previewTag").textContent = obj.tagline || "";
     if (mode === "pieces") {
-      previewBoard.innerHTML =
-        fullBoardHTML((c) => "data:image/svg+xml," + encodeURIComponent(obj.pieces[c]));
+      previewBoard.replaceChildren(
+        ...fullBoardSquares((c) => "data:image/svg+xml," + encodeURIComponent(obj.pieces[c])));
       previewBoard.style.display = "grid";
       previewBoardImg.style.display = "none";
     } else {

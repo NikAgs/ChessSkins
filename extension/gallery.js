@@ -43,16 +43,23 @@ async function migrateLegacyCustom() {
 
 /* ---------------- catalog ---------------- */
 
-function boardHTML(imgFor) {
+function boardEl(imgFor) {
   const ranks = PREVIEW_RANKS;
-  let html = "";
+  const board = document.createElement("div");
+  board.className = "board";
   ranks.forEach((rank, r) => {
     rank.forEach((code, c) => {
-      const sq = (r + c) % 2 === 0 ? "l" : "d";
-      html += `<div class="sq ${sq}"><img loading="lazy" src="${imgFor(code)}" alt=""></div>`;
+      const sq = document.createElement("div");
+      sq.className = `sq ${(r + c) % 2 === 0 ? "l" : "d"}`;
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = imgFor(code);
+      img.alt = "";
+      sq.appendChild(img);
+      board.appendChild(sq);
     });
   });
-  return html;
+  return board;
 }
 
 function renderSelection() {
@@ -105,10 +112,10 @@ function renderGrid() {
     card.className = "card";
     card.dataset.id = CUSTOM_PREFIX + cid;
     card.innerHTML = `
-      <div class="board">${boardHTML((c) => "data:image/svg+xml," + encodeURIComponent(skin.pieces[c]))}</div>
       <div class="meta"><span class="name"></span><span class="cat yours"></span></div>
       <div class="tag"></div>
       <div class="applied"></div>`;
+    card.prepend(boardEl((c) => "data:image/svg+xml," + encodeURIComponent(skin.pieces[c])));
     card.querySelector(".applied").textContent = t("appliedCard", "✓ Applied — go play!");
     card.querySelector(".name").textContent = name; // user/AI-supplied — textContent only
     card.querySelector(".cat").textContent = t("badgeYours", "YOURS");
@@ -135,10 +142,10 @@ function renderGrid() {
     card.dataset.id = s.id;
     card.innerHTML = `
       <span class="star">★</span>
-      <div class="board">${boardHTML((c) => `skins/${s.id}/${c}.svg`)}</div>
       <div class="meta"><span class="name"></span><span class="cat"></span></div>
       <div class="tag"></div>
       <div class="applied"></div>`;
+    card.querySelector(".star").after(boardEl((c) => `skins/${s.id}/${c}.svg`));
     card.querySelector(".applied").textContent = t("appliedCard", "✓ Applied — go play!");
     card.querySelector(".name").textContent = s.name;
     card.querySelector(".cat").textContent =
