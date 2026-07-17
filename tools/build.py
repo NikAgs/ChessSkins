@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the ChessSkins extension from the skins/ art directory. (v2.0.1)
+"""Build the ChessSkins extension from the skins/ art directory. (v2.1.0)
 
 - validates every skin (12 SVGs + meta.json)
 - copies SVGs + meta into extension/skins/<id>/

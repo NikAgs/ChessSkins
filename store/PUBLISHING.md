@@ -30,7 +30,7 @@ Dashboard → **+ New item** → upload `chessskins.zip`.
 | Category | Fun |
 | Language | English |
 | Store icon | auto-taken from the package (128px icon) |
-| Screenshots | `store/assets/screenshot-1.png` … `screenshot-4.png` (1280×800) |
+| Screenshots | `store/assets/screenshot-1.png` … `screenshot-3.png` (1280×800) |
 | Small promo tile | `store/assets/promo-small.png` (440×280) |
 | Marquee promo tile | `store/assets/promo-marquee.png` (1400×560) |
 | Homepage URL | https://github.com/NikAgs/ChessSkins |

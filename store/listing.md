@@ -69,7 +69,7 @@ package itself. The manifest carries only name, version, description, and icons.
 | Asset | Size | File |
 |---|---|---|
 | Store icon | 128×128 | `extension/icons/icon128.png` |
-| Screenshots (3–5) | 1280×800 | `store/assets/screenshot-1.png` … |
+| Screenshots (3) | 1280×800 | `store/assets/screenshot-1.png` (popup), `-2` (gallery), `-3` (creator) |
 | Small promo tile | 440×280 | `store/assets/promo-small.png` |
 | Marquee promo tile | 1400×560 | `store/assets/promo-marquee.png` |
 
@@ -88,8 +88,8 @@ package itself. The manifest carries only name, version, description, and icons.
 - Content script on `lichess.org` / `lichess.com` / `chess.com` — injects a stylesheet
   that swaps the piece images on those sites. It reads nothing from the page and runs
   nowhere else.
-- Web-accessible resources (`skins/*/skin.css`) — lets the injected stylesheet load
-  the bundled artwork on those sites only.
+- Web-accessible resources (`skins/*/skin.css`, `boards/*/board.css`) — lets the
+  injected stylesheet load the bundled artwork on those sites only.
 
 **Host permission justification** (the dashboard asks for this separately; the
 "in-depth review" warning it shows is normal for content-script extensions)
