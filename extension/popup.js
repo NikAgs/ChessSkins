@@ -178,6 +178,8 @@ function renderGrid() {
   for (const s of orderItems(skins, orderFavs, orderRecs)) {
     grid.appendChild(makeCard({ ...s, imgFor: (c) => `skins/${s.id}/${c}.svg` }));
   }
+  // stagger index for the one-time slap entrance (see body.entering in the CSS)
+  [...grid.children].forEach((el, i) => el.style.setProperty("--i", Math.min(i, 10)));
   renderSelection();
 }
 
@@ -243,6 +245,8 @@ function renderBoards() {
     });
     boardsEl.appendChild(tile);
   }
+  // stagger index for the one-time slap entrance (see body.entering in the CSS)
+  [...boardsEl.children].forEach((el, i) => el.style.setProperty("--i", Math.min(i, 10)));
   renderBoardSelection();
 }
 
@@ -257,6 +261,16 @@ async function init() {
   skins = idx;
   boards = bidx;
   state = stored;
+  // legacy master switch: old popups stored csEnabled:false for "off
+  // everywhere", but this UI only has per-site toggles. Translate master-off
+  // into both sites off (same effect in content.js) and retire the flag —
+  // switching any site back on re-sets csEnabled via the change handlers.
+  if (state.csEnabled === false) {
+    state.csEnabled = true;
+    state.csSiteLichess = false;
+    state.csSiteChess = false;
+    chrome.storage.sync.set({ csEnabled: true, csSiteLichess: false, csSiteChess: false });
+  }
   customSkins = local.csCustomSkins || {};
   customBoards = local.csCustomBoards || {};
   favorites = stored.csFavorites;
@@ -273,6 +287,8 @@ async function init() {
     const box = document.getElementById(id);
     box.checked = state[key];
     box.addEventListener("change", () => {
+      // mark as user-touched so the off-squish animation may run (CSS-scoped)
+      box.closest(".switch").classList.add("touched");
       state[key] = box.checked;
       const patch = { [key]: box.checked };
       // turning a site on must never leave the user stranded on a dead master flag
@@ -331,6 +347,9 @@ async function init() {
       refreshStars(boardsEl, boardFavorites);
     }
   });
+
+  // entrance is one-time: drop the scope class once the slap stagger is done
+  requestAnimationFrame(() => setTimeout(() => document.body.classList.remove("entering"), 900));
 }
 
 init();

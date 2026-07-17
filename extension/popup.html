@@ -4,31 +4,67 @@
 <meta charset="utf-8">
 <style>
   :root {
-    --bg: #f6efe3; --ink: #3d3833; --muted: #8a7f6d;
-    --card: #fffaf1; --edge: #e3d8c4; --sel: #629924;
+    --paper: #F2E7CE; --sheet: #FFF6E0; --card: #FFFFFF;
+    --ink: #33261A; --muted: #8a7a5e;
+    --sun: #FFC94D; --pop: #FF6F61; --go: #58A63C; --err: #C0392B;
     --sq-l: #f0d9b5; --sq-d: #b58863;
+    --boing: cubic-bezier(.34,1.8,.5,1);
+    --settle: cubic-bezier(.22,1.2,.36,1);
+    --snap: cubic-bezier(.7,0,.3,1);
+    --t-press: 90ms; --t-react: 160ms; --t-peel: 240ms; --t-enter: 520ms;
   }
   /* fixed-height flex column: header / board strip / pieces (the ONLY
      scrolling region) / footer — the popup never exceeds 580px */
   body { width: 360px; height: 580px; margin: 0; overflow: hidden;
          display: flex; flex-direction: column;
-         font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
-  header { flex: none; background: var(--bg);
-           padding: 11px 14px 9px; border-bottom: 1px solid var(--edge); }
-  .headrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  header b { font-size: 17px; }
+         font: 14px/1.4 ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN",
+               Quicksand, system-ui, sans-serif;
+         background: var(--sheet); color: var(--ink); }
+  button, input, select, textarea { font-family: inherit; }
+  :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
 
-  .sites { display: flex; gap: 12px; color: var(--muted); font-size: 11.5px; }
+  header { flex: none; background: var(--sheet);
+           padding: 10px 14px 9px; border-bottom: 2px solid var(--ink); }
+  .headrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .brand { display: flex; align-items: center; gap: 9px; min-width: 0; }
+  /* brand sticker: a tilted sun tile wearing the app icon */
+  .brand-sticker { flex: none; width: 32px; height: 32px;
+                   display: flex; align-items: center; justify-content: center;
+                   background: var(--sun); border: 2.5px solid var(--ink); border-radius: 10px;
+                   box-shadow: 2.5px 2.5px 0 var(--ink); transform: rotate(-4deg); }
+  .brand-sticker img { width: 24px; height: 24px; display: block; }
+  header b { font-size: 17px; font-weight: 800; letter-spacing: .2px; }
+
+  .sites { display: flex; gap: 10px; color: var(--muted); font-size: 11.5px; font-weight: 700; }
   .sites label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
 
-  .switch { position: relative; width: 34px; height: 19px; flex: none; }
+  /* Sticker Club toggle: ink-lined track, sun when on, boinging knob */
+  .switch { position: relative; width: 36px; height: 21px; flex: none; }
   .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .slider { position: absolute; inset: 0; border-radius: 19px; background: #c9bda9;
-            transition: .15s; cursor: pointer; }
-  .slider:before { content: ""; position: absolute; width: 13px; height: 13px;
-                   border-radius: 50%; background: #fff; left: 3px; top: 3px; transition: .15s; }
-  input:checked + .slider { background: var(--sel); }
-  input:checked + .slider:before { transform: translateX(15px); }
+  .slider { position: absolute; inset: 0; border-radius: 21px; background: var(--card);
+            border: 2px solid var(--ink); cursor: pointer;
+            transition: background var(--t-react) var(--snap); }
+  .slider:before { content: ""; position: absolute; box-sizing: border-box;
+                   width: 13px; height: 13px; border-radius: 50%;
+                   background: #fff; border: 2px solid var(--ink);
+                   left: 2px; top: 2px;
+                   transition: transform 220ms var(--boing); }
+  input:checked + .slider { background: var(--sun); }
+  input:checked + .slider:before { transform: translateX(15px);
+                                   animation: knob-on 220ms var(--boing); }
+  /* off-squish only after the user has touched this switch, so unchecked
+     knobs don't sweep across the track at popup open */
+  .switch.touched input:not(:checked) + .slider:before { animation: knob-off 220ms var(--boing); }
+  @keyframes knob-on {
+    0%   { transform: translateX(0); }
+    40%  { transform: translateX(6px) scaleX(1.35) scaleY(.72); }
+    100% { transform: translateX(15px); }
+  }
+  @keyframes knob-off {
+    0%   { transform: translateX(15px); }
+    40%  { transform: translateX(8px) scaleX(1.35) scaleY(.72); }
+    100% { transform: translateX(0); }
+  }
 
   /* horizontal-scroll row: hidden scrollbar, right-edge bleed hints at more */
   .hscroll { overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
@@ -38,43 +74,59 @@
   /* pieces: THE scrolling region — 2 cards per row, fills the leftover height */
   #grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start;
           display: grid; grid-template-columns: 1fr 1fr;
-          gap: 8px; padding: 0 14px 10px; }
-  .card { background: var(--card); border: 2px solid var(--edge); border-radius: 12px;
-          padding: 9px 8px 7px; cursor: pointer; text-align: center; transition: border-color .1s;
-          position: relative; }
-  .card:hover { border-color: #c9bda9; }
-  .card.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
-  .duo { display: flex; justify-content: center; }
-  .duo .sq { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; }
-  .duo .sq:first-child { background: var(--sq-l); border-radius: 8px 0 0 8px; }
-  .duo .sq:last-child  { background: var(--sq-d); border-radius: 0 8px 8px 0; }
-  .duo img { width: 50px; height: 50px; }
-  .card .name { font-weight: 600; font-size: 12.5px; margin-top: 5px;
+          gap: 10px; padding: 4px 14px 12px;
+          scrollbar-width: thin; scrollbar-color: rgba(51,38,26,.3) transparent; }
+  .card { background: var(--card); border: 2.5px solid var(--ink); border-radius: 12px;
+          padding: 9px 8px 7px; cursor: pointer; text-align: center; position: relative;
+          transition: transform var(--t-react) var(--settle),
+                      box-shadow var(--t-react) var(--settle),
+                      background var(--t-react) var(--snap); }
+  .card:hover { transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--ink); }
+  .card.selected { background: var(--sun); box-shadow: 3px 3px 0 var(--ink);
+                   transform: rotate(-1.2deg); animation: peel var(--t-peel) var(--boing); }
+  .card.selected:hover { transform: translate(-2px,-2px) rotate(-1.2deg);
+                         box-shadow: 4px 4px 0 var(--ink); }
+  /* duo frame: the two preview squares wear one shared ink outline */
+  .duo { display: flex; justify-content: center; width: max-content; margin: 0 auto;
+         border: 2px solid var(--ink); border-radius: 9px; overflow: hidden; }
+  .duo .sq { width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; }
+  .duo .sq:first-child { background: var(--sq-l); }
+  .duo .sq:last-child  { background: var(--sq-d); }
+  .duo img { width: 48px; height: 48px; }
+  .card:hover .duo img { animation: wiggle 440ms ease-in-out; transform-origin: 50% 88%; }
+  .card .name { font-weight: 700; font-size: 12.5px; margin-top: 6px;
                 white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* badge escapes the ellipsized name and sits as a corner sticker */
-  .badge { position: absolute; top: 4px; left: 6px; font-size: 9px; line-height: 1;
-           color: var(--sel); font-weight: 700; letter-spacing: .4px;
-           background: var(--card); border: 1px solid var(--edge); border-radius: 7px;
-           padding: 2px 5px 1px; }
+  /* badge escapes the ellipsized name and sits as a corner stamp */
+  .badge { position: absolute; top: 4px; left: 6px; font-size: 8.5px; line-height: 1;
+           color: #fff; font-weight: 900; letter-spacing: .5px; text-transform: uppercase;
+           background: var(--go); border: 2px solid var(--ink); border-radius: 999px;
+           padding: 3px 7px; }
+  .card.selected .badge { animation: stamp 220ms var(--boing) 90ms backwards; }
 
   .star { position: absolute; top: 2px; right: 2px; z-index: 1; font-size: 18px; line-height: 1;
-          color: #c9bda9; cursor: pointer; user-select: none; padding: 4px 5px 5px;
-          text-shadow: 0 1px 2px rgba(0,0,0,.25); display: none; }
-  .star.faved { color: #f2b01e; }
-  .card:hover .star, .btile:hover .star { display: block; }
+          color: #d8cbb0; cursor: pointer; user-select: none; padding: 4px 5px 5px;
+          visibility: hidden; }
+  .star.faved { color: var(--pop); animation: jelly 300ms var(--boing); }
+  .card:hover .star, .btile:hover .star { visibility: visible; }
   .btile .star { font-size: 17px; }
 
-  .section-label { flex: none; padding: 9px 14px 6px; font-weight: 700; font-size: 11.5px;
-                   color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  .section-label { flex: none; padding: 10px 14px 6px; font-weight: 800; font-size: 11px;
+                   color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
   /* board strip: always visible above the pieces scroller */
   #boards { flex: none; display: grid; grid-template-rows: 1fr; grid-auto-flow: column;
-            grid-auto-columns: 126px; gap: 8px; padding: 0 14px 8px; }
+            grid-auto-columns: 126px; gap: 10px; padding: 4px 14px 10px; }
   .btile { box-sizing: border-box; background: var(--card);
-           border: 2px solid var(--edge); border-radius: 10px; padding: 4px 5px 5px;
-           cursor: pointer; transition: border-color .1s; position: relative;
-           scroll-snap-align: start; text-align: center; }
-  .btile:hover { border-color: #c9bda9; }
-  .btile.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
+           border: 2.5px solid var(--ink); border-radius: 10px; padding: 5px 5px 6px;
+           cursor: pointer; position: relative;
+           scroll-snap-align: start; text-align: center;
+           transition: transform var(--t-react) var(--settle),
+                       box-shadow var(--t-react) var(--settle),
+                       background var(--t-react) var(--snap); }
+  .btile:hover { transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--ink); }
+  .btile.selected { background: var(--sun); box-shadow: 3px 3px 0 var(--ink);
+                    transform: rotate(-1.2deg); animation: peel var(--t-peel) var(--boing); }
+  .btile.selected:hover { transform: translate(-2px,-2px) rotate(-1.2deg);
+                          box-shadow: 4px 4px 0 var(--ink); }
   /* 2x3 whole-square crop of the 8x8 board art, anchored at a8: width shows
      3 of 8 columns (100% * 8/3) and the 3/2 aspect yields exactly 2 rows */
   .bprev { aspect-ratio: 3 / 2; border-radius: 6px; overflow: hidden;
@@ -88,20 +140,66 @@
                      background: repeating-conic-gradient(#779556 0% 25%, #ebecd0 0% 50%)
                                  0 0 / calc(100% * 2 / 3) 100%;
                      clip-path: polygon(100% 0, 100% 100%, 0 100%); }
-  .btile .bname { font-weight: 600; font-size: 11.5px; margin-top: 4px;
+  .btile .bname { font-weight: 700; font-size: 11.5px; margin-top: 5px;
                   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  footer { flex: none; background: var(--bg); border-top: 1px solid var(--edge);
-           display: flex; gap: 8px; padding: 9px 14px; }
-  footer button { flex: 1; border: 1px solid var(--edge); background: var(--card); color: var(--ink);
-                  border-radius: 9px; padding: 7px 0; font: 600 12.5px system-ui; cursor: pointer; }
-  footer button:hover { border-color: #c9bda9; }
+  footer { flex: none; background: var(--sheet); border-top: 2px solid var(--ink);
+           display: flex; gap: 10px; padding: 10px 14px 12px; }
+  footer button { flex: 1; border: 2.5px solid var(--ink); background: var(--card);
+                  color: var(--ink); border-radius: 12px; padding: 8px 0;
+                  font-size: 12.5px; font-weight: 800; cursor: pointer;
+                  box-shadow: 2.5px 2.5px 0 var(--ink);
+                  transition: transform var(--t-press) var(--snap),
+                              box-shadow var(--t-press) var(--snap); }
+  footer button:hover { transform: translate(-1px,-1px); box-shadow: 3.5px 3.5px 0 var(--ink); }
+  footer button:active { transform: translate(2.5px,2.5px); box-shadow: 0 0 0 var(--ink); }
+  #openCreate { background: var(--sun); }
+
+  /* the six moves — entrance plays once, scoped to body.entering (popup.js
+     removes the class after ~900ms so re-renders never replay the slap) */
+  body.entering .card, body.entering .btile {
+    animation: slap 420ms var(--settle) backwards;
+    animation-delay: calc(var(--i, 0) * 40ms);
+  }
+  @keyframes slap {
+    0%   { transform: scale(1.25) rotate(-4deg); opacity: 0; }
+    55%  { transform: scale(.97) rotate(1deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); }
+  }
+  @keyframes peel {
+    0%   { transform: scale(1) rotate(0); }
+    55%  { transform: scale(1.07) rotate(-2.6deg); }
+    100% { transform: scale(1) rotate(-1.2deg); }
+  }
+  @keyframes stamp {
+    from { transform: scale(0) rotate(10deg); }
+    to   { transform: scale(1) rotate(0); }
+  }
+  @keyframes jelly {
+    0%   { transform: scale(1); }
+    35%  { transform: scaleX(1.22) scaleY(.84); }
+    70%  { transform: scaleX(.92) scaleY(1.08); }
+    100% { transform: scale(1); }
+  }
+  @keyframes wiggle {
+    0%   { transform: rotate(0); }
+    25%  { transform: rotate(-6deg); }
+    55%  { transform: rotate(4.5deg); }
+    80%  { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
 </style>
 </head>
-<body>
+<body class="entering">
   <header>
     <div class="headrow">
-      <b>ChessSkins</b>
+      <div class="brand">
+        <span class="brand-sticker"><img src="icons/icon48.png" alt=""></span>
+        <b>ChessSkins</b>
+      </div>
       <div class="sites" id="sites">
         <label><span class="switch"><input type="checkbox" id="siteLichess"><span class="slider"></span></span> lichess</label>
         <label><span class="switch"><input type="checkbox" id="siteChess"><span class="slider"></span></span> chess.com</label>

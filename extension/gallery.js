@@ -145,6 +145,8 @@ function renderGrid() {
     });
     grid.appendChild(card);
   }
+  // stagger index for the one-time slap entrance (see body.entering in the CSS)
+  [...grid.children].forEach((el, i) => el.style.setProperty("--i", Math.min(i, 10)));
   renderSelection();
 }
 
@@ -250,6 +252,8 @@ function renderBoards() {
     });
     boardGrid.appendChild(card);
   }
+  // stagger index for the one-time slap entrance (see body.entering in the CSS)
+  [...boardGrid.children].forEach((el, i) => el.style.setProperty("--i", Math.min(i, 10)));
   renderBoardSelection();
 }
 
@@ -297,7 +301,24 @@ async function init() {
       renderBoardSelection();
       applyBoardColors();
     }
+    // favorites toggled elsewhere (e.g. the popup): flip star colors in
+    // place — cards must not shift — except on the Favorites chip, where
+    // the pool itself changes and a re-render is the point
+    if (ch.csFavorites) {
+      favorites = ch.csFavorites.newValue || [];
+      if (activeFilter === "favorites") {
+        renderGrid();
+      } else {
+        for (const card of grid.children) {
+          const star = card.querySelector(".star");
+          if (star) star.classList.toggle("faved", favorites.includes(card.dataset.id));
+        }
+      }
+    }
   });
+
+  // entrance is one-time: drop the scope class once the slap stagger is done
+  requestAnimationFrame(() => setTimeout(() => document.body.classList.remove("entering"), 900));
 }
 
 init();
