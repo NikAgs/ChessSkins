@@ -105,7 +105,7 @@
   "message": "Proposer au catalogue →"
  },
  "submitNote": {
-  "message": "Ouvre un formulaire GitHub — votre JSON est copié, prêt à coller."
+  "message": "L'envoi ouvre un formulaire GitHub"
  },
  "appliedCard": {
   "message": "✓ Appliqué — à vous de jouer !"
@@ -129,7 +129,7 @@
   "message": "Nom (A-Z)"
  },
  "madeWithLove": {
-  "message": "Fait avec amour pour les passionnés d'échecs"
+  "message": "Fait avec ❤️ pour les passionnés d'échecs"
  },
  "btnCoffee": {
   "message": "Offrez-moi un café"

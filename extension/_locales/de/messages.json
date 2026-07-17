@@ -105,7 +105,7 @@
   "message": "Beim Katalog einreichen →"
  },
  "submitNote": {
-  "message": "Öffnet ein GitHub-Formular — dein JSON ist kopiert und bereit zum Einfügen."
+  "message": "Beim Einreichen öffnet sich ein GitHub-Formular"
  },
  "appliedCard": {
   "message": "✓ Angewendet — viel Spaß!"
@@ -129,7 +129,7 @@
   "message": "Name (A–Z)"
  },
  "madeWithLove": {
-  "message": "Mit Liebe für Schach-Nerds gemacht"
+  "message": "Mit ❤️ für Schach-Nerds gemacht"
  },
  "btnCoffee": {
   "message": "Spendier mir einen Kaffee"

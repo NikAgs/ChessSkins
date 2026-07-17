@@ -105,7 +105,7 @@
   "message": "Submit to the catalog →"
  },
  "submitNote": {
-  "message": "Opens a GitHub form — your JSON is copied, ready to paste."
+  "message": "Submitting opens a GitHub form"
  },
  "appliedCard": {
   "message": "✓ Applied — go play!"
@@ -129,7 +129,7 @@
   "message": "Name (A-Z)"
  },
  "madeWithLove": {
-  "message": "Made with love for chess nerds"
+  "message": "Made with ❤️ for chess nerds"
  },
  "btnCoffee": {
   "message": "Buy me a coffee"

@@ -337,17 +337,9 @@ function initCreator() {
 
   document.getElementById("submitCustom").addEventListener("click", () => {
     if (!loadedItem) return;
-    const json = JSON.stringify(loadedItem, null, 2);
-    // the clipboard always carries the JSON; the URL only when it fits —
-    // GitHub prefills issue-form fields from query params matching the field
-    // id, but full skins usually blow past URL length limits
-    navigator.clipboard.writeText(json).catch(() => {});
-    const [template, tag, field] = mode === "pieces"
-      ? ["new-skin.yml", "skin", "skin-json"]
-      : ["new-board.yml", "board", "board-json"];
-    let url = `${REPO}/issues/new?template=${template}&title=${encodeURIComponent(`[${tag}] ${loadedItem.name}`)}`;
-    const enc = encodeURIComponent(json);
-    if (enc.length < 6000) url += `&${field}=${enc}`;
+    const url = mode === "pieces"
+      ? `${REPO}/issues/new?template=new-skin.yml&title=${encodeURIComponent(`[skin] ${loadedItem.name}`)}`
+      : `${REPO}/issues/new?template=new-board.yml&title=${encodeURIComponent(`[board] ${loadedItem.name}`)}`;
     window.open(url, "_blank");
   });
 

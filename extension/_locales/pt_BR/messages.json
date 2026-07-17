@@ -105,7 +105,7 @@
   "message": "Enviar ao catálogo →"
  },
  "submitNote": {
-  "message": "Abre um formulário do GitHub — seu JSON já está copiado, pronto para colar."
+  "message": "Enviar abre um formulário do GitHub"
  },
  "appliedCard": {
   "message": "✓ Aplicada — bora jogar!"
@@ -129,7 +129,7 @@
   "message": "Nome (A-Z)"
  },
  "madeWithLove": {
-  "message": "Feito com amor para nerds do xadrez"
+  "message": "Feito com ❤️ para nerds do xadrez"
  },
  "btnCoffee": {
   "message": "Me pague um café"
