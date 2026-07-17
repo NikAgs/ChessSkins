@@ -42,7 +42,8 @@ function cssFromPieces(pieces) {
 function cssFromBoardSVG(svg) {
   const uri = "data:image/svg+xml," + encodeURIComponent(svg);
   return (
-    `cg-board{background-image:url("${uri}") !important;background-size:cover !important;}\n` +
+    // lichess paints the theme texture on cg-board::before; cg-board kept for older markup
+    `cg-board,cg-board::before{background-image:url("${uri}") !important;background-size:cover !important;}\n` +
     `wc-chess-board,chess-board{background-image:url("${uri}") !important;` +
     `background-size:100% 100% !important;}`
   );
