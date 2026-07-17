@@ -208,7 +208,11 @@ def main():
         # Firefox variant: same package + gecko app id (required for AMO signing)
         ff_manifest = json.load(open(os.path.join(EXT, "manifest.json")))
         ff_manifest["browser_specific_settings"] = {
-            "gecko": {"id": "chessskins@nikags.github.io", "strict_min_version": "115.0"}
+            "gecko": {
+                "id": "chessskins@nikags.github.io",
+                "strict_min_version": "115.0",
+                "data_collection_permissions": {"required": ["none"]},
+            }
         }
         make_zip(os.path.join(DIST, "chessskins-firefox.zip"),
                  json.dumps(ff_manifest, indent=2))

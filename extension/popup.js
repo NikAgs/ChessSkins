@@ -152,10 +152,13 @@ function makeCard({ id, name, tagline, imgFor, badge, starrable = true }) {
   card.title = tagline;
   card.innerHTML = `
     <div class="duo">
-      <div class="sq"><img src="${imgFor("wN")}" alt=""></div>
-      <div class="sq"><img src="${imgFor("bQ")}" alt=""></div>
+      <div class="sq"><img alt=""></div>
+      <div class="sq"><img alt=""></div>
     </div>
     <div class="name"></div>`;
+  const [wImg, bImg] = card.querySelectorAll(".duo img");
+  wImg.src = imgFor("wN");
+  bImg.src = imgFor("bQ");
   const nameEl = card.querySelector(".name");
   nameEl.textContent = name; // textContent only — name can be user-supplied JSON
   if (badge) {
