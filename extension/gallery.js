@@ -1,39 +1,50 @@
 const DEFAULTS = { csEnabled: true, csSkin: "goofball" };
-const CUSTOM_ID = "__custom__";
-const REPO = "https://github.com/NikAgs/ChessSkins";
+const CUSTOM_PREFIX = "__custom__:";
 const CODES = ["wK", "wQ", "wR", "wB", "wN", "wP", "bK", "bQ", "bR", "bB", "bN", "bP"];
+const CLASSIC = { light: "#f0d9b5", dark: "#b58863" };
 
-// two-rank board layout per side: back rank + pawns (white bottom, black top)
-const BACK = ["R", "N", "B", "Q", "K", "B", "N", "R"];
+// 2x5 card preview: black pieces on top, white below (R N B K Q)
+const PREVIEW_RANKS = [
+  ["bR", "bN", "bB", "bK", "bQ"],
+  ["wR", "wN", "wB", "wK", "wQ"],
+];
 
 const grid = document.getElementById("grid");
-const chipsEl = document.getElementById("chips");
 const search = document.getElementById("search");
 
-// Chip labels double as filter values; translated once at startup, never
-// persisted (storage only holds skin ids), so comparisons stay consistent.
-const ALL_CAT = t("catAll", "All");
-const FAV_CAT = t("catFav", "★ Favorites");
-const RECENT_CAT = t("catRecent", "Recent");
-
-let skins = [], state = { ...DEFAULTS }, activeCat = ALL_CAT;
-let favorites = [], recents = [];
+let skins = [], state = { ...DEFAULTS };
+let customSkins = {}, customBoards = {}; // { id: obj } from chrome.storage.local
+let favorites = [], recents = [], boardRecents = [];
+let activeFilter = "recent"; // recent | favorites | name
+let activeCategory = "all";  // "all" | a category string from the skins index
 
 function trackRecent(id) {
   recents = [id, ...recents.filter((r) => r !== id)].slice(0, 6);
   chrome.storage.sync.set({ csRecents: recents });
 }
 
+/* ---- one-time migration: single csCustomSkin slot -> csCustomSkins map ---- */
+
+async function migrateLegacyCustom() {
+  const { csCustomSkin } = await chrome.storage.local.get("csCustomSkin");
+  if (!csCustomSkin) return;
+  const id = csCustomSkin.id || "my-skin";
+  const { csCustomSkins = {} } = await chrome.storage.local.get("csCustomSkins");
+  if (!csCustomSkins[id]) {
+    csCustomSkins[id] = csCustomSkin;
+    await chrome.storage.local.set({ csCustomSkins });
+  }
+  await chrome.storage.local.remove("csCustomSkin");
+  const { csSkin } = await chrome.storage.sync.get("csSkin");
+  if (csSkin === "__custom__") {
+    await chrome.storage.sync.set({ csSkin: CUSTOM_PREFIX + id });
+  }
+}
+
 /* ---------------- catalog ---------------- */
 
 function boardHTML(imgFor) {
-  // 4 ranks: black back, black pawns, white pawns, white back (compact + readable)
-  const ranks = [
-    BACK.map((p) => "b" + p),
-    Array(8).fill("bP"),
-    Array(8).fill("wP"),
-    BACK.map((p) => "w" + p),
-  ];
+  const ranks = PREVIEW_RANKS;
   let html = "";
   ranks.forEach((rank, r) => {
     rank.forEach((code, c) => {
@@ -50,19 +61,52 @@ function renderSelection() {
   }
 }
 
+// _idx (curated order) is the universal tie-breaker
+const SORTS = {
+  recent: (a, b) =>
+    (b.added || "").localeCompare(a.added || "") || a._idx - b._idx,
+  name: (a, b) => a.name.localeCompare(b.name) || a._idx - b._idx,
+  favorites: (a, b) => a._idx - b._idx, // favorites-only pool, curated order
+};
+
 function renderGrid() {
   const q = search.value.trim().toLowerCase();
   grid.innerHTML = "";
-  let list = skins;
-  if (activeCat === FAV_CAT) list = skins.filter((s) => favorites.includes(s.id));
-  else if (activeCat === RECENT_CAT)
-    list = recents.map((id) => skins.find((s) => s.id === id)).filter(Boolean);
-  else if (activeCat !== ALL_CAT) list = skins.filter((s) => s.category === activeCat);
 
-  const sortBy = document.getElementById("sort").value;
-  if (sortBy === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
-  else if (sortBy === "likes")
-    list = [...list].sort((a, b) => (b.likes || 0) - (a.likes || 0));
+  // custom skins pinned at the front (searchable, YOURS badge, no favorite
+  // star) — they have no catalog category and can't be favorited, so they
+  // only appear on the "All" category with the Recent/Name chips
+  const showCustoms = activeCategory === "all" && activeFilter !== "favorites";
+  if (showCustoms) for (const [cid, skin] of Object.entries(customSkins)) {
+    if (!skin || !skin.pieces) continue;
+    const name = skin.name || t("customName", "My Custom Skin");
+    const tagline = skin.tagline || "";
+    if (q && !(name + tagline).toLowerCase().includes(q)) continue;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.id = CUSTOM_PREFIX + cid;
+    card.innerHTML = `
+      <div class="board">${boardHTML((c) => "data:image/svg+xml," + encodeURIComponent(skin.pieces[c]))}</div>
+      <div class="meta"><span class="name"></span><span class="cat yours"></span></div>
+      <div class="tag"></div>
+      <div class="applied"></div>`;
+    card.querySelector(".applied").textContent = t("appliedCard", "✓ Applied — go play!");
+    card.querySelector(".name").textContent = name; // user/AI-supplied — textContent only
+    card.querySelector(".cat").textContent = t("badgeYours", "YOURS");
+    card.querySelector(".tag").textContent = tagline;
+    card.addEventListener("click", () => {
+      state.csSkin = card.dataset.id;
+      chrome.storage.sync.set({ csSkin: card.dataset.id, csEnabled: true });
+      renderSelection();
+    });
+    grid.appendChild(card);
+  }
+
+  // the category dropdown ANDs with the chip: it narrows the pool, the
+  // chip then filters (Favorites) or orders (Recent / Name) within it
+  let list = skins.filter((s) => activeCategory === "all" || s.category === activeCategory);
+  if (activeFilter === "favorites") list = list.filter((s) => favorites.includes(s.id));
+  list = [...list].sort(SORTS[activeFilter] || SORTS.recent);
 
   for (const s of list) {
     if (q && !(s.name + s.tagline + s.category).toLowerCase().includes(q)) continue;
@@ -90,39 +134,68 @@ function renderGrid() {
         : [...favorites, s.id];
       chrome.storage.sync.set({ csFavorites: favorites });
       star.classList.toggle("faved", favorites.includes(s.id));
-      renderChips();
-      if (activeCat === FAV_CAT) renderGrid();
+      // on the Favorites chip an unstarred card leaves the pool immediately
+      if (activeFilter === "favorites") renderGrid();
     });
     card.addEventListener("click", () => {
       state.csSkin = s.id;
       chrome.storage.sync.set({ csSkin: s.id, csEnabled: true });
       trackRecent(s.id);
       renderSelection();
-      renderChips();
     });
     grid.appendChild(card);
   }
   renderSelection();
 }
 
-function renderChips() {
-  const cats = [ALL_CAT, ...new Set(skins.map((s) => s.category))];
-  if (recents.length) cats.splice(1, 0, RECENT_CAT);
-  if (favorites.length) cats.splice(1, 0, FAV_CAT);
-  chipsEl.innerHTML = "";
-  for (const c of cats) {
-    const b = document.createElement("button");
-    b.className = "chip" + (c === activeCat ? " active" : "");
-    b.textContent = c;
-    b.addEventListener("click", () => { activeCat = c; renderChips(); renderGrid(); });
-    chipsEl.appendChild(b);
+function initChips() {
+  const chips = document.querySelectorAll("#chips .chip");
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      activeFilter = chip.dataset.filter;
+      for (const c of chips) c.classList.toggle("active", c === chip);
+      renderGrid();
+    });
   }
+}
+
+// category dropdown: All + the unique categories of the index, curated order
+function initCategorySelect() {
+  const sel = document.getElementById("catSel");
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = t("catAll", "All");
+  sel.appendChild(all);
+  for (const cat of [...new Set(skins.map((s) => s.category).filter(Boolean))]) {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat; // catalog categories are shown as-is (English)
+    sel.appendChild(opt);
+  }
+  sel.addEventListener("change", () => {
+    activeCategory = sel.value;
+    renderGrid();
+  });
 }
 
 /* ---------------- board themes ---------------- */
 
 const boardGrid = document.getElementById("boardGrid");
 let boards = [];
+
+function boardColors(id) {
+  const b = (id && id.startsWith(CUSTOM_PREFIX))
+    ? customBoards[id.slice(CUSTOM_PREFIX.length)]
+    : boards.find((x) => x.id === id);
+  return (b && b.colors && b.colors.light && b.colors.dark) ? b.colors : CLASSIC;
+}
+
+// the skin-card previews use --sq-l/--sq-d, so tinting the root retints them all
+function applyBoardColors() {
+  const c = boardColors(state.csBoard);
+  document.documentElement.style.setProperty("--sq-l", c.light);
+  document.documentElement.style.setProperty("--sq-d", c.dark);
+}
 
 function renderBoardSelection() {
   for (const card of boardGrid.children) {
@@ -132,200 +205,98 @@ function renderBoardSelection() {
 
 function renderBoards() {
   boardGrid.innerHTML = "";
+  // Site Default pinned first, then custom boards, then the catalog
+  const customEntries = Object.entries(customBoards)
+    .filter(([, b]) => b && b.board)
+    .map(([cid, b]) => ({
+      id: CUSTOM_PREFIX + cid,
+      name: b.name || t("customName", "My Custom Skin"),
+      tagline: b.tagline || "",
+      _customSvg: b.board,
+    }));
   const entries = [
     { id: "default", name: t("boardDefaultName", "Site Default"), tagline: t("boardDefaultTag", "Whatever the site says."), _none: true },
+    ...customEntries,
     ...boards,
   ];
   for (const b of entries) {
     const card = document.createElement("div");
     card.className = "bcard";
     card.dataset.id = b.id;
-    // top-left 4x2 corner of the board, with a few goofball pieces on it
-    const bg = b._none
-      ? "background:repeating-conic-gradient(var(--sq-l) 0% 25%, var(--sq-d) 0% 50%) 0 0 / 25% 50%"
-      : `background-image:url('boards/${b.id}/board.svg')`;
-    const pieces = ["bR", "bN", "bB", "bQ"]
-      .map((c, i) => `<img src="skins/goofball/${c}.svg" style="left:${i * 12.5}%;top:0">`)
-      .join("");
-    card.innerHTML = `
-      <div class="bpreview" style="${bg}">${pieces}</div>
-      <div class="name"></div><div class="tag"></div>`;
-    card.querySelector(".name").textContent = b.name;
-    card.querySelector(".tag").textContent = b.tagline;
+    card.title = b.tagline || ""; // tooltip = tagline only; labels show name + tagline
+    card.innerHTML = `<div class="bpreview"></div><div class="bname"></div><div class="btag"></div>`;
+    card.querySelector(".bname").textContent = b.name; // may be user-supplied
+    card.querySelector(".btag").textContent = b.tagline || "\u00a0"; // nbsp keeps tile heights even
+    // 2x3 whole-square crop from a8 — CSS sets size (800%/3) + top-left origin.
+    // Set via the style property: the svg data-URI would break an inline attribute.
+    const prev = card.querySelector(".bpreview");
+    if (b._none) {
+      prev.classList.add("bdefault"); // diagonal lichess/chess.com split, drawn in CSS
+    } else if (b._customSvg) {
+      prev.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(b._customSvg)}")`;
+    } else {
+      prev.style.backgroundImage = `url('boards/${b.id}/board.svg')`;
+    }
     card.addEventListener("click", () => {
       state.csBoard = b.id;
-      chrome.storage.sync.set({ csBoard: b.id, csEnabled: true });
+      const patch = { csBoard: b.id, csEnabled: true };
+      if (b.id !== "default" && !b.id.startsWith(CUSTOM_PREFIX)) {
+        boardRecents = [b.id, ...boardRecents.filter((r) => r !== b.id)].slice(0, 6);
+        patch.csBoardRecents = boardRecents;
+      }
+      chrome.storage.sync.set(patch);
       renderBoardSelection();
+      applyBoardColors();
     });
     boardGrid.appendChild(card);
   }
   renderBoardSelection();
 }
 
-/* ---------------- creator ---------------- */
-
-const AI_PROMPT = (theme) => `You are a professional icon designer creating a complete chess piece skin for the open-source ChessSkins browser extension (${REPO}).
-
-THEME: ${theme || "(designer's choice — pick something fun and cohesive)"}
-
-Design all 12 pieces: white king/queen/rook/bishop/knight/pawn and black king/queen/rook/bishop/knight/pawn.
-
-HARD REQUIREMENTS for every SVG:
-- viewBox="0 0 100 100"; artwork fills ~86-96 units of height; bottom of the piece near y=92.
-- Fully self-contained: NO <script>, <image>, <text>, <style>, <foreignObject>, CSS classes, external references, or event attributes. Presentation attributes only (fill, stroke, stroke-width, opacity...). Inline gradients with unique ids are allowed.
-- Under 10KB each.
-
-READABILITY RULES (this is a playable chess set, not just art):
-1. Six distinct silhouettes — king, queen, rook, bishop, knight, pawn must each be identifiable at a glance. Keep classic cues even in costume: king tallest/crowned, queen elegant with her own tiara (clearly different from the king), rook sturdy/structural, bishop tall/pointed, knight = the animal/mount in side profile, pawn smallest and simplest.
-2. Side identity: the white army must be predominantly LIGHT-bodied, the black army predominantly DARK-bodied. Themed accent colors are welcome, but at 45 pixels nobody should hesitate about whose piece it is.
-3. Both armies must stay readable on light (#f0d9b5) AND dark (#b58863) board squares. Proven recipe: dark outline around light pieces, light outline around dark pieces.
-4. Consistent stroke weight and detail level across all 12 pieces; the black set is the same design recolored, not a different design. Avoid fine detail that vanishes at small sizes.
-
-OUTPUT FORMAT — reply with EXACTLY ONE json code block and nothing else:
-
-\`\`\`json
-{
-  "id": "kebab-case-id",
-  "name": "Display Name",
-  "tagline": "One fun sentence about the set.",
-  "style": "one-or-two-word style tag",
-  "pieces": {
-    "wK": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\">...</svg>",
-    "wQ": "...", "wR": "...", "wB": "...", "wN": "...", "wP": "...",
-    "bK": "...", "bQ": "...", "bR": "...", "bB": "...", "bN": "...", "bP": "..."
-  }
-}
-\`\`\``;
-
-const FORBIDDEN = ["<script", "<image", "<text", "<style", "<foreignobject",
-  'href="http', "url(http", "xlink:href", "javascript:", "onload=", "onerror=", "onclick="];
-
-function validateSkin(obj) {
-  const errs = [];
-  if (!obj || typeof obj !== "object") return ["Not a JSON object."];
-  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(obj.id || "")) errs.push("id must be kebab-case (e.g. sushi-set).");
-  if (!obj.name) errs.push("Missing name.");
-  if (!obj.pieces) return errs.concat(["Missing pieces map."]);
-  for (const code of CODES) {
-    const svg = obj.pieces[code];
-    if (!svg) { errs.push(`Missing piece ${code}.`); continue; }
-    const low = svg.toLowerCase();
-    if (!low.includes("<svg")) errs.push(`${code}: not an <svg> element.`);
-    if (!low.includes("viewbox")) errs.push(`${code}: missing viewBox.`);
-    if (svg.length > 12000) errs.push(`${code}: too large (${svg.length} chars, max ~12000).`);
-    for (const bad of FORBIDDEN) if (low.includes(bad)) errs.push(`${code}: forbidden content "${bad}".`);
-    const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
-    if (doc.querySelector("parsererror")) errs.push(`${code}: invalid SVG/XML.`);
-  }
-  return errs;
-}
-
-function extractJSON(text) {
-  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const raw = fenced ? fenced[1] : text;
-  const start = raw.indexOf("{");
-  const end = raw.lastIndexOf("}");
-  if (start === -1 || end === -1) throw new Error("No JSON object found in the pasted text.");
-  return JSON.parse(raw.slice(start, end + 1));
-}
-
-let loadedSkin = null;
-
-function initCreator() {
-  const copyStatus = document.getElementById("copyStatus");
-  const loadStatus = document.getElementById("loadStatus");
-
-  document.getElementById("copyPrompt").addEventListener("click", async () => {
-    const theme = document.getElementById("themeDesc").value.trim();
-    await navigator.clipboard.writeText(AI_PROMPT(theme));
-    copyStatus.className = "ok";
-    copyStatus.textContent = t("copiedMsg", "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns.");
-  });
-
-  function loadFromText(text) {
-    loadStatus.textContent = "";
-    document.getElementById("previewWrap").style.display = "none";
-    let obj;
-    try { obj = extractJSON(text); }
-    catch (e) { loadStatus.className = "err"; loadStatus.textContent = e.message; return; }
-    const errs = validateSkin(obj);
-    if (errs.length) {
-      loadStatus.className = "err";
-      loadStatus.textContent =
-        t("errIntro", "Almost! Fix these (you can ask the AI to correct them):") + "\n• " + errs.join("\n• ");
-      return;
-    }
-    loadedSkin = obj;
-    loadStatus.className = "ok";
-    loadStatus.textContent = `"${obj.name}" ` + t("loadedMsg", "loaded — looking good!");
-    document.getElementById("previewBoard").innerHTML =
-      boardHTML((c) => "data:image/svg+xml," + encodeURIComponent(obj.pieces[c]));
-    document.getElementById("previewWrap").style.display = "block";
-  }
-
-  document.getElementById("loadSkin").addEventListener("click", () =>
-    loadFromText(document.getElementById("pasteBox").value)
-  );
-  document.getElementById("importFile").addEventListener("click", () =>
-    document.getElementById("fileInput").click()
-  );
-  document.getElementById("fileInput").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    if (file) loadFromText(await file.text());
-    e.target.value = "";
-  });
-
-  document.getElementById("applyCustom").addEventListener("click", async () => {
-    await chrome.storage.local.set({ csCustomSkin: loadedSkin });
-    await chrome.storage.sync.set({ csSkin: CUSTOM_ID, csEnabled: true });
-    state.csSkin = CUSTOM_ID;
-    renderSelection();
-    document.getElementById("applyCustom").textContent = t("appliedBtn", "✓ Applied — go play!");
-    setTimeout(() => (document.getElementById("applyCustom").textContent = t("btnApply", "Apply as my skin")), 2500);
-  });
-
-  document.getElementById("downloadCustom").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(loadedSkin, null, 2)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `${loadedSkin.id}.skin.json`;
-    a.click();
-  });
-
-  document.getElementById("submitCustom").addEventListener("click", () => {
-    const title = encodeURIComponent(`[skin] ${loadedSkin.name}`);
-    window.open(`${REPO}/issues/new?template=new-skin.yml&title=${title}`, "_blank");
-  });
-
-  if (location.hash === "#create") {
-    document.getElementById("create").scrollIntoView();
-    document.getElementById("themeDesc").focus();
-  }
-}
-
 /* ---------------- init ---------------- */
 
 async function init() {
-  const [idx, bidx, stored] = await Promise.all([
+  await migrateLegacyCustom();
+  const [idx, bidx, stored, local] = await Promise.all([
     fetch(chrome.runtime.getURL("skins/index.json")).then((r) => r.json()),
     fetch(chrome.runtime.getURL("boards/index.json")).then((r) => r.json()).catch(() => []),
-    chrome.storage.sync.get({ ...DEFAULTS, csBoard: "default", csFavorites: [], csRecents: [] }),
+    chrome.storage.sync.get({ ...DEFAULTS, csBoard: "default", csFavorites: [], csRecents: [], csBoardRecents: [] }),
+    chrome.storage.local.get({ csCustomSkins: {}, csCustomBoards: {} }),
   ]);
-  skins = idx;
+  skins = idx.map((s, i) => ({ ...s, _idx: i }));
   boards = bidx;
   state = stored;
+  customSkins = local.csCustomSkins || {};
+  customBoards = local.csCustomBoards || {};
   favorites = stored.csFavorites;
   recents = stored.csRecents;
+  boardRecents = stored.csBoardRecents;
   search.addEventListener("input", renderGrid);
-  document.getElementById("sort").addEventListener("change", renderGrid);
-  renderChips();
+  initChips();
+  initCategorySelect();
+  applyBoardColors();
   renderGrid();
   renderBoards();
-  initCreator();
   chrome.storage.onChanged.addListener((ch, area) => {
+    if (area === "local") {
+      if (ch.csCustomSkins) {
+        customSkins = ch.csCustomSkins.newValue || {};
+        renderGrid();
+      }
+      if (ch.csCustomBoards) {
+        customBoards = ch.csCustomBoards.newValue || {};
+        renderBoards();
+        applyBoardColors();
+      }
+      return;
+    }
     if (area !== "sync") return;
     if (ch.csSkin) { state.csSkin = ch.csSkin.newValue; renderSelection(); }
-    if (ch.csBoard) { state.csBoard = ch.csBoard.newValue; renderBoardSelection(); }
+    if (ch.csBoard) {
+      state.csBoard = ch.csBoard.newValue;
+      renderBoardSelection();
+      applyBoardColors();
+    }
   });
 }
 

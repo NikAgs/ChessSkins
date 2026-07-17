@@ -4,7 +4,8 @@
 
 const STYLE_ID = "chessskins-style";
 const BOARD_STYLE_ID = "chessskins-board-style";
-const CUSTOM_ID = "__custom__";
+const CUSTOM_ID = "__custom__";          // legacy single-slot custom skin
+const CUSTOM_PREFIX = "__custom__:";     // "__custom__:<id>" -> csCustomSkins/csCustomBoards[id]
 const DEFAULTS = {
   csEnabled: true,
   csSkin: "goofball",
@@ -37,6 +38,16 @@ function cssFromPieces(pieces) {
     .join("\n");
 }
 
+// same rules tools/build.py writes into boards/<id>/board.css
+function cssFromBoardSVG(svg) {
+  const uri = "data:image/svg+xml," + encodeURIComponent(svg);
+  return (
+    `cg-board{background-image:url("${uri}") !important;background-size:cover !important;}\n` +
+    `wc-chess-board,chess-board{background-image:url("${uri}") !important;` +
+    `background-size:100% 100% !important;}`
+  );
+}
+
 function setStyle(css, id = STYLE_ID) {
   let el = document.getElementById(id);
   if (css == null) {
@@ -57,6 +68,13 @@ async function applyBoard(enabled, board) {
   currentBoardKey = key;
   if (!enabled || !board || board === "default") return setStyle(null, BOARD_STYLE_ID);
   try {
+    if (board.startsWith(CUSTOM_PREFIX)) {
+      const { csCustomBoards } = await chrome.storage.local.get("csCustomBoards");
+      const custom = csCustomBoards && csCustomBoards[board.slice(CUSTOM_PREFIX.length)];
+      if (!custom || !custom.board) throw new Error("no custom board");
+      if (currentBoardKey !== key) return;
+      return setStyle(cssFromBoardSVG(custom.board), BOARD_STYLE_ID);
+    }
     const url = chrome.runtime.getURL(`boards/${board}/board.css`);
     const css = await (await fetch(url)).text();
     if (currentBoardKey !== key) return;
@@ -75,10 +93,18 @@ async function apply(enabled, skin) {
 
   try {
     if (skin === CUSTOM_ID) {
+      // legacy single-slot path — kept as a safety net for un-migrated storage
       const { csCustomSkin } = await chrome.storage.local.get("csCustomSkin");
       if (!csCustomSkin || !csCustomSkin.pieces) throw new Error("no custom skin");
       if (currentKey !== key) return;
       return setStyle(cssFromPieces(csCustomSkin.pieces));
+    }
+    if (skin.startsWith(CUSTOM_PREFIX)) {
+      const { csCustomSkins } = await chrome.storage.local.get("csCustomSkins");
+      const custom = csCustomSkins && csCustomSkins[skin.slice(CUSTOM_PREFIX.length)];
+      if (!custom || !custom.pieces) throw new Error("no custom skin");
+      if (currentKey !== key) return;
+      return setStyle(cssFromPieces(custom.pieces));
     }
     const url = chrome.runtime.getURL(`skins/${skin}/skin.css`);
     const css = await (await fetch(url)).text();
@@ -107,8 +133,12 @@ chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "sync" &&
       (changes.csEnabled || changes.csSkin || changes.csBoard ||
        changes.csSiteLichess || changes.csSiteChess)) sync();
-  if (area === "local" && changes.csCustomSkin) {
+  if (area === "local" && (changes.csCustomSkin || changes.csCustomSkins)) {
     currentKey = null; // force re-render of the custom skin
+    sync();
+  }
+  if (area === "local" && changes.csCustomBoards) {
+    currentBoardKey = null; // force re-render of the custom board
     sync();
   }
 });

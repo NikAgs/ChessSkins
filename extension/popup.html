@@ -8,35 +8,40 @@
     --card: #fffaf1; --edge: #e3d8c4; --sel: #629924;
     --sq-l: #f0d9b5; --sq-d: #b58863;
   }
-  body { width: 360px; max-height: 580px; margin: 0; overflow-y: auto;
+  /* fixed-height flex column: header / board strip / pieces (the ONLY
+     scrolling region) / footer — the popup never exceeds 580px */
+  body { width: 360px; height: 580px; margin: 0; overflow: hidden;
+         display: flex; flex-direction: column;
          font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
-  header { position: sticky; top: 0; z-index: 2; background: var(--bg);
-           padding: 12px 14px 8px; border-bottom: 1px solid var(--edge); }
-  .headrow { display: flex; align-items: center; justify-content: space-between; }
+  header { flex: none; background: var(--bg);
+           padding: 11px 14px 9px; border-bottom: 1px solid var(--edge); }
+  .headrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   header b { font-size: 17px; }
-  header .sub { color: var(--muted); font-size: 12px; }
 
-  .switch { position: relative; width: 44px; height: 24px; flex: none; }
-  .switch input { opacity: 0; width: 0; height: 0; }
-  .slider { position: absolute; inset: 0; border-radius: 24px; background: #c9bda9;
+  .sites { display: flex; gap: 12px; color: var(--muted); font-size: 11.5px; }
+  .sites label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
+  .switch { position: relative; width: 34px; height: 19px; flex: none; }
+  .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .slider { position: absolute; inset: 0; border-radius: 19px; background: #c9bda9;
             transition: .15s; cursor: pointer; }
-  .slider:before { content: ""; position: absolute; width: 18px; height: 18px;
+  .slider:before { content: ""; position: absolute; width: 13px; height: 13px;
                    border-radius: 50%; background: #fff; left: 3px; top: 3px; transition: .15s; }
   input:checked + .slider { background: var(--sel); }
-  input:checked + .slider:before { transform: translateX(20px); }
+  input:checked + .slider:before { transform: translateX(15px); }
 
-  .sites { display: flex; gap: 14px; padding-top: 7px; color: var(--muted); font-size: 12px; }
-  .sites label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-  .sites input { accent-color: var(--sel); margin: 0; }
-  #chips { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0 2px; scrollbar-width: none; }
-  #chips::-webkit-scrollbar { display: none; }
-  .chip { flex: none; border: 1px solid var(--edge); background: var(--card); color: var(--muted);
-          border-radius: 20px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
-  .chip.active { background: var(--sel); border-color: var(--sel); color: #fff; }
+  /* horizontal-scroll row: hidden scrollbar, right-edge bleed hints at more */
+  .hscroll { overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+             scroll-snap-type: x proximity; scroll-padding-left: 14px; }
+  .hscroll::-webkit-scrollbar { display: none; }
 
-  #grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 14px 10px; }
+  /* pieces: THE scrolling region — 2 cards per row, fills the leftover height */
+  #grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 8px; padding: 0 14px 10px; }
   .card { background: var(--card); border: 2px solid var(--edge); border-radius: 12px;
-          padding: 8px 8px 7px; cursor: pointer; text-align: center; transition: border-color .1s; }
+          padding: 9px 8px 7px; cursor: pointer; text-align: center; transition: border-color .1s;
+          position: relative; }
   .card:hover { border-color: #c9bda9; }
   .card.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
   .duo { display: flex; justify-content: center; }
@@ -44,43 +49,68 @@
   .duo .sq:first-child { background: var(--sq-l); border-radius: 8px 0 0 8px; }
   .duo .sq:last-child  { background: var(--sq-d); border-radius: 0 8px 8px 0; }
   .duo img { width: 50px; height: 50px; }
-  .strip { display: none; justify-content: center; }
-  .strip .sq { width: 24px; height: 62px; display: flex; align-items: center; justify-content: center; }
-  .strip .sq:nth-child(odd) { background: var(--sq-l); }
-  .strip .sq:nth-child(even) { background: var(--sq-d); }
-  .strip .sq:first-child { border-radius: 8px 0 0 8px; }
-  .strip .sq:last-child { border-radius: 0 8px 8px 0; }
-  .strip img { width: 22px; height: 22px; }
-  .card:hover .duo { display: none; }
-  .card:hover .strip { display: flex; }
-  .card .name { font-weight: 600; font-size: 13px; margin-top: 6px; }
-  .card .tag { color: var(--muted); font-size: 11px; line-height: 1.25; margin-top: 1px;
-               display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .badge { font-size: 10px; color: var(--sel); font-weight: 700; letter-spacing: .4px; }
+  .card .name { font-weight: 600; font-size: 12.5px; margin-top: 5px;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* badge escapes the ellipsized name and sits as a corner sticker */
+  .badge { position: absolute; top: 4px; left: 6px; font-size: 9px; line-height: 1;
+           color: var(--sel); font-weight: 700; letter-spacing: .4px;
+           background: var(--card); border: 1px solid var(--edge); border-radius: 7px;
+           padding: 2px 5px 1px; }
 
-  footer { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--edge);
-           display: flex; gap: 8px; padding: 10px 14px; }
+  .star { position: absolute; top: 2px; right: 2px; z-index: 1; font-size: 18px; line-height: 1;
+          color: #c9bda9; cursor: pointer; user-select: none; padding: 4px 5px 5px;
+          text-shadow: 0 1px 2px rgba(0,0,0,.25); display: none; }
+  .star.faved { color: #f2b01e; }
+  .card:hover .star, .btile:hover .star { display: block; }
+  .btile .star { font-size: 17px; }
+
+  .section-label { flex: none; padding: 9px 14px 6px; font-weight: 700; font-size: 11.5px;
+                   color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  /* board strip: always visible above the pieces scroller */
+  #boards { flex: none; display: grid; grid-template-rows: 1fr; grid-auto-flow: column;
+            grid-auto-columns: 126px; gap: 8px; padding: 0 14px 8px; }
+  .btile { box-sizing: border-box; background: var(--card);
+           border: 2px solid var(--edge); border-radius: 10px; padding: 4px 5px 5px;
+           cursor: pointer; transition: border-color .1s; position: relative;
+           scroll-snap-align: start; text-align: center; }
+  .btile:hover { border-color: #c9bda9; }
+  .btile.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
+  /* 2x3 whole-square crop of the 8x8 board art, anchored at a8: width shows
+     3 of 8 columns (100% * 8/3) and the 3/2 aspect yields exactly 2 rows */
+  .bprev { aspect-ratio: 3 / 2; border-radius: 6px; overflow: hidden;
+           background-size: calc(100% * 8 / 3) auto; background-position: top left; }
+  /* Site Default: lichess / chess.com palettes split along the tile diagonal,
+     checker squares on the same 3-per-row grid as the board previews */
+  .bdefault { position: relative;
+              background: repeating-conic-gradient(#b58863 0% 25%, #f0d9b5 0% 50%)
+                          0 0 / calc(100% * 2 / 3) 100%; }
+  .bdefault::after { content: ""; position: absolute; inset: 0;
+                     background: repeating-conic-gradient(#779556 0% 25%, #ebecd0 0% 50%)
+                                 0 0 / calc(100% * 2 / 3) 100%;
+                     clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .btile .bname { font-weight: 600; font-size: 11.5px; margin-top: 4px;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  footer { flex: none; background: var(--bg); border-top: 1px solid var(--edge);
+           display: flex; gap: 8px; padding: 9px 14px; }
   footer button { flex: 1; border: 1px solid var(--edge); background: var(--card); color: var(--ink);
                   border-radius: 9px; padding: 7px 0; font: 600 12.5px system-ui; cursor: pointer; }
   footer button:hover { border-color: #c9bda9; }
-  .disabled-note { padding: 8px 14px 0; color: var(--muted); font-size: 12px; display: none; }
-  body.off #grid, body.off #chips { opacity: .45; pointer-events: none; }
-  body.off .disabled-note { display: block; }
 </style>
 </head>
 <body>
   <header>
     <div class="headrow">
-      <div><b>ChessSkins</b><div class="sub" data-i18n="popupSub">Piece skins for lichess &amp; chess.com</div></div>
-      <label class="switch"><input type="checkbox" id="master"><span class="slider"></span></label>
+      <b>ChessSkins</b>
+      <div class="sites" id="sites">
+        <label><span class="switch"><input type="checkbox" id="siteLichess"><span class="slider"></span></span> lichess</label>
+        <label><span class="switch"><input type="checkbox" id="siteChess"><span class="slider"></span></span> chess.com</label>
+      </div>
     </div>
-    <div class="sites" id="sites">
-      <label><input type="checkbox" id="siteLichess"> lichess.org</label>
-      <label><input type="checkbox" id="siteChess"> chess.com</label>
-    </div>
-    <div id="chips"></div>
   </header>
-  <div class="disabled-note" data-i18n="popupOff">Skins are off — sites show their own pieces. Flip the switch to bring the fun back.</div>
+  <div class="section-label" data-i18n="popupBoards">Board</div>
+  <div id="boards" class="hscroll"></div>
+  <div class="section-label" data-i18n="popupSkins">Pieces</div>
   <div id="grid"></div>
   <footer>
     <button id="openGallery" data-i18n="btnGallery">🖼️ Full gallery</button>

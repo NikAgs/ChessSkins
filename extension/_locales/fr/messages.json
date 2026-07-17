@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "À VOUS"
  },
- "gallerySub": {
-  "message": "chaque skin, sur un vrai échiquier"
- },
  "sortCurated": {
   "message": "Sélection"
  },
@@ -60,16 +57,16 @@
   "message": "✨ Créez votre propre skin"
  },
  "createSub": {
-  "message": "Concevez un jeu avec Claude ou ChatGPT, essayez-le instantanément et proposez-le au catalogue public — sans coder."
+  "message": "Générez votre propre thème en moins de 10 minutes et utilisez-le aussitôt. Aucun code requis."
  },
  "step1": {
-  "message": "Décrivez votre thème et copiez le prompt IA"
+  "message": "Décrivez votre thème"
  },
  "themePh": {
-  "message": "ex. pièces sushi — le cavalier est un nigiri à la crevette"
+  "message": "p. ex. pièces sushi - le cavalier est un nigiri à la crevette"
  },
  "btnCopyPrompt": {
-  "message": "Copier le prompt pour Claude / ChatGPT"
+  "message": "Copier le prompt"
  },
  "copiedMsg": {
   "message": "Copié ! Collez-le dans Claude ou ChatGPT, puis revenez avec le JSON obtenu."
@@ -78,7 +75,7 @@
   "message": "Collez ici la réponse JSON de l'IA"
  },
  "pastePh": {
-  "message": "Collez la réponse entière — je trouverai le bloc JSON."
+  "message": "Collez la réponse entière"
  },
  "btnLoad": {
   "message": "Charger et prévisualiser"
@@ -87,7 +84,7 @@
   "message": "Importer .skin.json…"
  },
  "loadedMsg": {
-  "message": "chargé — ça a de l'allure !"
+  "message": "Réussi !"
  },
  "errIntro": {
   "message": "Presque ! Corrigez ceci (vous pouvez demander à l'IA de le faire) :"
@@ -108,7 +105,7 @@
   "message": "Proposer au catalogue →"
  },
  "submitNote": {
-  "message": "L'envoi ouvre un formulaire GitHub : collez-y le même JSON et un robot le validera puis ouvrira la pull request pour vous."
+  "message": "L'envoi ouvre un formulaire GitHub"
  },
  "appliedCard": {
   "message": "✓ Appliqué — à vous de jouer !"
@@ -124,5 +121,44 @@
  },
  "starTitle": {
   "message": "Favori"
+ },
+ "filterRecent": {
+  "message": "🕒 Récents"
+ },
+ "filterName": {
+  "message": "🔤 Nom (A-Z)"
+ },
+ "madeWithLove": {
+  "message": "Fait avec ❤️ pour les passionnés d'échecs"
+ },
+ "btnCoffee": {
+  "message": "☕ Offrez-moi un café"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favoris"
+ },
+ "popupSkins": {
+  "message": "Pièces"
+ },
+ "popupBoards": {
+  "message": "Échiquier"
+ },
+ "backToGallery": {
+  "message": "← Retour à la galerie"
+ },
+ "themePhBoard": {
+  "message": "p. ex. bois de tournoi patiné - grain doux, tons chauds"
+ },
+ "btnOpenChatGPT": {
+  "message": "Ouvrir dans ChatGPT"
+ },
+ "btnOpenClaude": {
+  "message": "Ouvrir dans Claude"
+ },
+ "modePieces": {
+  "message": "Pièces"
+ },
+ "modeBoard": {
+  "message": "Échiquier"
  }
 }
