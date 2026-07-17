@@ -87,6 +87,25 @@ function refreshStars(container, favs) {
   }
 }
 
+// peel/stamp feedback plays only on real clicks: tag the clicked element with
+// .just-picked (renderSelection alone never animates). Removed on animationend
+// — after the late badge stamp when there is one, else after the peel itself.
+function pick(el) {
+  const prev = el.parentElement.querySelector(".just-picked");
+  if (prev && prev !== el) prev.classList.remove("just-picked");
+  el.classList.remove("just-picked");
+  void el.offsetWidth; // restart cleanly when re-clicking the same element
+  el.classList.add("just-picked");
+  el.addEventListener("animationend", function done(e) {
+    const last = el.querySelector(".badge, .applied") ? e.animationName === "stamp"
+                                                      : e.target === el;
+    if (last) {
+      el.classList.remove("just-picked");
+      el.removeEventListener("animationend", done);
+    }
+  });
+}
+
 /* ---- board colors drive the duo squares via --sq-l / --sq-d ---- */
 
 function boardColors(id) {
@@ -155,7 +174,7 @@ function makeCard({ id, name, tagline, imgFor, badge, starrable = true }) {
       })
     );
   }
-  card.addEventListener("click", () => select(id));
+  card.addEventListener("click", () => { pick(card); select(id); });
   return card;
 }
 
@@ -232,6 +251,7 @@ function renderBoards() {
       );
     }
     tile.addEventListener("click", () => {
+      pick(tile);
       state.csBoard = b.id;
       state.csEnabled = true;
       const patch = { csBoard: b.id, csEnabled: true };

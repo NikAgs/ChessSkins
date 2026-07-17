@@ -47,9 +47,33 @@
                  animation: jelly 300ms var(--boing); }
   .chip.active:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
   .chip:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+  /* category dropdown: chip-styled trigger + Sticker Club popover listbox */
+  .dd { position: relative; display: inline-block; }
   #catSel { border: 2px solid var(--ink); background: var(--card); color: var(--ink);
-            border-radius: 999px; padding: 5px 10px; font-size: 13px; font-weight: 700;
-            font-family: inherit; cursor: pointer; }
+            border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 700;
+            font-family: inherit; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 7px;
+            transition: transform var(--t-press) var(--snap),
+                        box-shadow var(--t-press) var(--snap); }
+  #catSel::after { content: "\25BE"; font-size: 11px; line-height: 1; }
+  #catSel:hover { transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--ink); }
+  #catSel:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+  #catSel[aria-expanded="true"] { background: var(--sheet); box-shadow: 2px 2px 0 var(--ink); }
+  .dd-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20;
+             min-width: 170px; max-height: 320px; overflow-y: auto;
+             background: var(--card); border: 2.5px solid var(--ink); border-radius: 12px;
+             box-shadow: 3px 3px 0 var(--ink); padding: 5px;
+             animation: ddpop var(--t-react) var(--settle); }
+  .dd-menu[hidden] { display: none; }
+  .dd-menu .opt { padding: 6px 12px 6px 26px; border-radius: 8px; position: relative;
+                  font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .dd-menu .opt:hover, .dd-menu .opt.active-opt { background: var(--sun); }
+  .dd-menu .opt[aria-selected="true"]::before { content: "\2713"; position: absolute;
+                                                left: 10px; font-weight: 900; }
+  @keyframes ddpop {
+    from { transform: scale(.92) translateY(-4px); }
+    to   { transform: scale(1) translateY(0); }
+  }
   .btn-create { margin-left: auto; border: 2.5px solid var(--ink); border-radius: 12px;
                 padding: 9px 18px; font-size: 15px; font-weight: 800; font-family: inherit;
                 cursor: pointer; background: var(--sun); color: var(--ink);
@@ -71,10 +95,14 @@
                       background var(--t-react) var(--snap); }
   .card:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
   .card.selected { background: var(--sun); box-shadow: 3px 3px 0 var(--ink);
-                   transform: rotate(-1.2deg); animation: peel var(--t-peel) var(--boing); }
+                   transform: rotate(-1.2deg); }
   .card.selected:hover { transform: translate(-2px,-2px) rotate(-1.2deg);
                          box-shadow: 4px 4px 0 var(--ink); }
-  .star { position: absolute; top: 7px; right: 9px; z-index: 1; font-size: 18px; line-height: 1;
+  /* peel + stamp play only on a real click (JS adds .just-picked briefly) —
+     never on initial render, re-renders or storage echoes */
+  #grid .card.just-picked { animation: peel var(--t-peel) var(--boing); }
+  #grid .card.just-picked .applied { animation: stamp 220ms var(--boing) 90ms backwards; }
+  .star { position: absolute; top: -6px; right: -6px; z-index: 1; font-size: 21px; line-height: 1;
           color: #d8cbb0; cursor: pointer; user-select: none; padding: 4px; }
   .star:hover { transform: scale(1.2); }
   .star.faved { color: var(--pop); }
@@ -86,8 +114,8 @@
   .board .sq { position: relative; aspect-ratio: 1; }
   .board .sq.l { background: var(--sq-l); } .board .sq.d { background: var(--sq-d); }
   .board img { position: absolute; inset: 4%; width: 92%; height: 92%; }
-  /* wiggle just the back rank on hover — one polite wag, not a mosh pit */
-  .card:hover .board .sq:nth-child(-n+5) img {
+  /* the whole set wags once on hover */
+  .card:hover .board img {
     animation: wiggle 440ms ease-in-out; transform-origin: 50% 88%; }
   .meta { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
   .meta .name { font-weight: 800; font-size: 15px; min-width: 0;
@@ -104,8 +132,7 @@
              text-transform: uppercase; letter-spacing: .5px; margin-top: 8px;
              width: max-content; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
              white-space: nowrap; }
-  .card.selected .applied { display: block;
-                            animation: stamp 220ms var(--boing) 90ms backwards; }
+  .card.selected .applied { display: block; }
 
   /* the two section eyebrows (BOARD / PIECES) share one look and one rhythm:
      12px label, 12px gap to content, 22px of air above each section */
@@ -130,8 +157,9 @@
                        background var(--t-react) var(--snap); }
   .bcard:hover { transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--ink); }
   .bcard.selected { background: var(--sun); box-shadow: 3px 3px 0 var(--ink);
-                    transform: rotate(-1.2deg); animation: peel var(--t-peel) var(--boing); }
+                    transform: rotate(-1.2deg); }
   .bcard.selected:hover { transform: translate(-2px,-2px) rotate(-1.2deg); }
+  #boardGrid .bcard.just-picked { animation: peel var(--t-peel) var(--boing); }
   /* 2x3 whole-square crop of the 8x8 board art, anchored at a8: width shows
      3 of 8 columns (100% * 8/3) and the 3/2 aspect yields exactly 2 rows */
   .bcard .bpreview { aspect-ratio: 3 / 2; border-radius: 6px; overflow: hidden;
@@ -204,18 +232,21 @@
       <span class="brand-sticker"><img src="icons/icon128.png" alt=""></span>
       <h1>ChessSkins Gallery</h1>
     </div>
-    <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">🐙 GitHub ↗</a>
+    <a class="chip" href="https://github.com/NikAgs/ChessSkins" target="_blank">GitHub ↗</a>
   </header>
 
   <div class="toolbar">
     <span id="chips">
-      <button class="chip active" data-filter="recent" data-i18n="filterRecent">🕒 Recent</button>
-      <button class="chip" data-filter="favorites" data-i18n="filterFavorites">⭐ Favorites</button>
-      <button class="chip" data-filter="name" data-i18n="filterName">🔤 Name (A-Z)</button>
-      <select id="catSel"></select>
+      <button class="chip active" data-filter="recent" data-i18n="filterRecent">Recent</button>
+      <button class="chip" data-filter="favorites" data-i18n="filterFavorites">Favorites</button>
+      <button class="chip" data-filter="name" data-i18n="filterName">Name (A-Z)</button>
+      <span class="dd" id="catWrap">
+        <button id="catSel" aria-haspopup="listbox" aria-expanded="false" aria-controls="catMenu"></button>
+        <div class="dd-menu" id="catMenu" role="listbox" hidden></div>
+      </span>
     </span>
-    <a class="btn-create" href="create.html" data-i18n="createTitle">✨ Create your own skin</a>
-    <input id="search" type="text" data-i18n-placeholder="searchPh" placeholder="Search skins…">
+    <a class="btn-create" href="create.html" data-i18n="createTitle">Create your own skin</a>
+    <input id="search" type="text" data-i18n-placeholder="searchPh" placeholder="Search skins...">
   </div>
 
   <section id="boards">
@@ -227,8 +258,8 @@
   <div id="grid"></div>
 
   <footer>
-    <span data-i18n="madeWithLove">Made with ❤️ for chess nerds</span> ·
-    <a href="https://buymeacoffee.com/nikags" target="_blank" data-i18n="btnCoffee">☕ Buy me a coffee</a>
+    <span data-i18n="madeWithLove">Made with love for chess nerds</span> ·
+    <a href="https://buymeacoffee.com/nikags" target="_blank" data-i18n="btnCoffee">Buy me a coffee</a>
   </footer>
 </div>
 <script src="i18n.js"></script>

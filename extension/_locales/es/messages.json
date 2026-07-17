@@ -15,10 +15,10 @@
   "message": "Los diseños están desactivados: los sitios muestran sus propias piezas. Activa el interruptor para recuperar la diversión."
  },
  "btnGallery": {
-  "message": "🖼️ Galería completa"
+  "message": "Galería completa"
  },
  "btnCreate": {
-  "message": "✨ Crea el tuyo"
+  "message": "Crea el tuyo"
  },
  "customName": {
   "message": "Mi diseño personalizado"
@@ -36,13 +36,13 @@
   "message": "Nombre"
  },
  "sortLikes": {
-  "message": "Más 👍"
+  "message": "Más populares"
  },
  "searchPh": {
-  "message": "Buscar diseños…"
+  "message": "Buscar diseños..."
  },
  "boardsTitle": {
-  "message": "🟫 Temas de tablero"
+  "message": "Temas de tablero"
  },
  "boardsSub": {
   "message": "Elige el terreno donde luchan tus ejércitos: funciona con cualquier diseño."
@@ -54,7 +54,7 @@
   "message": "Lo que diga el sitio."
  },
  "createTitle": {
-  "message": "✨ Crea tu propio diseño"
+  "message": "Crea tu propio diseño"
  },
  "createSub": {
   "message": "Genera tu propio tema en menos de 10 minutos y úsalo al instante. Sin programar."
@@ -69,7 +69,7 @@
   "message": "Copiar prompt"
  },
  "copiedMsg": {
-  "message": "¡Copiado! Pégalo en Claude o ChatGPT y vuelve con el JSON que te devuelva."
+  "message": "¡Prompt completo copiado!"
  },
  "step2": {
   "message": "Pega aquí la respuesta JSON de la IA"
@@ -81,7 +81,7 @@
   "message": "Cargar y previsualizar"
  },
  "btnImport": {
-  "message": "Importar .skin.json…"
+  "message": "Importar .skin.json..."
  },
  "loadedMsg": {
   "message": "¡Éxito!"
@@ -105,7 +105,7 @@
   "message": "Enviar al catálogo →"
  },
  "submitNote": {
-  "message": "Enviar abre un formulario de GitHub"
+  "message": "Abre un formulario de GitHub: tu JSON ya está copiado, listo para pegar."
  },
  "appliedCard": {
   "message": "✓ Aplicado — ¡a jugar!"
@@ -123,19 +123,19 @@
   "message": "Favorito"
  },
  "filterRecent": {
-  "message": "🕒 Recientes"
+  "message": "Recientes"
  },
  "filterName": {
-  "message": "🔤 Nombre (A-Z)"
+  "message": "Nombre (A-Z)"
  },
  "madeWithLove": {
-  "message": "Hecho con ❤️ para frikis del ajedrez"
+  "message": "Hecho con cariño para frikis del ajedrez"
  },
  "btnCoffee": {
-  "message": "☕ Invítame a un café"
+  "message": "Invítame a un café"
  },
  "filterFavorites": {
-  "message": "⭐ Favoritos"
+  "message": "Favoritos"
  },
  "popupSkins": {
   "message": "Piezas"

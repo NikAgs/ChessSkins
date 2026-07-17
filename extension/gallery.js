@@ -61,6 +61,25 @@ function renderSelection() {
   }
 }
 
+// peel/stamp feedback plays only on real clicks: tag the clicked element with
+// .just-picked (renderSelection alone never animates). Removed on animationend
+// — after the late applied stamp when there is one, else after the peel itself.
+function pick(el) {
+  const prev = el.parentElement.querySelector(".just-picked");
+  if (prev && prev !== el) prev.classList.remove("just-picked");
+  el.classList.remove("just-picked");
+  void el.offsetWidth; // restart cleanly when re-clicking the same element
+  el.classList.add("just-picked");
+  el.addEventListener("animationend", function done(e) {
+    const last = el.querySelector(".badge, .applied") ? e.animationName === "stamp"
+                                                      : e.target === el;
+    if (last) {
+      el.classList.remove("just-picked");
+      el.removeEventListener("animationend", done);
+    }
+  });
+}
+
 // _idx (curated order) is the universal tie-breaker
 const SORTS = {
   recent: (a, b) =>
@@ -95,6 +114,7 @@ function renderGrid() {
     card.querySelector(".cat").textContent = t("badgeYours", "YOURS");
     card.querySelector(".tag").textContent = tagline;
     card.addEventListener("click", () => {
+      pick(card);
       state.csSkin = card.dataset.id;
       chrome.storage.sync.set({ csSkin: card.dataset.id, csEnabled: true });
       renderSelection();
@@ -122,7 +142,7 @@ function renderGrid() {
     card.querySelector(".applied").textContent = t("appliedCard", "✓ Applied — go play!");
     card.querySelector(".name").textContent = s.name;
     card.querySelector(".cat").textContent =
-      (s.likes ? `👍 ${s.likes} · ` : "") + s.category;
+      (s.likes ? `♥ ${s.likes} · ` : "") + s.category;
     card.querySelector(".tag").textContent = s.tagline;
     const star = card.querySelector(".star");
     star.title = t("starTitle", "Favorite");
@@ -138,6 +158,7 @@ function renderGrid() {
       if (activeFilter === "favorites") renderGrid();
     });
     card.addEventListener("click", () => {
+      pick(card);
       state.csSkin = s.id;
       chrome.storage.sync.set({ csSkin: s.id, csEnabled: true });
       trackRecent(s.id);
@@ -161,22 +182,80 @@ function initChips() {
   }
 }
 
-// category dropdown: All + the unique categories of the index, curated order
+// category dropdown: All + the unique categories of the index, curated order.
+// Sticker Club listbox — chip-styled #catSel trigger + #catMenu popover.
+// Focus stays on the trigger; arrows move the active option (combobox-style).
 function initCategorySelect() {
-  const sel = document.getElementById("catSel");
-  const all = document.createElement("option");
-  all.value = "all";
-  all.textContent = t("catAll", "All");
-  sel.appendChild(all);
-  for (const cat of [...new Set(skins.map((s) => s.category).filter(Boolean))]) {
-    const opt = document.createElement("option");
-    opt.value = cat;
-    opt.textContent = cat; // catalog categories are shown as-is (English)
-    sel.appendChild(opt);
+  const btn = document.getElementById("catSel");
+  const menu = document.getElementById("catMenu");
+  const cats = ["all", ...new Set(skins.map((s) => s.category).filter(Boolean))];
+  const labelFor = (c) => (c === "all" ? t("catAll", "All") : c); // categories shown as-is (English)
+  let open = false;
+  let active = 0;
+
+  cats.forEach((cat, i) => {
+    const opt = document.createElement("div");
+    opt.className = "opt";
+    opt.id = "catOpt" + i;
+    opt.setAttribute("role", "option");
+    opt.textContent = labelFor(cat);
+    opt.addEventListener("click", (e) => {
+      e.stopPropagation();
+      choose(i);
+    });
+    menu.appendChild(opt);
+  });
+
+  function paint() {
+    [...menu.children].forEach((el, i) => {
+      el.setAttribute("aria-selected", String(cats[i] === activeCategory));
+      el.classList.toggle("active-opt", i === active);
+    });
+    btn.setAttribute("aria-activedescendant", open ? "catOpt" + active : "");
   }
-  sel.addEventListener("change", () => {
-    activeCategory = sel.value;
+
+  function setOpen(next) {
+    open = next;
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+    if (open) {
+      active = Math.max(0, cats.indexOf(activeCategory));
+      paint();
+    }
+  }
+
+  function choose(i) {
+    activeCategory = cats[i];
+    btn.textContent = labelFor(cats[i]);
+    setOpen(false);
     renderGrid();
+    btn.focus();
+  }
+
+  btn.textContent = labelFor("all");
+  btn.addEventListener("click", () => setOpen(!open));
+  // options aren't focusable: keep focus on the trigger while clicking them,
+  // so the blur below only fires on a genuine tab/click-away
+  menu.addEventListener("mousedown", (e) => e.preventDefault());
+  btn.addEventListener("blur", () => setOpen(false));
+  btn.addEventListener("keydown", (e) => {
+    if (!open) {
+      // Enter/Space fall through to the native button click
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        setOpen(true);
+      }
+      return;
+    }
+    if (e.key === "Escape") { e.preventDefault(); setOpen(false); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(active + 1, cats.length - 1); paint(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(active - 1, 0); paint(); }
+    else if (e.key === "Home") { e.preventDefault(); active = 0; paint(); }
+    else if (e.key === "End") { e.preventDefault(); active = cats.length - 1; paint(); }
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(active); }
+  });
+  document.addEventListener("click", (e) => {
+    if (open && !e.target.closest("#catWrap")) setOpen(false);
   });
 }
 
@@ -240,6 +319,7 @@ function renderBoards() {
       prev.style.backgroundImage = `url('boards/${b.id}/board.svg')`;
     }
     card.addEventListener("click", () => {
+      pick(card);
       state.csBoard = b.id;
       const patch = { csBoard: b.id, csEnabled: true };
       if (b.id !== "default" && !b.id.startsWith(CUSTOM_PREFIX)) {

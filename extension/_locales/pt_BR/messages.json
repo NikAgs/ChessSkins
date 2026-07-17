@@ -15,10 +15,10 @@
   "message": "As skins estão desativadas — os sites mostram as peças padrão. Ligue a chave para trazer a diversão de volta."
  },
  "btnGallery": {
-  "message": "🖼️ Galeria completa"
+  "message": "Galeria completa"
  },
  "btnCreate": {
-  "message": "✨ Crie a sua"
+  "message": "Crie a sua"
  },
  "customName": {
   "message": "Minha skin personalizada"
@@ -36,13 +36,13 @@
   "message": "Nome"
  },
  "sortLikes": {
-  "message": "Mais 👍"
+  "message": "Mais curtidas"
  },
  "searchPh": {
-  "message": "Buscar skins…"
+  "message": "Buscar skins..."
  },
  "boardsTitle": {
-  "message": "🟫 Temas de tabuleiro"
+  "message": "Temas de tabuleiro"
  },
  "boardsSub": {
   "message": "Escolha o chão onde seus exércitos lutam — funciona com qualquer skin."
@@ -54,7 +54,7 @@
   "message": "O que o site mandar."
  },
  "createTitle": {
-  "message": "✨ Crie sua própria skin"
+  "message": "Crie sua própria skin"
  },
  "createSub": {
   "message": "Crie seu próprio tema em menos de 10 minutos e use na hora. Sem programação."
@@ -69,7 +69,7 @@
   "message": "Copiar prompt"
  },
  "copiedMsg": {
-  "message": "Copiado! Cole no Claude ou ChatGPT e volte com o JSON da resposta."
+  "message": "Prompt completo copiado!"
  },
  "step2": {
   "message": "Cole aqui a resposta JSON da IA"
@@ -81,7 +81,7 @@
   "message": "Carregar e visualizar"
  },
  "btnImport": {
-  "message": "Importar .skin.json…"
+  "message": "Importar .skin.json..."
  },
  "loadedMsg": {
   "message": "Sucesso!"
@@ -105,7 +105,7 @@
   "message": "Enviar ao catálogo →"
  },
  "submitNote": {
-  "message": "Enviar abre um formulário do GitHub"
+  "message": "Abre um formulário do GitHub — seu JSON já está copiado, pronto para colar."
  },
  "appliedCard": {
   "message": "✓ Aplicada — bora jogar!"
@@ -123,19 +123,19 @@
   "message": "Favorita"
  },
  "filterRecent": {
-  "message": "🕒 Recentes"
+  "message": "Recentes"
  },
  "filterName": {
-  "message": "🔤 Nome (A-Z)"
+  "message": "Nome (A-Z)"
  },
  "madeWithLove": {
-  "message": "Feito com ❤️ para nerds do xadrez"
+  "message": "Feito com amor para nerds do xadrez"
  },
  "btnCoffee": {
-  "message": "☕ Me pague um café"
+  "message": "Me pague um café"
  },
  "filterFavorites": {
-  "message": "⭐ Favoritos"
+  "message": "Favoritos"
  },
  "popupSkins": {
   "message": "Peças"
