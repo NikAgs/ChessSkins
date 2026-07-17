@@ -1,0 +1,27 @@
+name: "🟫 Submit a board theme to the catalog"
+description: Made a board theme with the ChessSkins creator? Paste it here for review.
+title: "[board] "
+labels: ["board-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for making a board theme! Paste the **JSON** from the ChessSkins creator
+        (Gallery → Create your own → *Board* → *Download board.json* or copy the block
+        the AI gave you) into the field below. A maintainer will review it and add it
+        to the catalog — then everyone gets your board.
+  - type: textarea
+    id: board-json
+    attributes:
+      label: Board JSON
+      description: The complete JSON object (id, name, tagline, colors, board).
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: original
+    attributes:
+      label: Originality
+      options:
+        - label: This artwork is original (AI-generated is fine) and contains no copyrighted characters or logos.
+          required: true

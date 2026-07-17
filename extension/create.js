@@ -259,7 +259,7 @@ function initCreator() {
   document.getElementById("copyPrompt").addEventListener("click", async () => {
     await navigator.clipboard.writeText(buildPrompt());
     copyStatus.className = "ok";
-    copyStatus.textContent = t("copiedMsg", "Copied! Paste it into Claude or ChatGPT, then bring back the JSON it returns.");
+    copyStatus.textContent = t("copiedMsg", "Copied the full prompt!");
   });
 
   function showPreview(obj) {
@@ -339,11 +339,14 @@ function initCreator() {
     if (!loadedItem) return;
     const url = mode === "pieces"
       ? `${REPO}/issues/new?template=new-skin.yml&title=${encodeURIComponent(`[skin] ${loadedItem.name}`)}`
-      : `${REPO}/issues/new?title=${encodeURIComponent(`[board] ${loadedItem.name}`)}`;
+      : `${REPO}/issues/new?template=new-board.yml&title=${encodeURIComponent(`[board] ${loadedItem.name}`)}`;
     window.open(url, "_blank");
   });
 
   themeDesc.focus();
+
+  // entrance is one-time: drop the scope class once the panel slap is done
+  requestAnimationFrame(() => setTimeout(() => document.body.classList.remove("entering"), 900));
 }
 
 migrateLegacyCustom().then(initBoardColors);

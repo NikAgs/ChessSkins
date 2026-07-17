@@ -15,10 +15,10 @@
   "message": "Skins sind aus — die Seiten zeigen ihre eigenen Figuren. Schalter umlegen und der Spaß ist zurück."
  },
  "btnGallery": {
-  "message": "🖼️ Ganze Galerie"
+  "message": "Ganze Galerie"
  },
  "btnCreate": {
-  "message": "✨ Selbst gestalten"
+  "message": "Selbst gestalten"
  },
  "customName": {
   "message": "Mein eigener Skin"
@@ -36,13 +36,13 @@
   "message": "Name"
  },
  "sortLikes": {
-  "message": "Meiste 👍"
+  "message": "Beliebteste"
  },
  "searchPh": {
-  "message": "Skins durchsuchen…"
+  "message": "Skins durchsuchen..."
  },
  "boardsTitle": {
-  "message": "🟫 Brett-Themen"
+  "message": "Brett-Themen"
  },
  "boardsSub": {
   "message": "Wähle den Boden, auf dem deine Armeen kämpfen — passt zu jedem Skin."
@@ -54,7 +54,7 @@
   "message": "Was die Seite eben sagt."
  },
  "createTitle": {
-  "message": "✨ Eigenen Skin erstellen"
+  "message": "Eigenen Skin erstellen"
  },
  "createSub": {
   "message": "Erstelle dein eigenes Theme in unter 10 Minuten und nutze es sofort. Ganz ohne Programmieren."
@@ -69,7 +69,7 @@
   "message": "Prompt kopieren"
  },
  "copiedMsg": {
-  "message": "Kopiert! In Claude oder ChatGPT einfügen und mit dem JSON zurückkommen."
+  "message": "Der komplette Prompt wurde kopiert!"
  },
  "step2": {
   "message": "JSON-Antwort der KI hier einfügen"
@@ -81,7 +81,7 @@
   "message": "Laden & Vorschau"
  },
  "btnImport": {
-  "message": ".skin.json importieren…"
+  "message": ".skin.json importieren..."
  },
  "loadedMsg": {
   "message": "Erfolg!"
@@ -123,19 +123,19 @@
   "message": "Favorit"
  },
  "filterRecent": {
-  "message": "🕒 Neu"
+  "message": "Neu"
  },
  "filterName": {
-  "message": "🔤 Name (A–Z)"
+  "message": "Name (A–Z)"
  },
  "madeWithLove": {
   "message": "Mit ❤️ für Schach-Nerds gemacht"
  },
  "btnCoffee": {
-  "message": "☕ Spendier mir einen Kaffee"
+  "message": "Spendier mir einen Kaffee"
  },
  "filterFavorites": {
-  "message": "⭐ Favoriten"
+  "message": "Favoriten"
  },
  "popupSkins": {
   "message": "Figuren"

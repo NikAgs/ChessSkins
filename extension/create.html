@@ -2,58 +2,106 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ChessSkins — Create your own skin</title>
 <style>
   :root {
-    --bg: #f6efe3; --ink: #3d3833; --muted: #8a7f6d;
-    --card: #fffaf1; --edge: #e3d8c4; --sel: #629924; --sel-soft: #e8f1dc;
+    --paper: #F2E7CE; --sheet: #FFF6E0; --card: #FFFFFF;
+    --ink: #33261A; --muted: #8a7a5e;
+    --sun: #FFC94D; --pop: #FF6F61; --go: #58A63C; --err: #C0392B;
     --sq-l: #f0d9b5; --sq-d: #b58863;
+    --boing: cubic-bezier(.34,1.8,.5,1);
+    --settle: cubic-bezier(.22,1.2,.36,1);
+    --snap: cubic-bezier(.7,0,.3,1);
+    --t-press: 90ms; --t-react: 160ms; --t-peel: 240ms; --t-enter: 520ms;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 15px/1.45 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+  body { margin: 0;
+         font: 15px/1.45 ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN",
+               Quicksand, system-ui, sans-serif;
+         background: var(--paper); color: var(--ink); }
+  button, input, select, textarea { font-family: inherit; }
+  :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
 
-  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-  h1 { font-size: 26px; margin: 0; }
-  .chip { border: 1px solid var(--edge); background: var(--card); color: var(--muted);
-          border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer;
-          text-decoration: none; font-family: inherit; }
-  .chip:hover { border-color: #c9bda9; }
-  .chip.active { background: var(--sel); border-color: var(--sel); color: #fff; }
+  header { display: flex; align-items: center; justify-content: space-between;
+           flex-wrap: wrap; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  /* brand sticker: a tilted sun tile wearing the app icon */
+  .brand-sticker { flex: none; width: 36px; height: 36px;
+                   display: flex; align-items: center; justify-content: center;
+                   background: var(--sun); border: 2.5px solid var(--ink); border-radius: 10px;
+                   box-shadow: 2.5px 2.5px 0 var(--ink); transform: rotate(-4deg); }
+  .brand-sticker img { width: 27px; height: 27px; display: block; }
+  h1 { font-size: 26px; margin: 0; font-weight: 800; }
 
-  #create { margin-top: 22px; background: var(--card); border: 2px solid var(--edge);
-            border-radius: 16px; padding: 22px; }
+  .chip { border: 2px solid var(--ink); background: var(--card); color: var(--ink);
+          border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight: 700;
+          cursor: pointer; text-decoration: none; font-family: inherit; display: inline-block;
+          transition: transform var(--t-press) var(--snap),
+                      box-shadow var(--t-press) var(--snap); }
+  .chip:hover { transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--ink); }
+  .chip.active { background: var(--pop); color: #fff; box-shadow: 2px 2px 0 var(--ink);
+                 animation: jelly 300ms var(--boing); }
+  .chip.active:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+  .chip:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+
+  #create { margin-top: 24px; background: var(--card); border: 3px solid var(--ink);
+            border-radius: 16px; padding: 22px; box-shadow: 5px 5px 0 var(--ink); }
+  body.entering #create { animation: slap 420ms var(--settle) backwards; }
   #create .sub { color: var(--muted); margin-bottom: 16px; }
   .modes { display: flex; gap: 8px; margin-bottom: 18px; }
   .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .step h3 { font-size: 14px; margin: 0 0 8px; }
-  .step h3 .n { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: var(--sel);
-                color: #fff; align-items: center; justify-content: center; font-size: 12px; margin-right: 6px; }
-  textarea { width: 100%; border: 1px solid var(--edge); border-radius: 9px;
-            padding: 9px 11px; font: 13px/1.4 ui-monospace, monospace; background: #fff; color: var(--ink); }
-  #themeDesc { height: 130px; resize: vertical; font-family: system-ui; }
+  .step h3 { font-size: 14px; font-weight: 800; margin: 0 0 8px;
+             display: flex; align-items: center; }
+  /* step number: a tiny tilted sun sticker */
+  .step h3 .n { display: inline-flex; flex: none; width: 22px; height: 22px;
+                border-radius: 7px; background: var(--sun); color: var(--ink);
+                border: 2px solid var(--ink); box-shadow: 1.5px 1.5px 0 var(--ink);
+                align-items: center; justify-content: center; font-size: 12px;
+                font-weight: 800; margin-right: 8px; transform: rotate(-4deg); }
+  textarea { width: 100%; border: 2px solid var(--ink); border-radius: 10px;
+             padding: 10px 12px; font: 13px/1.4 ui-monospace, monospace;
+             background: var(--sheet); color: var(--ink); }
+  textarea::placeholder { color: var(--muted); }
+  #themeDesc { height: 130px; resize: vertical; font-family: inherit; }
   #pasteBox { height: 130px; resize: vertical; }
-  .btn { border: none; border-radius: 9px; padding: 9px 16px; font: 600 13.5px system-ui;
-         cursor: pointer; background: var(--sel); color: #fff; }
-  .btn.ghost { background: var(--card); border: 1px solid var(--edge); color: var(--ink); }
-  .btn:disabled { opacity: .5; cursor: default; }
+  .btn { border: 2.5px solid var(--ink); border-radius: 12px; padding: 8px 16px;
+         font-size: 13.5px; font-weight: 800; font-family: inherit; cursor: pointer;
+         background: var(--sun); color: var(--ink); box-shadow: 2.5px 2.5px 0 var(--ink);
+         transition: transform var(--t-press) var(--snap),
+                     box-shadow var(--t-press) var(--snap); }
+  .btn:hover { transform: translate(-1px,-1px); box-shadow: 3.5px 3.5px 0 var(--ink); }
+  .btn:active { transform: translate(2.5px,2.5px); box-shadow: 0 0 0 var(--ink); }
+  .btn.ghost { background: var(--card); }
+  .btn:disabled { opacity: .5; cursor: default; transform: none;
+                  box-shadow: 2.5px 2.5px 0 var(--ink); }
   .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: flex-start; }
-  #copyStatus, #loadStatus { font-size: 12.5px; margin-top: 9px; }
-  .ok { color: var(--sel); } .err { color: #b3403a; white-space: pre-wrap; }
+  #copyStatus, #loadStatus { font-size: 12.5px; margin-top: 9px; font-weight: 700; }
+  .ok { color: var(--go); }
+  .err { color: var(--err); white-space: pre-wrap; }
+  #copyStatus.ok, #loadStatus.ok { transform-origin: 0 50%;
+                                   animation: stamp 220ms var(--boing) backwards; }
 
-  /* generated preview: separated by a rule, then an even 6/16/20-px rhythm —
-     name tight to its tagline, board breathing room, actions clearly grouped */
+  /* generated preview: separated by a perforated rule, then an even
+     6/16/20-px rhythm — name tight to its tagline, board breathing room,
+     actions clearly grouped. Slaps in each time it flips from display:none. */
   #previewWrap { display: none; margin-top: 28px; padding-top: 22px;
-                 border-top: 1px solid var(--edge); }
-  #previewName { font-size: 20px; margin: 0 0 6px; }
+                 border-top: 2px dashed var(--ink);
+                 animation: slap 420ms var(--settle) backwards; }
+  #previewName { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
   #previewTag { color: var(--muted); margin: 0 0 16px; }
   #previewWrap .board { max-width: 520px; width: 100%; }
-  .board { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); border-radius: 8px;
+  .board { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr));
+           border: 2.5px solid var(--ink); border-radius: 10px;
+           box-shadow: 4px 4px 0 var(--ink);
            overflow: hidden; aspect-ratio: 1; }
   .board .sq { position: relative; aspect-ratio: 1; }
   .board .sq.l { background: var(--sq-l); } .board .sq.d { background: var(--sq-d); }
   .board img { position: absolute; inset: 4%; width: 92%; height: 92%; }
-  #previewBoardImg { display: none; width: 100%; max-width: 520px; border-radius: 8px; }
+  #previewBoardImg { display: none; width: 100%; max-width: 520px;
+                     border: 2.5px solid var(--ink); border-radius: 10px;
+                     box-shadow: 4px 4px 0 var(--ink); }
   #previewWrap .row { margin-top: 20px; gap: 10px; }
   .submit-col { display: flex; flex-direction: column; gap: 5px; }
   .submit-col .note { color: var(--muted); font-size: 11.5px; }
@@ -61,12 +109,34 @@
 
   footer { margin-top: 44px; text-align: center; color: var(--muted); font-size: 12.5px; }
   footer a { color: inherit; }
+
+  @keyframes slap {
+    0%   { transform: scale(1.25) rotate(-4deg); opacity: 0; }
+    55%  { transform: scale(.97) rotate(1deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); }
+  }
+  @keyframes stamp {
+    from { transform: scale(0) rotate(10deg); }
+    to   { transform: scale(1) rotate(0); }
+  }
+  @keyframes jelly {
+    0%   { transform: scale(1); }
+    35%  { transform: scaleX(1.22) scaleY(.84); }
+    70%  { transform: scaleX(.92) scaleY(1.08); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
 </style>
 </head>
-<body>
+<body class="entering">
 <div class="wrap">
   <header>
-    <h1 data-i18n="createTitle">✨ Create your own skin</h1>
+    <div class="brand">
+      <span class="brand-sticker"><img src="icons/icon128.png" alt=""></span>
+      <h1 data-i18n="createTitle">Create your own skin</h1>
+    </div>
     <a class="chip" href="gallery.html" data-i18n="backToGallery">← Back to gallery</a>
   </header>
 
@@ -92,7 +162,7 @@
         <textarea id="pasteBox" data-i18n-placeholder="pastePh" placeholder="Paste the whole reply"></textarea>
         <div class="row">
           <button class="btn" id="loadSkin" data-i18n="btnLoad">Load &amp; preview</button>
-          <button class="btn ghost" id="importFile" data-i18n="btnImport">Import .skin.json…</button>
+          <button class="btn ghost" id="importFile" data-i18n="btnImport">Import .skin.json...</button>
           <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
         </div>
         <div id="loadStatus"></div>
@@ -116,7 +186,7 @@
 
   <footer>
     <span data-i18n="madeWithLove">Made with ❤️ for chess nerds</span> ·
-    <a href="https://buymeacoffee.com/nikags" target="_blank" data-i18n="btnCoffee">☕ Buy me a coffee</a>
+    <a href="https://buymeacoffee.com/nikags" target="_blank" data-i18n="btnCoffee">Buy me a coffee</a>
   </footer>
 </div>
 <script src="i18n.js"></script>

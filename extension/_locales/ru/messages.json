@@ -15,10 +15,10 @@
   "message": "Скины выключены — сайты показывают свои фигуры. Включите переключатель, чтобы вернуть веселье."
  },
  "btnGallery": {
-  "message": "🖼️ Вся галерея"
+  "message": "Вся галерея"
  },
  "btnCreate": {
-  "message": "✨ Создать свой"
+  "message": "Создать свой"
  },
  "customName": {
   "message": "Мой скин"
@@ -36,13 +36,13 @@
   "message": "Название"
  },
  "sortLikes": {
-  "message": "Больше 👍"
+  "message": "Популярные"
  },
  "searchPh": {
-  "message": "Поиск скинов…"
+  "message": "Поиск скинов..."
  },
  "boardsTitle": {
-  "message": "🟫 Темы доски"
+  "message": "Темы доски"
  },
  "boardsSub": {
   "message": "Выберите поле битвы для своих армий — подходит к любому скину."
@@ -54,7 +54,7 @@
   "message": "Как решит сайт."
  },
  "createTitle": {
-  "message": "✨ Создайте свой скин"
+  "message": "Создайте свой скин"
  },
  "createSub": {
   "message": "Создайте свою тему меньше чем за 10 минут и сразу используйте её. Без программирования."
@@ -69,7 +69,7 @@
   "message": "Скопировать промпт"
  },
  "copiedMsg": {
-  "message": "Скопировано! Вставьте в Claude или ChatGPT и вернитесь с полученным JSON."
+  "message": "Полный промпт скопирован!"
  },
  "step2": {
   "message": "Вставьте сюда JSON-ответ ИИ"
@@ -81,7 +81,7 @@
   "message": "Загрузить и посмотреть"
  },
  "btnImport": {
-  "message": "Импорт .skin.json…"
+  "message": "Импорт .skin.json..."
  },
  "loadedMsg": {
   "message": "Готово!"
@@ -123,19 +123,19 @@
   "message": "В избранное"
  },
  "filterRecent": {
-  "message": "🕒 Новые"
+  "message": "Новые"
  },
  "filterName": {
-  "message": "🔤 По алфавиту"
+  "message": "По алфавиту"
  },
  "madeWithLove": {
   "message": "Сделано с ❤️ для любителей шахмат"
  },
  "btnCoffee": {
-  "message": "☕ Угостить кофе"
+  "message": "Угостить кофе"
  },
  "filterFavorites": {
-  "message": "⭐ Избранное"
+  "message": "Избранное"
  },
  "popupSkins": {
   "message": "Фигуры"

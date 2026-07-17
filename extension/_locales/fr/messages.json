@@ -15,10 +15,10 @@
   "message": "Les skins sont désactivés — les sites affichent leurs propres pièces. Basculez l'interrupteur pour retrouver le fun."
  },
  "btnGallery": {
-  "message": "🖼️ Galerie complète"
+  "message": "Galerie complète"
  },
  "btnCreate": {
-  "message": "✨ Créez le vôtre"
+  "message": "Créez le vôtre"
  },
  "customName": {
   "message": "Mon skin personnalisé"
@@ -36,13 +36,13 @@
   "message": "Nom"
  },
  "sortLikes": {
-  "message": "Plus de 👍"
+  "message": "Les plus aimés"
  },
  "searchPh": {
-  "message": "Rechercher des skins…"
+  "message": "Rechercher des skins..."
  },
  "boardsTitle": {
-  "message": "🟫 Thèmes d'échiquier"
+  "message": "Thèmes d'échiquier"
  },
  "boardsSub": {
   "message": "Choisissez le terrain de vos armées — compatible avec tous les skins."
@@ -54,7 +54,7 @@
   "message": "Ce que le site décide."
  },
  "createTitle": {
-  "message": "✨ Créez votre propre skin"
+  "message": "Créez votre propre skin"
  },
  "createSub": {
   "message": "Générez votre propre thème en moins de 10 minutes et utilisez-le aussitôt. Aucun code requis."
@@ -69,7 +69,7 @@
   "message": "Copier le prompt"
  },
  "copiedMsg": {
-  "message": "Copié ! Collez-le dans Claude ou ChatGPT, puis revenez avec le JSON obtenu."
+  "message": "Prompt complet copié !"
  },
  "step2": {
   "message": "Collez ici la réponse JSON de l'IA"
@@ -81,7 +81,7 @@
   "message": "Charger et prévisualiser"
  },
  "btnImport": {
-  "message": "Importer .skin.json…"
+  "message": "Importer .skin.json..."
  },
  "loadedMsg": {
   "message": "Réussi !"
@@ -123,19 +123,19 @@
   "message": "Favori"
  },
  "filterRecent": {
-  "message": "🕒 Récents"
+  "message": "Récents"
  },
  "filterName": {
-  "message": "🔤 Nom (A-Z)"
+  "message": "Nom (A-Z)"
  },
  "madeWithLove": {
   "message": "Fait avec ❤️ pour les passionnés d'échecs"
  },
  "btnCoffee": {
-  "message": "☕ Offrez-moi un café"
+  "message": "Offrez-moi un café"
  },
  "filterFavorites": {
-  "message": "⭐ Favoris"
+  "message": "Favoris"
  },
  "popupSkins": {
   "message": "Pièces"
