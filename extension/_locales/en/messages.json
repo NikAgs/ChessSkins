@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "YOURS"
  },
- "gallerySub": {
-  "message": "The chess board doesn't have to be boring"
- },
  "sortCurated": {
   "message": "Curated"
  },
@@ -87,7 +84,7 @@
   "message": "Import .skin.json…"
  },
  "loadedMsg": {
-  "message": "Success"
+  "message": "Success!"
  },
  "errIntro": {
   "message": "Almost! Fix these (you can ask the AI to correct them):"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Recent"
  },
- "filterTrending": {
-  "message": "🔥 Trending"
- },
- "filterPopular": {
-  "message": "⭐ Most popular"
- },
  "filterName": {
   "message": "🔤 Name (A-Z)"
+ },
+ "madeWithLove": {
+  "message": "Made with ❤️ for chess nerds"
+ },
+ "btnCoffee": {
+  "message": "☕ Buy me a coffee"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favorites"
+ },
+ "popupSkins": {
+  "message": "Pieces"
  },
  "popupBoards": {
   "message": "Board"

@@ -22,6 +22,10 @@ let customSkins = {};   // { id: skinObj } from chrome.storage.local
 let customBoards = {};  // { id: boardObj } from chrome.storage.local
 let favorites = [], recents = [];
 let boardFavorites = [], boardRecents = [];
+// ordering snapshots, frozen at popup open: star clicks and storage echoes
+// update star states + storage only — cards never shift while the popup is
+// open. New favorites/recents ordering takes effect on the next open.
+let orderFavs = [], orderRecs = [], orderBoardFavs = [], orderBoardRecs = [];
 
 /* ---- one-time migration: single csCustomSkin slot -> csCustomSkins map ---- */
 
@@ -60,6 +64,8 @@ function orderItems(list, favs, recs) {
     .map((x) => x.item);
 }
 
+// onToggle updates state + storage only; the star flips color in place and
+// the card stays put (list order is frozen until the next popup open)
 function makeStar(id, isFaved, onToggle) {
   const star = document.createElement("span");
   star.className = "star" + (isFaved(id) ? " faved" : "");
@@ -71,6 +77,14 @@ function makeStar(id, isFaved, onToggle) {
     star.classList.toggle("faved", isFaved(id));
   });
   return star;
+}
+
+// sync star colors to the live favorites arrays without re-sorting the list
+function refreshStars(container, favs) {
+  for (const el of container.children) {
+    const star = el.querySelector(".star");
+    if (star) star.classList.toggle("faved", favs.includes(el.dataset.id));
+  }
 }
 
 /* ---- board colors drive the duo squares via --sq-l / --sq-d ---- */
@@ -161,7 +175,7 @@ function renderGrid() {
       })
     );
   }
-  for (const s of orderItems(skins, favorites, recents)) {
+  for (const s of orderItems(skins, orderFavs, orderRecs)) {
     grid.appendChild(makeCard({ ...s, imgFor: (c) => `skins/${s.id}/${c}.svg` }));
   }
   renderSelection();
@@ -184,24 +198,27 @@ function renderBoards() {
       tagline: b.tagline || "",
       _customSvg: b.board,
     }));
-  const entries = [defaultTile, ...customEntries, ...orderItems(boards, boardFavorites, boardRecents)];
+  const entries = [defaultTile, ...customEntries, ...orderItems(boards, orderBoardFavs, orderBoardRecs)];
   for (const b of entries) {
     const tile = document.createElement("div");
     tile.className = "btile";
     tile.dataset.id = b.id;
-    tile.title = b.tagline ? `${b.name} — ${b.tagline}` : b.name;
+    tile.title = b.tagline || ""; // tooltip = tagline only; the label shows the name
     const prev = document.createElement("div");
     prev.className = "bprev";
-    // corner crop of the board art; the default tile is a classic checkerboard
-    prev.style.background = b._none
-      ? `repeating-conic-gradient(${CLASSIC.light} 0% 25%, ${CLASSIC.dark} 0% 50%) 0 0 / 38px 38px`
-      : b._customSvg
-        ? `url("data:image/svg+xml,${encodeURIComponent(b._customSvg)}") top left / 200% auto`
-        : `url('boards/${b.id}/board.svg') top left / 200% auto`;
-    const nameEl = document.createElement("div");
-    nameEl.className = "bname";
-    nameEl.textContent = b.name;
-    tile.append(prev, nameEl);
+    // 2x3 whole-square crop from a8: CSS sets size (800%/3) + top-left origin;
+    // the default tile is the diagonal lichess/chess.com split, drawn in CSS
+    if (b._none) {
+      prev.classList.add("bdefault");
+    } else {
+      prev.style.backgroundImage = b._customSvg
+        ? `url("data:image/svg+xml,${encodeURIComponent(b._customSvg)}")`
+        : `url('boards/${b.id}/board.svg')`;
+    }
+    const label = document.createElement("div");
+    label.className = "bname";
+    label.textContent = b.name; // may be user-supplied — textContent only
+    tile.append(prev, label);
     if (!b._none && !b._customSvg) {
       tile.prepend(
         makeStar(b.id, (i) => boardFavorites.includes(i), (i) => {
@@ -246,6 +263,11 @@ async function init() {
   recents = stored.csRecents;
   boardFavorites = stored.csBoardFavorites;
   boardRecents = stored.csBoardRecents;
+  // freeze the ordering as of this open (see note at the top)
+  orderFavs = [...favorites];
+  orderRecs = [...recents];
+  orderBoardFavs = [...boardFavorites];
+  orderBoardRecs = [...boardRecents];
 
   for (const [id, key] of [["siteLichess", "csSiteLichess"], ["siteChess", "csSiteChess"]]) {
     const box = document.getElementById(id);
@@ -296,18 +318,17 @@ async function init() {
       renderBoardSelection();
       applyBoardColors();
     }
-    // favorites re-sort live (covers gallery changes and our own star clicks);
-    // recency changes only update state — re-sorting on every select would
-    // yank the just-clicked card out from under the cursor.
+    // favorites/recents changes (ours or the gallery's) update state and star
+    // colors only — the frozen ordering keeps cards from shifting mid-session
     if (ch.csRecents) recents = ch.csRecents.newValue || [];
     if (ch.csBoardRecents) boardRecents = ch.csBoardRecents.newValue || [];
     if (ch.csFavorites) {
       favorites = ch.csFavorites.newValue || [];
-      renderGrid();
+      refreshStars(grid, favorites);
     }
     if (ch.csBoardFavorites) {
       boardFavorites = ch.csBoardFavorites.newValue || [];
-      renderBoards();
+      refreshStars(boardsEl, boardFavorites);
     }
   });
 }

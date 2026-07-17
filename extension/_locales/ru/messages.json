@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "ВАШ"
  },
- "gallerySub": {
-  "message": "Шахматная доска не обязана быть скучной"
- },
  "sortCurated": {
   "message": "Подборка"
  },
@@ -87,7 +84,7 @@
   "message": "Импорт .skin.json…"
  },
  "loadedMsg": {
-  "message": "Готово"
+  "message": "Готово!"
  },
  "errIntro": {
   "message": "Почти! Исправьте это (можно попросить ИИ):"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Новые"
  },
- "filterTrending": {
-  "message": "🔥 В тренде"
- },
- "filterPopular": {
-  "message": "⭐ Самые популярные"
- },
  "filterName": {
   "message": "🔤 По алфавиту"
+ },
+ "madeWithLove": {
+  "message": "Сделано с ❤️ для любителей шахмат"
+ },
+ "btnCoffee": {
+  "message": "☕ Угостить кофе"
+ },
+ "filterFavorites": {
+  "message": "⭐ Избранное"
+ },
+ "popupSkins": {
+  "message": "Фигуры"
  },
  "popupBoards": {
   "message": "Доска"

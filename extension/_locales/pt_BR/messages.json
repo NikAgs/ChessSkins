@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "SUA"
  },
- "gallerySub": {
-  "message": "O tabuleiro de xadrez não precisa ser sem graça"
- },
  "sortCurated": {
   "message": "Curadoria"
  },
@@ -87,7 +84,7 @@
   "message": "Importar .skin.json…"
  },
  "loadedMsg": {
-  "message": "Sucesso"
+  "message": "Sucesso!"
  },
  "errIntro": {
   "message": "Quase! Corrija estes pontos (você pode pedir para a IA arrumar):"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Recentes"
  },
- "filterTrending": {
-  "message": "🔥 Em alta"
- },
- "filterPopular": {
-  "message": "⭐ Mais populares"
- },
  "filterName": {
   "message": "🔤 Nome (A-Z)"
+ },
+ "madeWithLove": {
+  "message": "Feito com ❤️ para nerds do xadrez"
+ },
+ "btnCoffee": {
+  "message": "☕ Me pague um café"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favoritos"
+ },
+ "popupSkins": {
+  "message": "Peças"
  },
  "popupBoards": {
   "message": "Tabuleiro"

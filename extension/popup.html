@@ -8,10 +8,13 @@
     --card: #fffaf1; --edge: #e3d8c4; --sel: #629924;
     --sq-l: #f0d9b5; --sq-d: #b58863;
   }
-  body { width: 360px; max-height: 580px; margin: 0; overflow-y: auto;
+  /* fixed-height flex column: header / board strip / pieces (the ONLY
+     scrolling region) / footer — the popup never exceeds 580px */
+  body { width: 360px; height: 580px; margin: 0; overflow: hidden;
+         display: flex; flex-direction: column;
          font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--ink); }
-  header { position: sticky; top: 0; z-index: 2; background: var(--bg);
-           padding: 12px 14px 10px; border-bottom: 1px solid var(--edge); }
+  header { flex: none; background: var(--bg);
+           padding: 11px 14px 9px; border-bottom: 1px solid var(--edge); }
   .headrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   header b { font-size: 17px; }
 
@@ -27,9 +30,17 @@
   input:checked + .slider { background: var(--sel); }
   input:checked + .slider:before { transform: translateX(15px); }
 
-  #grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 14px 10px; }
+  /* horizontal-scroll row: hidden scrollbar, right-edge bleed hints at more */
+  .hscroll { overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+             scroll-snap-type: x proximity; scroll-padding-left: 14px; }
+  .hscroll::-webkit-scrollbar { display: none; }
+
+  /* pieces: THE scrolling region — 2 cards per row, fills the leftover height */
+  #grid { flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 8px; padding: 0 14px 10px; }
   .card { background: var(--card); border: 2px solid var(--edge); border-radius: 12px;
-          padding: 8px 8px 7px; cursor: pointer; text-align: center; transition: border-color .1s;
+          padding: 9px 8px 7px; cursor: pointer; text-align: center; transition: border-color .1s;
           position: relative; }
   .card:hover { border-color: #c9bda9; }
   .card.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
@@ -38,32 +49,50 @@
   .duo .sq:first-child { background: var(--sq-l); border-radius: 8px 0 0 8px; }
   .duo .sq:last-child  { background: var(--sq-d); border-radius: 0 8px 8px 0; }
   .duo img { width: 50px; height: 50px; }
-  .card .name { font-weight: 600; font-size: 13px; margin-top: 6px; }
-  .badge { font-size: 10px; color: var(--sel); font-weight: 700; letter-spacing: .4px; }
+  .card .name { font-weight: 600; font-size: 12.5px; margin-top: 5px;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* badge escapes the ellipsized name and sits as a corner sticker */
+  .badge { position: absolute; top: 4px; left: 6px; font-size: 9px; line-height: 1;
+           color: var(--sel); font-weight: 700; letter-spacing: .4px;
+           background: var(--card); border: 1px solid var(--edge); border-radius: 7px;
+           padding: 2px 5px 1px; }
 
-  .star { position: absolute; top: 3px; right: 5px; z-index: 1; font-size: 15px; line-height: 1;
-          color: #c9bda9; cursor: pointer; user-select: none; padding: 3px;
+  .star { position: absolute; top: 2px; right: 2px; z-index: 1; font-size: 18px; line-height: 1;
+          color: #c9bda9; cursor: pointer; user-select: none; padding: 4px 5px 5px;
           text-shadow: 0 1px 2px rgba(0,0,0,.25); display: none; }
   .star.faved { color: #f2b01e; }
   .card:hover .star, .btile:hover .star { display: block; }
-  .btile .star { font-size: 11px; top: 0; right: 1px; padding: 2px; }
+  .btile .star { font-size: 17px; }
 
-  .section-label { padding: 2px 14px 0; font-weight: 700; font-size: 11.5px; color: var(--muted);
-                   text-transform: uppercase; letter-spacing: .6px; }
-  #boardsWrap { padding: 6px 14px 12px; }
-  #boards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 62px; gap: 8px;
-            height: 132px; overflow-y: auto; }
-  .btile { box-sizing: border-box; height: 62px; background: var(--card);
-           border: 2px solid var(--edge); border-radius: 9px; padding: 3px;
-           cursor: pointer; transition: border-color .1s; position: relative; }
+  .section-label { flex: none; padding: 9px 14px 6px; font-weight: 700; font-size: 11.5px;
+                   color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  /* board strip: always visible above the pieces scroller */
+  #boards { flex: none; display: grid; grid-template-rows: 1fr; grid-auto-flow: column;
+            grid-auto-columns: 126px; gap: 8px; padding: 0 14px 8px; }
+  .btile { box-sizing: border-box; background: var(--card);
+           border: 2px solid var(--edge); border-radius: 10px; padding: 4px 5px 5px;
+           cursor: pointer; transition: border-color .1s; position: relative;
+           scroll-snap-align: start; text-align: center; }
   .btile:hover { border-color: #c9bda9; }
   .btile.selected { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); }
-  .bprev { height: 38px; border-radius: 5px; }
-  .bname { font: 9.5px/12px system-ui; color: var(--muted); text-align: center; margin-top: 2px;
-           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* 2x3 whole-square crop of the 8x8 board art, anchored at a8: width shows
+     3 of 8 columns (100% * 8/3) and the 3/2 aspect yields exactly 2 rows */
+  .bprev { aspect-ratio: 3 / 2; border-radius: 6px; overflow: hidden;
+           background-size: calc(100% * 8 / 3) auto; background-position: top left; }
+  /* Site Default: lichess / chess.com palettes split along the tile diagonal,
+     checker squares on the same 3-per-row grid as the board previews */
+  .bdefault { position: relative;
+              background: repeating-conic-gradient(#b58863 0% 25%, #f0d9b5 0% 50%)
+                          0 0 / calc(100% * 2 / 3) 100%; }
+  .bdefault::after { content: ""; position: absolute; inset: 0;
+                     background: repeating-conic-gradient(#779556 0% 25%, #ebecd0 0% 50%)
+                                 0 0 / calc(100% * 2 / 3) 100%;
+                     clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .btile .bname { font-weight: 600; font-size: 11.5px; margin-top: 4px;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  footer { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--edge);
-           display: flex; gap: 8px; padding: 10px 14px; }
+  footer { flex: none; background: var(--bg); border-top: 1px solid var(--edge);
+           display: flex; gap: 8px; padding: 9px 14px; }
   footer button { flex: 1; border: 1px solid var(--edge); background: var(--card); color: var(--ink);
                   border-radius: 9px; padding: 7px 0; font: 600 12.5px system-ui; cursor: pointer; }
   footer button:hover { border-color: #c9bda9; }
@@ -79,9 +108,10 @@
       </div>
     </div>
   </header>
-  <div id="grid"></div>
   <div class="section-label" data-i18n="popupBoards">Board</div>
-  <div id="boardsWrap"><div id="boards"></div></div>
+  <div id="boards" class="hscroll"></div>
+  <div class="section-label" data-i18n="popupSkins">Pieces</div>
+  <div id="grid"></div>
   <footer>
     <button id="openGallery" data-i18n="btnGallery">🖼️ Full gallery</button>
     <button id="openCreate" data-i18n="btnCreate">✨ Create your own</button>

@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "DEINS"
  },
- "gallerySub": {
-  "message": "Das Schachbrett muss nicht langweilig sein"
- },
  "sortCurated": {
   "message": "Kuratiert"
  },
@@ -87,7 +84,7 @@
   "message": ".skin.json importieren…"
  },
  "loadedMsg": {
-  "message": "Erfolg"
+  "message": "Erfolg!"
  },
  "errIntro": {
   "message": "Fast! Behebe diese Punkte (du kannst die KI darum bitten):"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Neu"
  },
- "filterTrending": {
-  "message": "🔥 Im Trend"
- },
- "filterPopular": {
-  "message": "⭐ Am beliebtesten"
- },
  "filterName": {
   "message": "🔤 Name (A–Z)"
+ },
+ "madeWithLove": {
+  "message": "Mit ❤️ für Schach-Nerds gemacht"
+ },
+ "btnCoffee": {
+  "message": "☕ Spendier mir einen Kaffee"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favoriten"
+ },
+ "popupSkins": {
+  "message": "Figuren"
  },
  "popupBoards": {
   "message": "Brett"

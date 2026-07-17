@@ -293,7 +293,7 @@ function initCreator() {
     }
     loadedItem = obj;
     loadStatus.className = "ok";
-    loadStatus.textContent = t("loadedMsg", "Success");
+    loadStatus.textContent = t("loadedMsg", "Success!");
     showPreview(obj);
   }
 

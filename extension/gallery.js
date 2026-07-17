@@ -15,7 +15,8 @@ const search = document.getElementById("search");
 let skins = [], state = { ...DEFAULTS };
 let customSkins = {}, customBoards = {}; // { id: obj } from chrome.storage.local
 let favorites = [], recents = [], boardRecents = [];
-let activeFilter = "trending"; // recent | trending | popular | name
+let activeFilter = "recent"; // recent | favorites | name
+let activeCategory = "all";  // "all" | a category string from the skins index
 
 function trackRecent(id) {
   recents = [id, ...recents.filter((r) => r !== id)].slice(0, 6);
@@ -60,30 +61,23 @@ function renderSelection() {
   }
 }
 
-function daysSinceAdded(s) {
-  const ts = s.added ? Date.parse(s.added) : NaN;
-  if (isNaN(ts)) return Infinity; // unknown age -> zero trending heat
-  return Math.max(0, (Date.now() - ts) / 86400000);
-}
-
 // _idx (curated order) is the universal tie-breaker
 const SORTS = {
   recent: (a, b) =>
     (b.added || "").localeCompare(a.added || "") || a._idx - b._idx,
-  trending: (a, b) => {
-    const score = (s) => (s.likes || 0) / (daysSinceAdded(s) + 7);
-    return score(b) - score(a) || a._idx - b._idx;
-  },
-  popular: (a, b) => (b.likes || 0) - (a.likes || 0) || a._idx - b._idx,
   name: (a, b) => a.name.localeCompare(b.name) || a._idx - b._idx,
+  favorites: (a, b) => a._idx - b._idx, // favorites-only pool, curated order
 };
 
 function renderGrid() {
   const q = search.value.trim().toLowerCase();
   grid.innerHTML = "";
 
-  // custom skins pinned at the front (searchable, YOURS badge, no favorite star)
-  for (const [cid, skin] of Object.entries(customSkins)) {
+  // custom skins pinned at the front (searchable, YOURS badge, no favorite
+  // star) — they have no catalog category and can't be favorited, so they
+  // only appear on the "All" category with the Recent/Name chips
+  const showCustoms = activeCategory === "all" && activeFilter !== "favorites";
+  if (showCustoms) for (const [cid, skin] of Object.entries(customSkins)) {
     if (!skin || !skin.pieces) continue;
     const name = skin.name || t("customName", "My Custom Skin");
     const tagline = skin.tagline || "";
@@ -108,7 +102,11 @@ function renderGrid() {
     grid.appendChild(card);
   }
 
-  const list = [...skins].sort(SORTS[activeFilter] || SORTS.trending);
+  // the category dropdown ANDs with the chip: it narrows the pool, the
+  // chip then filters (Favorites) or orders (Recent / Name) within it
+  let list = skins.filter((s) => activeCategory === "all" || s.category === activeCategory);
+  if (activeFilter === "favorites") list = list.filter((s) => favorites.includes(s.id));
+  list = [...list].sort(SORTS[activeFilter] || SORTS.recent);
 
   for (const s of list) {
     if (q && !(s.name + s.tagline + s.category).toLowerCase().includes(q)) continue;
@@ -136,6 +134,8 @@ function renderGrid() {
         : [...favorites, s.id];
       chrome.storage.sync.set({ csFavorites: favorites });
       star.classList.toggle("faved", favorites.includes(s.id));
+      // on the Favorites chip an unstarred card leaves the pool immediately
+      if (activeFilter === "favorites") renderGrid();
     });
     card.addEventListener("click", () => {
       state.csSkin = s.id;
@@ -157,6 +157,25 @@ function initChips() {
       renderGrid();
     });
   }
+}
+
+// category dropdown: All + the unique categories of the index, curated order
+function initCategorySelect() {
+  const sel = document.getElementById("catSel");
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = t("catAll", "All");
+  sel.appendChild(all);
+  for (const cat of [...new Set(skins.map((s) => s.category).filter(Boolean))]) {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat; // catalog categories are shown as-is (English)
+    sel.appendChild(opt);
+  }
+  sel.addEventListener("change", () => {
+    activeCategory = sel.value;
+    renderGrid();
+  });
 }
 
 /* ---------------- board themes ---------------- */
@@ -204,21 +223,20 @@ function renderBoards() {
     const card = document.createElement("div");
     card.className = "bcard";
     card.dataset.id = b.id;
-    card.innerHTML = `
-      <div class="bpreview"></div>
-      <div class="name"></div><div class="tag"></div>`;
-    // top-left corner crop of the board art — no pieces, just the ground.
+    card.title = b.tagline || ""; // tooltip = tagline only; labels show name + tagline
+    card.innerHTML = `<div class="bpreview"></div><div class="bname"></div><div class="btag"></div>`;
+    card.querySelector(".bname").textContent = b.name; // may be user-supplied
+    card.querySelector(".btag").textContent = b.tagline || "\u00a0"; // nbsp keeps tile heights even
+    // 2x3 whole-square crop from a8 — CSS sets size (800%/3) + top-left origin.
     // Set via the style property: the svg data-URI would break an inline attribute.
     const prev = card.querySelector(".bpreview");
     if (b._none) {
-      prev.style.background = "repeating-conic-gradient(#f0d9b5 0% 25%, #b58863 0% 50%) 0 0 / 25% 50%";
+      prev.classList.add("bdefault"); // diagonal lichess/chess.com split, drawn in CSS
     } else if (b._customSvg) {
       prev.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(b._customSvg)}")`;
     } else {
       prev.style.backgroundImage = `url('boards/${b.id}/board.svg')`;
     }
-    card.querySelector(".name").textContent = b.name;
-    card.querySelector(".tag").textContent = b.tagline;
     card.addEventListener("click", () => {
       state.csBoard = b.id;
       const patch = { csBoard: b.id, csEnabled: true };
@@ -255,6 +273,7 @@ async function init() {
   boardRecents = stored.csBoardRecents;
   search.addEventListener("input", renderGrid);
   initChips();
+  initCategorySelect();
   applyBoardColors();
   renderGrid();
   renderBoards();

@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "TUYO"
  },
- "gallerySub": {
-  "message": "El tablero de ajedrez no tiene por qué ser aburrido"
- },
  "sortCurated": {
   "message": "Selección"
  },
@@ -87,7 +84,7 @@
   "message": "Importar .skin.json…"
  },
  "loadedMsg": {
-  "message": "Éxito"
+  "message": "¡Éxito!"
  },
  "errIntro": {
   "message": "¡Casi! Corrige esto (puedes pedirle a la IA que lo arregle):"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Recientes"
  },
- "filterTrending": {
-  "message": "🔥 Tendencias"
- },
- "filterPopular": {
-  "message": "⭐ Más populares"
- },
  "filterName": {
   "message": "🔤 Nombre (A-Z)"
+ },
+ "madeWithLove": {
+  "message": "Hecho con ❤️ para frikis del ajedrez"
+ },
+ "btnCoffee": {
+  "message": "☕ Invítame a un café"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favoritos"
+ },
+ "popupSkins": {
+  "message": "Piezas"
  },
  "popupBoards": {
   "message": "Tablero"

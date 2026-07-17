@@ -29,9 +29,6 @@
  "badgeYours": {
   "message": "À VOUS"
  },
- "gallerySub": {
-  "message": "L'échiquier n'est pas obligé d'être ennuyeux"
- },
  "sortCurated": {
   "message": "Sélection"
  },
@@ -87,7 +84,7 @@
   "message": "Importer .skin.json…"
  },
  "loadedMsg": {
-  "message": "Réussi"
+  "message": "Réussi !"
  },
  "errIntro": {
   "message": "Presque ! Corrigez ceci (vous pouvez demander à l'IA de le faire) :"
@@ -128,14 +125,20 @@
  "filterRecent": {
   "message": "🕒 Récents"
  },
- "filterTrending": {
-  "message": "🔥 Tendances"
- },
- "filterPopular": {
-  "message": "⭐ Les plus populaires"
- },
  "filterName": {
   "message": "🔤 Nom (A-Z)"
+ },
+ "madeWithLove": {
+  "message": "Fait avec ❤️ pour les passionnés d'échecs"
+ },
+ "btnCoffee": {
+  "message": "☕ Offrez-moi un café"
+ },
+ "filterFavorites": {
+  "message": "⭐ Favoris"
+ },
+ "popupSkins": {
+  "message": "Pièces"
  },
  "popupBoards": {
   "message": "Échiquier"
