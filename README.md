@@ -1,30 +1,28 @@
-# ChessSkins ♞
-
-[![Buy me a coffee](https://img.shields.io/badge/☕_Buy_me_a_coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/nikags)
+![ChessSkins banner: playful piece skins for lichess and chess.com](store/assets/promo-marquee.png)
 
 **A visual catalog of playful chess piece skins for [lichess](https://lichess.org) and [chess.com](https://chess.com), delivered as a Chrome extension.**
 
-Tired of the same six silhouettes? ChessSkins swaps your pieces for any of **24 themed sets** (plus 26 board themes) — dinos, robots, pirates, 8-bit, rubber duckies, gothic cathedrals and more. Browse the gallery (every skin shown on a real board), click one, and it applies instantly: no page reload, works in games, puzzles, analysis and the board editor, and only you see it. You can even design your own set with Claude or ChatGPT and submit it to the catalog without writing a line of code.
+[![Buy me a coffee](docs/coffee-badge.svg)](https://buymeacoffee.com/nikags)
 
-![ChessSkins — playful piece skins for lichess & chess.com](store/assets/promo-marquee.png)
+Tired of the same six silhouettes? ChessSkins swaps your pieces for dozens of themed sets (plus a growing collection of board themes): dinos, robots, pirates, 8-bit, rubber duckies, gothic cathedrals and more. Browse the gallery (every skin shown on a real board), click one, and it applies instantly: no page reload, works in games, puzzles, analysis and the board editor, and only you see it. You can even design your own set with Claude or ChatGPT and submit it to the catalog without writing a line of code.
 
 ## Install
 
 **From source (until the Web Store listing is live):**
 
-1. Download this repo (or `git clone` it) and run `python3 tools/build.py --no-zip`
-   — or grab `dist/chessskins.zip` from the [Releases](../../releases) page and unzip it.
+1. Download this repo (or `git clone` it) and run `python3 tools/build.py --no-zip`,
+   or grab `dist/chessskins.zip` from the [Releases](../../releases) page and unzip it.
 2. Open `chrome://extensions`, enable **Developer mode** (top-right).
 3. Click **Load unpacked** and select the `extension/` folder.
 4. Visit lichess or chess.com and click the ChessSkins toolbar icon.
 
-## Make your own skin — no coding needed
+## Make your own skin (no coding needed)
 
-Open the extension's **Gallery → ✨ Create your own**:
+Open the extension's **Gallery → Create your own**:
 
 1. Describe your theme and copy the generated AI prompt.
 2. Paste it into Claude or ChatGPT; it replies with a JSON skin.
-3. Paste that back into the creator — instant preview on a board, then **Apply**.
+3. Paste that back into the creator for an instant preview on a board, then **Apply**.
 4. Hit **Submit to the catalog**: a GitHub form opens, you paste the same JSON, and a
    bot validates it and opens the pull request for you. A human reviews and merges.
 
@@ -41,8 +39,8 @@ Keep it fun, keep it readable, keep it yours (no copyrighted characters).
 
 - Each skin is 12 self-contained SVGs (`wK…bP`) living in [`skins/<id>/`](skins/).
 - `tools/build.py` compiles every skin into a tiny `skin.css` whose rules cover both
-  sites' markup — lichess (`piece.white.knight`) and chess.com (`.piece.wn`) — plus a
-  catalog index inside `extension/skins/`.
+  sites' markup (lichess `piece.white.knight`, chess.com `.piece.wn`), plus a catalog
+  index inside `extension/skins/`.
 - A content script injects the selected skin's CSS at `document_start`, overriding the
   sites' piece background images.
 - Your selection lives in `chrome.storage.sync`; custom skins live in
@@ -57,7 +55,7 @@ skins/       source of truth for all artwork (12 SVGs + meta.json per skin)
 tools/       build, preview, and submission-validation scripts
 store/       Chrome Web Store listing copy, privacy policy, promo assets
 .github/     skin-submission issue template + the bot that turns them into PRs
-docs/        catalog contact sheets and screenshots
+docs/        contact sheets, screenshots, and README assets
 ```
 
 ## Credits & license
@@ -66,5 +64,5 @@ Artwork and code generated with [Claude](https://claude.com). Released under the
 [MIT License](LICENSE).
 
 ChessSkins is a fan project, not affiliated with or endorsed by lichess.org or
-chess.com. Lichess is free and open source — support them:
+chess.com. Lichess is free and open source; support them at
 [lichess.org/patron](https://lichess.org/patron).
