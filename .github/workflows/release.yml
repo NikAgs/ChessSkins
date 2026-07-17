@@ -23,9 +23,11 @@ jobs:
       - name: Build extension (Chrome + Firefox zips)
         run: python3 tools/build.py --lenient
       - name: Publish release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: build-${{ github.run_number }}
-          name: ChessSkins build ${{ github.run_number }}
-          generate_release_notes: true
-          files: dist/*.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="build-${{ github.run_number }}"
+          gh release create "$TAG" dist/*.zip \
+            --title "ChessSkins build ${{ github.run_number }}" \
+            --generate-notes \
+            --target "${{ github.sha }}"

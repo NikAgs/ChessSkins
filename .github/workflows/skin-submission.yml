@@ -45,25 +45,30 @@ jobs:
 
       - name: Open pull request
         id: pr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: skin/${{ steps.extract.outputs.skin_id }}
-          title: "Add skin: ${{ steps.extract.outputs.skin_id }}"
-          commit-message: "Add community skin: ${{ steps.extract.outputs.skin_id }} (closes #${{ github.event.issue.number }})"
-          body: |
-            Community skin submission from #${{ github.event.issue.number }} (@${{ github.event.issue.user.login }}).
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKIN_ID: ${{ steps.extract.outputs.skin_id }}
+          ISSUE: ${{ github.event.issue.number }}
+          SUBMITTER: ${{ github.event.issue.user.login }}
+        run: |
+          git config user.name "NikAgs"
+          git config user.email "15386909+NikAgs@users.noreply.github.com"
+          git checkout -b "skin/$SKIN_ID"
+          git add skins/
+          git commit -m "Add community skin: $SKIN_ID"
+          git push -u origin "skin/$SKIN_ID"
+          PR_URL=$(gh pr create \
+            --title "Add skin: $SKIN_ID" \
+            --body "Community skin submission from #$ISSUE (@$SUBMITTER).
 
-            Closes #${{ github.event.issue.number }}
+          Closes #$ISSUE
 
-            Reviewers: run `python3 tools/make_preview.py ${{ steps.extract.outputs.skin_id }}`
-            for a contact sheet, and check the readability rules in SKIN_SPEC.md.
-          add-paths: skins/**
+          Reviewers: run \`python3 tools/make_preview.py $SKIN_ID\` for a contact sheet, and check the readability rules in SKIN_SPEC.md.")
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment with PR link
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              ...context.repo, issue_number: context.issue.number,
-              body: `Validated! I opened ${{ steps.pr.outputs.pull-request-url }} — a maintainer will review it. Thanks for contributing a skin! 🎨`
-            });
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "Validated! I opened ${{ steps.pr.outputs.pr_url }} — a maintainer will review it. Thanks for contributing a skin! 🎨"
