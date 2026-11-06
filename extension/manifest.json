@@ -3,6 +3,11 @@
   "name": "__MSG_appName__",
   "version": "2.1.0",
   "description": "__MSG_appDesc__",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chessskins-enhanced@example.org"
+    }
+  },
   "default_locale": "en",
   "permissions": ["storage"],
   "icons": {
